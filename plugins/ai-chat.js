@@ -1,10 +1,9 @@
 const { cmd } = require('../command')
-const axios = require('axios')
 
 cmd({
 pattern: "ai",
-alias: ["gpt","chat"],
-desc: "Chat with AI",
+alias: ["bot","chat"],
+desc: "Simple AI chat",
 category: "ai",
 filename: __filename
 },
@@ -13,36 +12,32 @@ async (conn, mek, m, { q, reply }) => {
 
 if (!q) return reply("Example: .ai hello")
 
-let aiResponse
+let text = q.toLowerCase()
+let ai = ""
 
-try {
-
-// API attempt
-let res = await axios.get(`https://api.popcat.xyz/chatbot?msg=${encodeURIComponent(q)}`)
-aiResponse = res.data.response
-
-} catch {
-
+if(text.includes("hello") || text.includes("hi")) {
+ai = "Hello! How can I help you today?"
 }
 
-// fallback if API fails
-if (!aiResponse) {
+else if(text.includes("who are you")) {
+ai = "I am Zahid King AI Bot 🤖"
+}
 
-let responses = [
-"I am thinking about your question 🤔",
-"That's an interesting question!",
-"I'm still learning, but I'll try to help.",
-"Can you explain more about that?",
-"That's something worth discussing!",
-]
+else if(text.includes("how are you")) {
+ai = "I'm fine! Thanks for asking."
+}
 
-aiResponse = responses[Math.floor(Math.random() * responses.length)]
+else if(text.includes("bot")) {
+ai = "Yes, I am here! What do you need?"
+}
 
+else {
+ai = "That's interesting! Tell me more about it."
 }
 
 reply(`🤖 *AI Response*
 
-${aiResponse}
+${ai}
 
 > Powered By Zᴀʜɪᴅ Kɪɴɢ`)
 
