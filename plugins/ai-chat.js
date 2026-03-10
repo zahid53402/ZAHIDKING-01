@@ -15,14 +15,20 @@ if (!q) return reply("Example: .ai hello")
 
 try {
 
-let res = await axios.get(
-`https://api.popcat.xyz/chatbot?msg=${encodeURIComponent(q)}&owner=Zahid&botname=ZahidKing`,
-{ timeout: 20000 }
+const apiKey = process.env.GEMINI_API_KEY
+
+const res = await axios.post(
+`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`,
+{
+contents: [
+{
+parts: [{ text: q }]
+}
+]
+}
 )
 
-let ai = res.data.response
-
-if(!ai) return reply("AI did not respond")
+let ai = res.data.candidates[0].content.parts[0].text
 
 reply(`🤖 *AI Response*
 
@@ -30,11 +36,11 @@ ${ai}
 
 > Powered By Zᴀʜɪᴅ Kɪɴɢ`)
 
-} catch(err) {
+} catch(e) {
 
-console.log("AI ERROR:", err.message)
+console.log(e)
 
-reply("❌ AI server timeout or blocked")
+reply("❌ AI error, check API key")
 
 }
 
