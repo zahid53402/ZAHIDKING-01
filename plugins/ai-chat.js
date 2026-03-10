@@ -13,44 +13,24 @@ async (conn, mek, m, { q, reply }) => {
 
 if (!q) return reply("Example: .ai hello")
 
-let ai
-
 try {
 
-// API 1
-let res = await axios.get(`https://api.popcat.xyz/chatbot?msg=${encodeURIComponent(q)}&owner=Zahid&botname=ZahidKing`)
-ai = res.data.response
+let res = await axios.get(`https://api.aryahcr.cc/ai/gemini?text=${encodeURIComponent(q)}`)
 
-} catch {
-
-try {
-
-// API 2
-let res2 = await axios.get(`https://api.simsimi.vn/v2/simtalk?text=${encodeURIComponent(q)}&lc=en`)
-ai = res2.data.message
-
-} catch {
-
-try {
-
-// API 3
-let res3 = await axios.get(`https://api.ryzendesu.vip/api/ai/deepseek?text=${encodeURIComponent(q)}`)
-ai = res3.data.answer
-
-} catch {
-
-return reply("❌ All AI servers are busy, try again later.")
-
-}
-
-}
-
-}
+let ai = res.data.result
 
 reply(`🤖 *AI Response*
 
 ${ai}
 
 > Powered By Zᴀʜɪᴅ Kɪɴɢ`)
+
+} catch(e){
+
+console.log(e)
+
+reply("❌ AI server error, try again later")
+
+}
 
 })
