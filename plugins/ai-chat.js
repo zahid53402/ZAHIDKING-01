@@ -11,7 +11,7 @@ if(!q) return reply("Example: .ai Hello")
 
 try {
 
-let res = await axios.get(`https://api.ryzendesu.vip/api/ai/gpt4?text=${q}`)
+let res = await axios.get(`https://api.popcat.xyz/chatbot?msg=YOUR_TEXT&owner=Zahid&botname=ZahidKing`)
 
 let ai = res.data.answer
 
