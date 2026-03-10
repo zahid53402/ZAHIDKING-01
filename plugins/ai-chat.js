@@ -15,9 +15,14 @@ if (!q) return reply("Example: .ai hello")
 
 try {
 
-let res = await axios.get(`https://api.aryahcr.cc/ai/gemini?text=${encodeURIComponent(q)}`)
+let res = await axios.get(
+`https://api.popcat.xyz/chatbot?msg=${encodeURIComponent(q)}&owner=Zahid&botname=ZahidKing`,
+{ timeout: 20000 }
+)
 
-let ai = res.data.result
+let ai = res.data.response
+
+if(!ai) return reply("AI did not respond")
 
 reply(`🤖 *AI Response*
 
@@ -25,11 +30,11 @@ ${ai}
 
 > Powered By Zᴀʜɪᴅ Kɪɴɢ`)
 
-} catch(e){
+} catch(err) {
 
-console.log(e)
+console.log("AI ERROR:", err.message)
 
-reply("❌ AI server error, try again later")
+reply("❌ AI server timeout or blocked")
 
 }
 
