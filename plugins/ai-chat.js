@@ -19,9 +19,8 @@ let data = JSON.parse(fs.readFileSync('./database/ai.json'))
 
 let ai = data[text]
 
-if(!ai){
-
-if(/[0-9+\-*/().]/.test(text)){
+// math solver
+if(!ai && /[0-9+\-*/().]/.test(text)){
 try{
 ai = "Math result hai: " + eval(text)
 }catch{
@@ -29,10 +28,16 @@ ai = "Math samajh nahi aya"
 }
 }
 
-else{
-ai = "Yeh interesting sawal hai, main abhi seekh raha hoon."
-}
+// default reply
+if(!ai){
+let random = [
+"Yeh interesting sawal hai 🤔",
+"Main abhi seekh raha hoon.",
+"Aap thoda aur detail bata sakte ho?",
+"Achha sawal hai 😊"
+]
 
+ai = random[Math.floor(Math.random()*random.length)]
 }
 
 reply(`🤖 *AI Response*
@@ -40,5 +45,4 @@ reply(`🤖 *AI Response*
 ${ai}
 
 > Powered By Zᴀʜɪᴅ Kɪɴɢ`)
-
 })
