@@ -1,5 +1,5 @@
-const { cmd } = require('../command');
-const axios = require('axios');
+const { cmd } = require('../command')
+const axios = require('axios')
 
 cmd({
 pattern: "ai",
@@ -8,29 +8,49 @@ desc: "Chat with AI",
 category: "ai",
 filename: __filename
 },
+
 async (conn, mek, m, { q, reply }) => {
 
-if (!q) return reply("Example: .ai hello");
+if (!q) return reply("Example: .ai hello")
+
+let ai
 
 try {
 
-let res = await axios.get(
-`https://api.popcat.xyz/chatbot?msg=${encodeURIComponent(q)}&owner=Zahid&botname=ZahidKing`,
-{ timeout: 20000 } // 20 seconds timeout
-);
+// API 1
+let res = await axios.get(`https://api.popcat.xyz/chatbot?msg=${encodeURIComponent(q)}&owner=Zahid&botname=ZahidKing`)
+ai = res.data.response
 
-let ai = res.data.response;
+} catch {
 
-if (!ai) return reply("AI did not respond.");
+try {
 
-reply(`🤖 AI Response:\n\n${ai}\n\n> Powered By Zᴀʜɪᴅ Kɪɴɢ`);
+// API 2
+let res2 = await axios.get(`https://api.simsimi.vn/v2/simtalk?text=${encodeURIComponent(q)}&lc=en`)
+ai = res2.data.message
 
-} catch (err) {
+} catch {
 
-console.log(err);
+try {
 
-reply("❌ AI server not responding. Try again.");
+// API 3
+let res3 = await axios.get(`https://api.ryzendesu.vip/api/ai/deepseek?text=${encodeURIComponent(q)}`)
+ai = res3.data.answer
+
+} catch {
+
+return reply("❌ All AI servers are busy, try again later.")
 
 }
 
-});
+}
+
+}
+
+reply(`🤖 *AI Response*
+
+${ai}
+
+> Powered By Zᴀʜɪᴅ Kɪɴɢ`)
+
+})
