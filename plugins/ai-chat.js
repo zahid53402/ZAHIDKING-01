@@ -1,45 +1,28 @@
-const { cmd } = require('../command');
-const axios = require('axios');
+const { cmd } = require('../command')
+const axios = require('axios')
 
 cmd({
-    pattern: "ai",
-    alias: ["bot", "dj", "gpt", "gpt4", "bing"],
-    desc: "Chat with an AI model",
-    category: "ai",
-    filename: __filename
+pattern: "ai",
+desc: "chat with ai"
 },
-async (conn, mek, m, { from, args, q, reply }) => {
-    try {
+async (conn, mek, m, {q, reply}) => {
 
-        await conn.sendMessage(from, {
-            react: { text: "🤖", key: mek.key }
-        });
+if(!q) return reply("Example: .ai Hello")
 
-        if (!q) return reply("Please provide a message.\nExample: `.ai Hello`");
+try {
 
-        const apiUrl = `https://lance-frank-asta.onrender.com/api/gpt?q=${encodeURIComponent(q)}`;
-        const { data } = await axios.get(apiUrl);
+let res = await axios.get(`https://api.ryzendesu.vip/api/ai/gpt4?text=${q}`)
 
-        if (!data || !data.message) {
-            await conn.sendMessage(from, {
-                react: { text: "❌", key: mek.key }
-            });
-            return reply("AI failed to respond. Try again later.");
-        }
+let ai = res.data.answer
 
-        await reply(`🤖 *AI Response:*\n\n${data.message}\n\n> Powered By Zᴀʜɪᴅ Kɪɴɢ`);
+reply(`🤖 AI Response:\n\n${ai}\n\n> Zᴀʜɪᴅ Kɪɴɢ`)
 
-        await conn.sendMessage(from, {
-            react: { text: "✅", key: mek.key }
-        });
+} catch(e){
 
-    } catch (e) {
-        console.error(e);
+console.log(e)
 
-        await conn.sendMessage(from, {
-            react: { text: "❌", key: mek.key }
-        });
+reply("AI server error ❌")
 
-        reply("Error while communicating with AI.");
-    }
-});
+}
+
+})
