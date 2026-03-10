@@ -2,26 +2,29 @@ const { cmd } = require('../command');
 const axios = require('axios');
 
 cmd({
-  pattern: "ai",
-  desc: "Chat with AI",
-  category: "ai",
-  filename: __filename
+pattern: "ai",
+desc: "Chat with AI",
+category: "ai",
+filename: __filename
 },
 async (conn, mek, m, { q, reply }) => {
 
-  if (!q) return reply("Example: .ai hello");
+if(!q) return reply("Example: .ai hello");
 
-  try {
+try {
 
-    const res = await axios.get(`https://api.popcat.xyz/chatbot?msg=${encodeURIComponent(q)}&owner=Zahid&botname=ZahidKing`);
+let res = await axios.get(`https://api.ryzendesu.vip/api/ai/deepseek?text=${encodeURIComponent(q)}`);
 
-    const ai = res.data.response;
+let ai = res.data.answer;
 
-    reply(`🤖 AI Response:\n\n${ai}\n\n> Powered By Zᴀʜɪᴅ Kɪɴɢ`);
+reply(`🤖 AI Response:\n\n${ai}\n\n> Powered By Zᴀʜɪᴅ Kɪɴɢ`);
 
-  } catch (err) {
-    console.log(err);
-    reply("❌ AI server error, try again later.");
-  }
+} catch(e){
+
+console.log(e);
+
+reply("❌ AI server busy, try again later");
+
+}
 
 });
