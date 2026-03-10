@@ -1,89 +1,87 @@
-const { cmd } = require('../command');
-const axios = require('axios');
+const { cmd } = require('../command')
+const axios = require('axios')
+
+let tiktokStore = {}
 
 cmd({
-    pattern: "tt",
-    alias: ["tiktok", "ttdl"],
-    react: "🎵",
-    desc: "Download TikTok video without watermark",
-    category: "download",
-    use: ".tt <tiktok url>",
-    filename: __filename
+pattern: "tt",
+alias: ["tiktok"],
+desc: "Download TikTok",
+category: "download",
+filename: __filename
 },
+
 async (conn, mek, m, { from, q, reply }) => {
-    try {
-        if (!q || !q.includes("tiktok")) {
-            return reply(`
-*╭ׂ┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
-*│ ╌─̇─̣⊰ Zᴀʜɪᴅ Kɪɴɢ ⊱┈─̇─̣╌*
-*│─̇─̣┄┄┄┄┄┄┄┄┄┄┄┄┄─̇─̣*
-*│❌ 𝐈𝐧𝐯𝐚𝐥𝐢𝐝 𝐓𝐢𝐤𝐓𝐨𝐤 𝐋𝐢𝐧𝐤*
-*│📌 Example:*
-*│ .tt https://vm.tiktok.com/xxxx*
-*╰┄─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
 
-> ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴢᴀʜɪᴅ ᴋɪɴɢ
-`);
-        }
+if(!q) return reply("Example:\n.tt https://vt.tiktok.com/xxxx")
 
-        await reply("⏳ *Zᴀʜɪᴅ Kɪɴɢ is downloading TikTok…*");
+try{
 
-        const apiUrl = `https://arslanmd-api.vercel.app/api/ttdl?url=${encodeURIComponent(q)}`;
-        const { data } = await axios.get(apiUrl);
+let res = await axios.get(`https://tikwm.com/api/?url=${encodeURIComponent(q)}`)
 
-        if (!data.status || !data.result?.video) {
-            return reply(`
-*╭ׂ┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
-*│ ╌─̇─̣⊰ Zᴀʜɪᴅ Kɪɴɢ ⊱┈─̇─̣╌*
-*│─̇─̣┄┄┄┄┄┄┄┄┄┄┄┄┄─̇─̣*
-*│❌ 𝐓𝐢𝐤𝐓𝐨𝐤 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝 𝐅𝐚𝐢𝐥𝐞𝐝*
-*│🔒 Video may be private or expired*
-*╰┄─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
+let video = res.data.data.play
+let audio = res.data.data.music
+let author = res.data.data.author.nickname
 
-> ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴢᴀʜɪᴅ ᴋɪɴɢ
-`);
-        }
+if(!video) return reply("❌ TikTok download failed")
 
-        const caption = `
-*╭ׂ┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
-*│ ╌─̇─̣⊰ Zᴀʜɪᴅ Kɪɴɢ ⊱┈─̇─̣╌*
-*│─̇─̣┄┄┄┄┄┄┄┄┄┄┄┄┄─̇─̣*
-*│🎵 𝐓𝐢𝐤𝐓𝐨𝐤 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐞𝐝*
-*│👤 𝐀𝐮𝐭𝐡𝐨𝐫:* ${data.result.author || "Unknown"}
-*│💧 𝐍𝐨 𝐖𝐚𝐭𝐞𝐫𝐦𝐚𝐫𝐤*
-*╰┄─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
+tiktokStore[m.sender] = { video, audio, author }
 
-> ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴢᴀʜɪᴅ ᴋɪɴɢ
-`;
+reply(`🎵 *TikTok Video Found*
 
-        await conn.sendMessage(from, {
-            video: { url: data.result.video },
-            mimetype: "video/mp4",
-            caption,
-            contextInfo: {
-                mentionedJid: [m.sender],
-                forwardingScore: 999,
-                isForwarded: true,
-                forwardedNewsletterMessageInfo: {
-                    newsletterJid: '',
-                    newsletterName: 'Zᴀʜɪᴅ Kɪɴɢ',
-                    serverMessageId: 143
-                }
-            }
-        }, { quoted: mek });
+Reply with:
 
-    } catch (e) {
-        console.error("TIKTOK ERROR:", e);
+1️⃣ Video  
+2️⃣ MP3
 
-        reply(`
-*╭ׂ┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
-*│ ╌─̇─̣⊰ Zᴀʜɪᴅ Kɪɴɢ  ⊱┈─̇─̣╌*
-*│─̇─̣┄┄┄┄┄┄┄┄┄┄┄┄┄─̇─̣*
-*│❌ 𝐓𝐢𝐤𝐓𝐨𝐤 𝐂𝐨𝐦𝐦𝐚𝐧𝐝 𝐄𝐫𝐫𝐨𝐫*
-*│⏳ Please try again later*
-*╰┄─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
+> Powered By Zᴀʜɪᴅ Kɪɴɢ`)
 
-> ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴢᴀʜɪᴅ ᴋɪɴɢ
-`);
-    }
-});
+}catch(e){
+
+console.log(e)
+
+reply("❌ TikTok API error")
+
+}
+
+})
+
+cmd({
+on: "text"
+},
+async (conn, mek, m, { from, body }) => {
+
+let data = tiktokStore[m.sender]
+
+if(!data) return
+
+if(body === "1"){
+
+await conn.sendMessage(from,{
+video:{ url: data.video },
+caption:`🎵 TikTok Video Downloaded
+
+👤 Author: ${data.author}
+
+> Powered By Zᴀʜɪᴅ Kɪɴɢ`
+},{quoted: mek})
+
+delete tiktokStore[m.sender]
+
+}
+
+else if(body === "2"){
+
+await conn.sendMessage(from,{
+audio:{ url: data.audio },
+mimetype:"audio/mpeg",
+caption:`🎧 TikTok Audio Downloaded
+
+> Powered By Zᴀʜɪᴅ Kɪɴɢ`
+},{quoted: mek})
+
+delete tiktokStore[m.sender]
+
+}
+
+})
