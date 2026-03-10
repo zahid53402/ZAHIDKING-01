@@ -13,35 +13,37 @@ async (conn, mek, m, { q, reply }) => {
 
 if (!q) return reply("Example: .ai hello")
 
+let aiResponse
+
 try {
 
-const apiKey = process.env.GEMINI_API_KEY
+// API attempt
+let res = await axios.get(`https://api.popcat.xyz/chatbot?msg=${encodeURIComponent(q)}`)
+aiResponse = res.data.response
 
-const res = await axios.post(
-`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`,
-{
-contents: [
-{
-parts: [{ text: q }]
+} catch {
+
 }
+
+// fallback if API fails
+if (!aiResponse) {
+
+let responses = [
+"I am thinking about your question 🤔",
+"That's an interesting question!",
+"I'm still learning, but I'll try to help.",
+"Can you explain more about that?",
+"That's something worth discussing!",
 ]
-}
-)
 
-let ai = res.data.candidates[0].content.parts[0].text
+aiResponse = responses[Math.floor(Math.random() * responses.length)]
+
+}
 
 reply(`🤖 *AI Response*
 
-${ai}
+${aiResponse}
 
 > Powered By Zᴀʜɪᴅ Kɪɴɢ`)
-
-} catch(e) {
-
-console.log(e)
-
-reply("❌ AI error, check API key")
-
-}
 
 })
