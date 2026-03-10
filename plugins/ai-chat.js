@@ -1,30 +1,27 @@
-const { cmd } = require('../command')
-const axios = require('axios')
+const { cmd } = require('../command');
+const axios = require('axios');
 
 cmd({
-pattern: "ai",
-desc: "Chat with AI"
+  pattern: "ai",
+  desc: "Chat with AI",
+  category: "ai",
+  filename: __filename
 },
-async (conn, mek, m, {q, reply}) => {
+async (conn, mek, m, { q, reply }) => {
 
-if(!q) return reply("Example: .ai hello")
+  if (!q) return reply("Example: .ai hello");
 
-try {
+  try {
 
-let res = await axios.get(`https://api.ryzendesu.vip/api/ai/gpt4?text=${q}`)
+    const res = await axios.get(`https://api.popcat.xyz/chatbot?msg=${encodeURIComponent(q)}&owner=Zahid&botname=ZahidKing`);
 
-let ai = res.data.answer
+    const ai = res.data.response;
 
-reply(`🤖 AI Response:
+    reply(`🤖 AI Response:\n\n${ai}\n\n> Powered By Zᴀʜɪᴅ Kɪɴɢ`);
 
-${ai}
+  } catch (err) {
+    console.log(err);
+    reply("❌ AI server error, try again later.");
+  }
 
-> Zᴀʜɪᴅ Kɪɴɢ`)
-
-} catch(e){
-
-reply("AI error ❌")
-
-}
-
-})
+});
