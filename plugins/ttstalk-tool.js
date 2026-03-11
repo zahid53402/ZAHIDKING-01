@@ -30,27 +30,39 @@ Example:
         const stats = data.data.stats;
 
         const caption = `
-*╭ׂ┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─᛭*
-*│ ╌─̇─̣⊰ _Zᴀʜɪᴅ Kɪɴɢ_ ⊱┈─̇─̣╌*
-*│─̇─̣┄┄┄┄┄┄┄┄┄┄┄┄┄─̇─̣*
-*│❀ 👤 Username:* @${user.uniqueId}
-*│❀ 📛 Nickname:* ${user.nickname}
-*│❀ ✅ Verified:* ${user.verified ? "Yes" : "No"}
-*│❀ 🌍 Region:* ${user.region || "Unknown"}
-*│❀ 🔒 Private:* ${user.privateAccount ? "Yes" : "No"}
-*│❀ 📝 Bio:* ${user.signature || "No bio available"}
-*│❀ 🔗 Bio Link:* ${user.bioLink?.link || "No link"}
-*│─̇─̣┄┄┄┄┄┄┄┄┄┄┄┄┄─̇─̣*
-*│❀ 👥 Followers:* ${stats.followerCount.toLocaleString()}
-*│❀ 👤 Following:* ${stats.followingCount.toLocaleString()}
-*│❀ ❤️ Likes:* ${stats.heartCount.toLocaleString()}
-*│❀ 🎥 Videos:* ${stats.videoCount.toLocaleString()}
-*│─̇─̣┄┄┄┄┄┄┄┄┄┄┄┄┄─̇─̣*
-*│❀ 📅 Account Created:* ${new Date(user.createTime * 1000).toLocaleDateString()}
-*│❀ 🔗 Profile:* https://www.tiktok.com/@${user.uniqueId}
-*╰┄─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─᛭*
+👑 ╔══════════  👑  ══════════╗ 👑
+         ✨ 𝐙𝐀𝐇𝐈𝐃  𝐊𝐈𝐍𝐆 ✨
+         📱  𝐓𝐈𝐊𝐓𝐎𝐊  𝐒𝐓𝐀𝐓𝐒  📱
+👑 ╚══════════  👑  ══════════╝ 👑
 
-> Zᴀʜɪᴅ Kɪɴɢ
+👤 *𝐔𝐒𝐄𝐑  𝐈𝐃𝐄𝐍𝐓𝐈𝐓𝐘*
+┃ ◈ 🆔 *User:* @${user.uniqueId}
+┃ ◈ 📛 *Name:* ${user.nickname}
+┃ ◈ ✅ *Verified:* ${user.verified ? "Yes" : "No"}
+┃ ◈ 🌍 *Region:* ${user.region || "Unknown"}
+┗━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 *𝐈𝐍𝐅𝐋𝐔𝐄𝐍𝐂𝐄  𝐒𝐓𝐀𝐓𝐒*
+┃ ◈ 👥 *Followers:* ${stats.followerCount.toLocaleString()}
+┃ ◈ 👤 *Following:* ${stats.followingCount.toLocaleString()}
+┃ ◈ ❤️ *Likes:* ${stats.heartCount.toLocaleString()}
+┃ ◈ 🎥 *Videos:* ${stats.videoCount.toLocaleString()}
+┗━━━━━━━━━━━━━━━━━━━━━━━
+
+📝 *𝐀𝐃𝐃𝐈𝐓𝐈𝐎𝐍𝐀𝐋  𝐈𝐍𝐅𝐎*
+┃ ◈ 📜 *Bio:* ${user.signature || "No bio available"}
+┃ ◈ 🔗 *Link:* ${user.bioLink?.link || "No link"}
+┃ ◈ 📅 *Joined:* ${new Date(user.createTime * 1000).toLocaleDateString()}
+┗━━━━━━━━━━━━━━━━━━━━━━━
+
+🌐 *𝐏𝐑𝐎𝐅𝐈𝐋𝐄  𝐋𝐈𝐍𝐊*
+┃ ◈ 🔗 https://www.tiktok.com/@${user.uniqueId}
+┗━━━━━━━━━━━━━━━━━━━━━━━
+
+    🛡️ ━━━━━━━━━━━━━━━━━━━━━━ 🛡️
+      *👑 𝑷𝒐𝒘𝒆𝒓𝒆𝒅 𝑩𝒚 𝒁𝒂𝒉𝒊𝒅 𝑲𝒊𝒏𝒈 👑*
+    🛡️ ━━━━━━━━━━━━━━━━━━━━━━ 🛡️
+
 `;
 
         await conn.sendMessage(
@@ -67,3 +79,4 @@ Example:
         reply("❌ Failed to fetch TikTok profile details. Please try again later.");
     }
 });
+
