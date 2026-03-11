@@ -27,19 +27,23 @@ async (conn, mek, m, { from, q, reply }) => {
         const app = data[0];
 
         // 🎨 FAIZAN-MD STYLE (ONLY STYLE CHANGED)
-        const msg = `*╭ׂ┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
-*│ ╌─̇─̣⊰ Zᴀʜɪᴅ Kɪɴɢ ⊱┈─̇─̣╌*
-*│─̇─̣┄┄┄┄┄┄┄┄┄┄┄┄┄─̇─̣*
-*│❀ 📱 𝐀𝐩𝐩 𝐍𝐚𝐦𝐞:* ${app.name}
-*│❀ 👨‍💻 𝐃𝐞𝐯𝐞𝐥𝐨𝐩𝐞𝐫:* ${app.developer}
-*│❀ ⭐ 𝐑𝐚𝐭𝐢𝐧𝐠:* ${app.rating}
-*│❀ 📥 𝐈𝐧𝐬𝐭𝐚𝐥𝐥𝐬:* ${app.installs}
-*│❀ 💰 𝐏𝐫𝐢𝐜𝐞:* ${app.price}
-*│❀ 📝 𝐀𝐛𝐨𝐮𝐭:* ${app.summary}
-*│❀ 🔗 𝐋𝐢𝐧𝐤:* ${app.link}
-*╰┄─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
+        const msg = `👑 *𝐙𝐀𝐇𝐈𝐃  𝐊𝐈𝐍𝐆  𝐀𝐏𝐏𝐒* 📱
+🛰️ ━━━━━━━━━━━━━━━━━━━━ 🛰️
 
-> 📌 ᴘᴏᴡᴇʀ ʙʏ ᴢᴀʜɪᴅ ᴋɪɴɢ`;
+📱 *𝐀𝐩𝐩:* ${app.name}
+👨‍💻 *𝐃𝐞𝐯:* ${app.developer}
+⭐ *𝐑𝐚𝐭𝐢𝐧𝐠:* ${app.rating}
+📥 *𝐈𝐧𝐬𝐭𝐚𝐥𝐥𝐬:* ${app.installs}
+💰 *𝐏𝐫𝐢𝐜𝐞:* ${app.price}
+
+📝 *𝐀𝐛𝐨𝐮𝐭:* ${app.summary}
+
+🔗 *𝐋𝐢𝐧𝐤:* ${app.link}
+
+🛡️ ━━━━━━━━━━━━━━━━━━━━ 🛡️
+  *👑 𝑷𝒐𝒘𝒆𝒓𝒆𝒅 𝑩𝒚 𝒁𝒂𝒉𝒊𝒅 𝑲𝒊𝒏𝒈 👑*
+
+`;
 
         await conn.sendMessage(from, {
             image: { url: app.img },
