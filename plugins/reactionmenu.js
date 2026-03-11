@@ -49,10 +49,21 @@ await conn.sendMessage(
 from,
 {
 image:{ url: config.MENU_IMAGE_URL || "https://i.ibb.co/TxSCwf8B/temp.jpg" },
-caption: dec
+caption: dec,
+contextInfo:{
+mentionedJid:[m.sender],
+forwardingScore:999,
+isForwarded:true,
+forwardedNewsletterMessageInfo:{
+newsletterJid:"120363424512151830@newsletter",
+newsletterName:"Zᴀʜɪᴅ Kɪɴɢ",
+serverMessageId:143
+}
+}
 },
 { quoted: mek }
 )
+
 
 // audio send
 
@@ -76,3 +87,4 @@ reply("❌ Menu error")
 }
 
 })
+
