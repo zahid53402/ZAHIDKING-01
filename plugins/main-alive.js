@@ -8,26 +8,39 @@ cmd({
     alias: ["status", "online", "a"],
     desc: "Check bot is alive or not",
     category: "main",
-    react: "🌈",
+    react: "👻",
     filename: __filename
 },
 async (conn, mek, m, { from, reply }) => {
     try {
 
         const aliveMsg = `
-*╭ׂ┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
-*│ ╌─̇─̣⊰ Zᴀʜɪᴅ Kɪɴɢ ⊱┈─̇─̣╌*
-*│─̇─̣┄┄┄┄┄┄┄┄┄┄┄┄┄─̇─̣*
-*│❀ 🤖 𝐁𝐨𝐭 𝐒𝐭𝐚𝐭𝐮𝐬:* Online ✅
-*│❀ 👑 𝐎𝐰𝐧𝐞𝐫:* ${config.OWNER_NAME}
-*│❀ ⚙️ 𝐌𝐨𝐝𝐞:* ${config.MODE}
-*│❀ 🔣 𝐏𝐫𝐞𝐟𝐢𝐱:* ${config.PREFIX}
-*│❀ 💻 𝐇𝐨𝐬𝐭:* ${os.hostname()}
-*│❀ 💾 𝐑𝐀𝐌:* ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB
-*│❀ ⏱️ 𝐔𝐩𝐭𝐢𝐦𝐞:* ${runtime(process.uptime())}
-*╰┄─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
+*╭👑 ╔════════  👑  ════════╗ 👑
+       ✨ 𝐒𝐘𝐒𝐓𝐄𝐌 𝐂𝐎𝐍𝐓𝐑𝐎𝐋 ✨
+👑 ╚════════  👑  ════════╝ 👑
 
-> 📌 ᴘᴏᴡᴇʀ ʙʏ ᴢᴀʜɪᴅ ᴋɪɴɢ
+🔥 ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
+   ┃ 🏰 *KING'S EMPIRE STATUS*
+   ┃ 
+   ┃ 🤖 *𝐁𝐨𝐭 𝐒𝐭𝐚𝐭𝐮𝐬:* Online ✅
+   ┃ 👑 *𝐎𝐰𝐧𝐞𝐫:* ${config.OWNER_NAME}
+   ┃ ⚙️ *𝐌𝐨𝐝𝐞:* ${config.MODE}
+   ┃ 🔣 *𝐏𝐫𝐞𝐟𝐢𝐱:* ${config.PREFIX}
+   ┃
+   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
+
+💎 ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
+   ┃ ⚡ *TECHNICAL DOMINANCE*
+   ┃ 
+   ┃ 💻 *𝐇𝐨𝐬𝐭:* ${os.hostname()}
+   ┃ 💾 *𝐑𝐀𝐌:* ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB
+   ┃ ⏱️ *𝐔𝐩𝐭𝐢𝐦𝐞:* ${runtime(process.uptime())}
+   ┃
+   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
+
+   🚩 ᴘᴏᴡᴇʀᴇᴅ ʙʏ: *𝐙𝐀𝐇𝐈𝐃 𝐊𝐈𝐍𝐆*
+   🛡️ ━━━━━━━━━━━━━━━━━━━━ 🛡️
+
 `;
 
         await conn.sendMessage(from, {
@@ -38,7 +51,7 @@ async (conn, mek, m, { from, reply }) => {
                 forwardingScore: 999,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '',
+                    newsletterJid: '120363424512151830@newsletter',
                     newsletterName: 'Zᴀʜɪᴅ Kɪɴɢ',
                     serverMessageId: 143
                 }
@@ -49,16 +62,30 @@ async (conn, mek, m, { from, reply }) => {
         console.error("ALIVE ERROR:", err);
 
         const errorMsg = `
-*╭ׂ┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
-*│ ╌─̇─̣⊰ Zᴀʜɪᴅ Kɪɴɢ ⊱┈─̇─̣╌*
-*│─̇─̣┄┄┄┄┄┄┄┄┄┄┄┄┄─̇─̣*
-*│❌ 𝐀𝐥𝐢𝐯𝐞 𝐂𝐨𝐦𝐦𝐚𝐧𝐝 𝐄𝐫𝐫𝐨𝐫*
-*│⏳ Please try again later*
-*╰┄─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
+👑 ╔════════  👑  ════════╗ 👑
+       ⚖️  𝐒𝐘𝐒𝐓𝐄𝐌  𝐏𝐀𝐔𝐒𝐄𝐃  ⚖️
+👑 ╚════════  👑  ════════╝ 👑
 
-> 📌 ᴘᴏᴡᴇʀ ʙʏ ᴢᴀʜɪᴅ ᴋɪɴɢ
+🔥 ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
+   ┃ ⚔️ *KING'S SILENCE*
+   ┃ 
+   ┃ ❌ *Error:* Alive Command Failed
+   ┃ 🛡️ *Status:* Under Maintenance
+   ┃ ⏳ *Action:* Try Again Later
+   ┃
+   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
+
+💎 ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
+   ┃ ✨ *Ghabrane Ki Baat Nahi...*
+   ┃ 👑 King Is Ruling Behind The Scenes!
+   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
+
+   🚩 ᴘᴏᴡᴇʀᴇᴅ ʙʏ: *𝐙𝐀𝐇𝐈𝐃 𝐊𝐈𝐍𝐆*
+   🛡️ ━━━━━━━━━━━━━━━━━━━━ 🛡️
+
 `;
 
         await reply(errorMsg);
     }
 });
+
