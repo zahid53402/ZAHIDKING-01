@@ -29,18 +29,18 @@ cmd({
 
         const vid = search.videos[0]
 
-        // 🎨 FAIZAN-MD STYLE BOX
+        // 🎨 ZAHID KING STYLE BOX
         const caption = `
-*╭ׂ┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
-*│ ╌─̇─̣⊰ Zᴀʜɪᴅ Kɪɴɢ ⊱┈─̇─̣╌*
-*│─̇─̣┄┄┄┄┄┄┄┄┄┄┄┄┄─̇─̣*
-*│❀ 🎵 𝐓𝐢𝐭𝐥𝐞:* ${vid.title}
-*│❀ 📀 𝐐𝐮𝐚𝐥𝐢𝐭𝐲:* 128kbps
-*│❀ 📁 𝐅𝐨𝐫𝐦𝐚𝐭:* mp3
-*│❀ ⚙️ 𝐒𝐭𝐚𝐭𝐮𝐬:* Converting...
-*╰┄─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
+👑 *𝐙𝐀𝐇𝐈𝐃  𝐊𝐈𝐍𝐆  𝐌𝐔𝐒𝐈𝐂* 🎧
 
-> 📌 ᴘᴏᴡᴇʀ ʙʏ ᴢᴀʜɪᴅ ᴋɪɴɢ
+🎼 *𝐓𝐢𝐭𝐥𝐞:* ${vid.title}
+📀 *𝐐𝐮𝐚𝐥𝐢𝐭𝐲:* 128kbps
+📁 *𝐅𝐨𝐫𝐦𝐚𝐭:* mp3
+⚙️ *𝐒𝐭𝐚𝐭𝐮𝐬:* Converting...
+
+🛡️ ━━━━━━━━━━━━━━ 🛡️
+  *👑 𝑷𝒐𝒘𝒆𝒓𝒆𝒅 𝑩𝒚 𝒁𝒂𝒉𝒊𝒅 𝑲𝒊𝒏𝒈 👑*
+
 `
 
         await conn.sendMessage(from, {
@@ -109,3 +109,4 @@ cmd({
         reply("❌ Song download / convert error, thori dair baad try karo")
     }
 })
+
