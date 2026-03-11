@@ -2,6 +2,14 @@ const { cmd } = require('../command')
 const axios = require('axios')
 const config = require('../config')
 
+const SYSTEM_PROMPT = `
+You are an AI assistant named ZAHID KING.
+You are friendly, helpful and intelligent.
+You answer clearly and politely.
+If someone asks about your owner say:
+"My owner is Zahid King 👑"
+`
+
 cmd({
 pattern: "ai",
 alias: ["gpt","ask"],
@@ -18,7 +26,7 @@ try {
 if(!q) return reply("❓ Example:\n.ai who made pakistan")
 
 if(!config.GEMINI_API_KEY)
-return reply("❌ GEMINI_API_KEY not found")
+return reply("❌ GEMINI_API_KEY missing")
 
 const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${config.GEMINI_API_KEY}`
 
@@ -26,7 +34,7 @@ const data = {
 contents:[
 {
 parts:[
-{ text:q }
+{ text: SYSTEM_PROMPT + "\nUser: " + q }
 ]
 }
 ]
@@ -42,7 +50,7 @@ reply(ai)
 
 console.log(e)
 
-reply("❌ AI Error")
+reply("❌ AI error")
 
 }
 
