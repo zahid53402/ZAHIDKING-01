@@ -5,7 +5,7 @@ const config = require('../config');
 cmd({
     pattern: "uptime",
     alias: ["runtime", "up"],
-    desc: "Live uptime with ADEEL-XMD style",
+    desc: "Live uptime with Zᴀʜɪᴅ Kɪɴɢ style",
     category: "main",
     react: "⏱️",
     filename: __filename
