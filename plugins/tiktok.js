@@ -21,11 +21,13 @@ let res = await axios.get(`https://tikwm.com/api/?url=${encodeURIComponent(q)}`)
 
 let video = res.data.data.play
 let audio = res.data.data.music
-let author = res.data.data.author.nickname
 
 if(!video) return reply("❌ TikTok download failed")
 
-tiktokStore[m.sender] = { video, audio, author }
+tiktokStore[m.sender] = {
+video: video,
+audio: audio
+}
 
 reply(`🎵 *TikTok Video Found*
 
@@ -49,19 +51,20 @@ reply("❌ TikTok API error")
 cmd({
 on: "text"
 },
-async (conn, mek, m, { from, body }) => {
+
+async (conn, mek, m, { body, from }) => {
 
 let data = tiktokStore[m.sender]
 
 if(!data) return
 
-if(body === "1"){
+let text = body.trim()
+
+if(text === "1"){
 
 await conn.sendMessage(from,{
 video:{ url: data.video },
-caption:`🎵 TikTok Video Downloaded
-
-👤 Author: ${data.author}
+caption:`🎬 TikTok Video
 
 > Powered By Zᴀʜɪᴅ Kɪɴɢ`
 },{quoted: mek})
@@ -70,14 +73,11 @@ delete tiktokStore[m.sender]
 
 }
 
-else if(body === "2"){
+else if(text === "2"){
 
 await conn.sendMessage(from,{
 audio:{ url: data.audio },
-mimetype:"audio/mpeg",
-caption:`🎧 TikTok Audio Downloaded
-
-> Powered By Zᴀʜɪᴅ Kɪɴɢ`
+mimetype:"audio/mpeg"
 },{quoted: mek})
 
 delete tiktokStore[m.sender]
