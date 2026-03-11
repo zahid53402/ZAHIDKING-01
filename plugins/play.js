@@ -42,18 +42,17 @@ cmd({
         await conn.sendMessage(from, {
             image: { url: video.thumbnail },
             caption: `
-Zᴀʜɪᴅ Kɪɴɢ 
+👑 *𝐙𝐀𝐇𝐈𝐃  𝐊𝐈𝐍𝐆  𝐌𝐔𝐒𝐈𝐂* 🎧
 
-╭───────────────────
-│ 🎧 *SONG FOUND*
-│
-│ 🎵 *Title:* ${video.title}
-│ ⏱️ *Duration:* ${video.timestamp}
-│ 👁️ *Views:* ${video.views}
-│
-│ ⏳ *Converting to MP3...*
-╰───────────────────
-- _📌 ᴘᴏᴡᴇʀ ʙʏ ᴢᴀʜɪᴅ ᴋɪɴɢ_
+🎼 *𝐓𝐢𝐭𝐥𝐞:* ${video.title}
+⏱️ *𝐓𝐢𝐦𝐞:* ${video.timestamp}
+👁️ *𝐕𝐢𝐞𝐰𝐬:* ${video.views}
+
+📥 *𝐒𝐭𝐚𝐭𝐮𝐬:* Converting to MP3...
+
+🛡️ ━━━━━━━━━━━━━━━━━━━━━━ 🛡️
+  *👑 𝑷𝒐𝒘𝒆𝒓𝒆𝒅 𝑩𝒚 𝒁𝒂𝒉𝒊𝒅 𝑲𝒊𝒏𝒈 👑*
+
 `
         }, { quoted: mek });
 
