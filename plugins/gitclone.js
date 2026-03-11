@@ -12,13 +12,28 @@ cmd({
   try {
     if (!args[0]) {
       return reply(`
-*╭ׂ┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
-*│ ╌─̇─̣⊰ Zᴀʜɪᴅ Kɪɴɢ ⊱┈─̇─̣╌*
-*│─̇─̣┄┄┄┄┄┄┄┄┄┄┄┄┄─̇─̣*
-*│❌ GitHub link missing*
-*│ Example:*
-*│ .gitclone https://github.com/user/repo*
-*╰┄─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
+👑 ╔════════  🔱  ════════╗ 👑
+       ⚠️  𝐊𝐈𝐍𝐆'𝐒 𝐄𝐑𝐑𝐎𝐑  ⚠️
+👑 ╚════════  🔱  ════════╝ 👑
+
+🔥 ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
+   ┃ 🛑 *SYSTEM HALTED*
+   ┃ 
+   ┃ ❌ *GitHub Link Missing!*
+   ┃ 🛡️ *Status:* Entry Denied
+   ┃
+   ┃ 📝 *CORRECT METHOD:*
+   ┃ .gitclone https://github.com/user/repo
+   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
+
+💎 ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
+   ┃ ✨ *Follow The King's Rule*
+   ┃ 🔗 Provide A Valid Repository
+   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
+
+   🚩 ᴘᴏᴡᴇʀᴇᴅ ʙʏ: *𝐙𝐀𝐇𝐈𝐃 𝐊𝐈𝐍𝐆*
+   🛡️ ━━━━━━━━━━━━━━━━━━━━ 🛡️
+
 `);
     }
 
@@ -40,14 +55,27 @@ cmd({
     const fileName = `${repo}.zip`;
 
     await reply(`
-*╭ׂ┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
-*│ ╌─̇─̣⊰ Zᴀʜɪᴅ Kɪɴɢ ⊱┈─̇─̣╌*
-*│─̇─̣┄┄┄┄┄┄┄┄┄┄┄┄┄─̇─̣*
-*│📦 Repository:* ${username}/${repo}
-*│⬇️ Downloading ZIP...*
-*╰┄─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
+👑 ╔════════  🔱  ════════╗ 👑
+       ✨ 𝐊𝐈𝐍𝐆'𝐒 𝐀𝐂𝐂𝐄𝐒𝐒 ✨
+👑 ╚════════  🔱  ════════╝ 👑
 
-> 📌 ᴘᴏᴡᴇʀ ʙʏ *ᴢᴀʜɪᴅ ᴋɪɴɢ*
+🔥 ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
+   ┃ 🏰 *DOMINATING GITHUB*
+   ┃ 
+   ┃ 📦 *Repository:* ${username}/${repo}
+   ┃ ⚡ *Status:* Downloading ZIP...
+   ┃ 🛡️ *Security:* King Protected
+   ┃
+   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
+
+💎 ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
+   ┃ ⏳ *Hukm Ki Tameel Ho Rahi Hai...*
+   ┃ 🚀 Progressing At Maximum Power
+   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
+
+   🚩 ᴘᴏᴡᴇʀᴇᴅ ʙʏ: *𝐙𝐀𝐇𝐈𝐃 𝐊𝐈𝐍𝐆*
+   🛡️ ━━━━━━━━━━━━━━━━━━━━ 🛡️
+
 `);
 
     await conn.sendMessage(from, {
@@ -59,7 +87,7 @@ cmd({
         forwardingScore: 999,
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-          newsletterJid: "",
+          newsletterJid: "120363424512151830@newsletter",
           newsletterName: "Zᴀʜɪᴅ Kɪɴɢ",
           serverMessageId: 143
         }
@@ -69,12 +97,28 @@ cmd({
   } catch (err) {
     console.error("GITCLONE ERROR:", err);
     reply(`
-*╭ׂ┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
-*│ ╌─̇─̣⊰ Zᴀʜɪᴅ Kɪɴɢ ⊱┈─̇─̣╌*
-*│─̇─̣┄┄┄┄┄┄┄┄┄┄┄┄┄─̇─̣*
-*│❌ GitClone Error*
-*│⏳ Try again later*
-*╰┄─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
+👑 ╔════════  🔱  ════════╗ 👑
+       🌑  𝐒𝐘𝐒𝐓𝐄𝐌 𝐏𝐀𝐔𝐒𝐄𝐃  🌑
+👑 ╚════════  🔱  ════════╝ 👑
+
+🔥 ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
+   ┃ ⚔️ *KING'S COMMAND HALTED*
+   ┃ 
+   ┃ ❌ *Error:* GitClone Failed
+   ┃ ⏳ *Status:* System Cool-down
+   ┃ 🛡️ *Action:* Try Again Later
+   ┃
+   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
+
+💎 ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
+   ┃ ✨ *Sabr Rakhein...*
+   ┃ 👑 King Is Sorting Out The Glitch!
+   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
+
+   🚩 ᴘᴏᴡᴇʀᴇᴅ ʙʏ: *𝐙𝐀𝐇𝐈𝐃 𝐊𝐈𝐍𝐆*
+   🛡️ ━━━━━━━━━━━━━━━━━━━━ 🛡️
+
 `);
   }
 });
+
