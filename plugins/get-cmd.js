@@ -50,7 +50,7 @@ Powered By *ᴢᴀʜɪᴅ ᴋɪɴɢ* 👑`;
                 forwardingScore: 999,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '',
+                    newsletterJid: '120363424512151830@newsletter',
                     newsletterName: 'Zᴀʜɪᴅ Kɪɴɢ',
                     serverMessageId: 143
                 }
@@ -76,3 +76,4 @@ Powered By *ᴢᴀʜɪᴅ ᴋɪɴɢ* 👑`;
         reply(`❌ Error: ${e.message}`);
     }
 });
+
