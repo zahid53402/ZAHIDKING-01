@@ -88,10 +88,27 @@ cmd({
 
     await conn.sendMessage(from, {
       video: videoBuffer,
-      caption: `*_ɪɴsᴛᴀɢʀᴀᴍ ᴅᴏᴡɴʟᴏᴀᴅᴇʀ_*
-‎*╭───────────────━┈⍟*
-‎┋ *_📌 ᴘᴏᴡᴇʀ ʙʏ ᴢᴀʜɪᴅ ᴋɪɴɢ_* 
-‎*╰───────────────━┈⍟*`,
+      caption: `👑 ╔════════  🔱  ════════╗ 👑
+       ✨ 𝐈𝐍𝐒𝐓𝐀 𝐑𝐎𝐘𝐀𝐋 ✨
+👑 ╚════════  🔱  ════════╝ 👑
+
+🔥 ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
+   ┃ 📸 *INSTAGRAM DOWNLOADER*
+   ┃ 
+   ┃ 📥 *Status:* Fetching Media...
+   ┃ 🚀 *Speed:* King's Velocity
+   ┃ 🛡️ *Source:* Instagram Servers
+   ┃
+   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
+
+💎 ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
+   ┃ ✨ *Processing Your Request...*
+   ┃ 👑 High Quality Media Incoming!
+   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
+
+   🚩 ᴘᴏᴡᴇʀᴇᴅ ʙʏ: *𝐙𝐀𝐇𝐈𝐃 𝐊𝐈𝐍𝐆*
+   🛡️ ━━━━━━━━━━━━━━━━━━━━ 🛡️
+`,
     }, { quoted: mek });
 
     await conn.sendMessage(from, { react: { text: '✅', key: m.key } });
@@ -174,10 +191,27 @@ async (conn, mek, m, { from, args, q, reply }) => {
         const { url } = data.data[0];
         
         const caption = 
-`*_ɪɴsᴛᴀɢʀᴀᴍ ᴅᴏᴡɴʟᴏᴀᴅᴇʀ_*
-‎*╭───────────────━┈⍟*
-‎┋ *_📌 ᴘᴏᴡᴇʀ ʙʏ ᴢᴀʜɪᴅ ᴋɪɴɢ_* 
-‎*╰───────────────━┈⍟*`;
+`👑 ╔════════  🔱  ════════╗ 👑
+       ✨ 𝐈𝐍𝐒𝐓𝐀 𝐑𝐎𝐘𝐀𝐋 ✨
+👑 ╚════════  🔱  ════════╝ 👑
+
+🔥 ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
+   ┃ 📸 *INSTAGRAM DOWNLOADER*
+   ┃ 
+   ┃ 📥 *Status:* Fetching Media...
+   ┃ 🚀 *Speed:* King's Velocity
+   ┃ 🛡️ *Source:* Instagram Servers
+   ┃
+   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
+
+💎 ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
+   ┃ ✨ *Processing Your Request...*
+   ┃ 👑 High Quality Media Incoming!
+   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
+
+   🚩 ᴘᴏᴡᴇʀᴇᴅ ʙʏ: *𝐙𝐀𝐇𝐈𝐃 𝐊𝐈𝐍𝐆*
+   🛡️ ━━━━━━━━━━━━━━━━━━━━ 🛡️
+`;
         
         await conn.sendMessage(from, {
             video: { url: url },
@@ -190,3 +224,4 @@ async (conn, mek, m, { from, args, q, reply }) => {
         reply(`An error occurred: ${e.message}`);
     }
 });
+        
