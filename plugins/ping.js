@@ -21,19 +21,32 @@ async (conn, mek, m, { from, reply }) => {
         const speed = Date.now() - m.messageTimestamp * 1000;
 
         const caption = `
-*╭ׂ┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
-*│ ╌─̇─̣⊰ Zᴀʜɪᴅ Kɪɴɢ ⊱┈─̇─̣╌*
-*│─̇─̣┄┄┄┄┄┄┄┄┄┄┄┄┄─̇─̣*
-*│⚡ 𝐒𝐘𝐒𝐓𝐄𝐌 𝐑𝐄𝐏𝐎𝐑𝐓*
-*│*
-*│🚀 𝐒𝐩𝐞𝐞𝐝:* ${speed}ms
-*│🧠 𝐔𝐩𝐭𝐢𝐦𝐞:* ${runtime(process.uptime())}
-*│💾 𝐑𝐀𝐌:* ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${(os.totalmem() / 1024 / 1024).toFixed(2)}MB
-*│🔥 𝐂𝐏𝐔:* ${os.cpus()[0].model}
-*│📦 𝐕𝐞𝐫𝐬𝐢𝐨𝐧:* v${config.VERSION || "5.0.0"}
-*╰┄─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
+👑 ╔══════════  👑  ══════════╗ 👑
+         ✨ 𝐙𝐀𝐇𝐈𝐃  𝐊𝐈𝐍𝐆 ✨
+         ⚡ 𝐒𝐘𝐒𝐓𝐄𝐌  𝐄𝐍𝐆𝐈𝐍𝐄 ⚡
+👑 ╚══════════  👑  ══════════╝ 👑
 
-> 📌 ᴘᴏᴡᴇʀ ʙʏ ᴢᴀʜɪᴅ ᴋɪɴɢ
+🚀 *𝐏𝐄𝐑𝐅𝐎𝐑𝐌𝐀𝐍𝐂𝐄  𝐒𝐓𝐀𝐓𝐒*
+┃ ◈ ⚡ *Speed:* ${speed}ms
+┃ ◈ 🧠 *Uptime:* ${runtime(process.uptime())}
+┃ ◈ 📦 *Version:* v${config.VERSION || "5.0.0"}
+┗━━━━━━━━━━━━━━━━━━━━━━━
+
+📟 *𝐇𝐀𝐑𝐃𝐖𝐀𝐑𝐄  𝐈𝐍𝐅𝐎*
+┃ ◈ 💾 *RAM:* ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${(os.totalmem() / 1024 / 1024).toFixed(2)}MB
+┃ ◈ 🔥 *CPU:* ${os.cpus()[0].model}
+┃ ◈ ⚙️ *Platform:* ${os.platform()}
+┗━━━━━━━━━━━━━━━━━━━━━━━
+
+💎 ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
+   ┃ ✨ *Sultanat-e-Zahid Is Running Smooth!*
+   ┃ 👑 King's Machine Is Unstoppable!
+   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
+
+    🛡️ ━━━━━━━━━━━━━━━━━━━━━━ 🛡️
+      *👑 𝑷𝒐𝒘𝒆𝒓𝒆𝒅 𝑩𝒚 𝒁𝒂𝒉𝒊𝒅 𝑲𝒊𝒏𝒈 👑*
+    🛡️ ━━━━━━━━━━━━━━━━━━━━━━ 🛡️
+
 `;
 
         await conn.sendMessage(from, {
@@ -43,7 +56,7 @@ async (conn, mek, m, { from, reply }) => {
                 forwardingScore: 999,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '',
+                    newsletterJid: '120363424512151830@newsletter',
                     newsletterName: 'Zᴀʜɪᴅ Kɪɴɢ',
                     serverMessageId: 143
                 }
@@ -85,17 +98,26 @@ async (conn, mek, m, { from, reply }) => {
         const speed = Date.now() - start;
 
         const msg = `
-*╭ׂ┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
-*│ ╌─̇─̣⊰ Zᴀʜɪᴅ Kɪɴɢ  ⊱┈─̇─̣╌*
-*│─̇─̣┄┄┄┄┄┄┄┄┄┄┄┄┄─̇─̣*
-*│⚡ 𝐐𝐔𝐈𝐂𝐊 𝐏𝐈𝐍𝐆*
-*│*
-*│🚀 𝐒𝐩𝐞𝐞𝐝:* ${speed}ms
-*│🟢 𝐒𝐭𝐚𝐭𝐮𝐬:* Online
-*│📦 𝐕𝐞𝐫𝐬𝐢𝐨𝐧:* v${config.VERSION || "5.0.0"}
-*╰┄─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
+👑 ╔══════════  👑  ══════════╗ 👑
+         ✨ 𝐙𝐀𝐇𝐈𝐃  𝐊𝐈𝐍𝐆 ✨
+         ⚡ 𝐐𝐔𝐈𝐂𝐊  𝐏𝐈𝐍𝐆  ⚡
+👑 ╚══════════  👑  ══════════╝ 👑
 
-> 📌 ᴘᴏᴡᴇʀ ʙʏ ᴢᴀʜɪᴅ ᴋɪɴɢ
+🚀 *𝐄𝐗𝐄𝐂𝐔𝐓𝐈𝐎𝐍  𝐒𝐏𝐄𝐄𝐃*
+┃ ◈ ⚡ *Response:* ${speed}ms
+┃ ◈ 🟢 *Status:* Online & Active
+┃ ◈ 📦 *Version:* v${config.VERSION || "5.0.0"}
+┗━━━━━━━━━━━━━━━━━━━━━━━
+
+💎 ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
+   ┃ ✨ *King's Reflexes Are Sharp!*
+   ┃ 👑 Sultanat-e-Zahid Is Lightning Fast!
+   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
+
+    🛡️ ━━━━━━━━━━━━━━━━━━━━━━ 🛡️
+      *👑 𝑷𝒐𝒘𝒆𝒓𝒆𝒅 𝑩𝒚 𝒁𝒂𝒉𝒊𝒅 𝑲𝒊𝒏𝒈 👑*
+    🛡️ ━━━━━━━━━━━━━━━━━━━━━━ 🛡️
+
 `;
 
         await conn.sendMessage(from, {
@@ -105,7 +127,7 @@ async (conn, mek, m, { from, reply }) => {
                 forwardingScore: 999,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '',
+                    newsletterJid: '120363424512151830@newsletter',
                     newsletterName: 'Zᴀʜɪᴅ Kɪɴɢ',
                     serverMessageId: 143
                 }
@@ -117,3 +139,4 @@ async (conn, mek, m, { from, reply }) => {
         reply("❌ Ping2 failed");
     }
 });
+
