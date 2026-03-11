@@ -1,5 +1,4 @@
 
-
 const axios = require("axios");
 const config = require('../config');
 const { cmd } = require('../command');
@@ -37,7 +36,7 @@ async (conn, mek, m, {
         forwardingScore: 999,
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-          newsletterJid: '',
+          newsletterJid: '120363424512151830@newsletter',
           newsletterName: "Zᴀʜɪᴅ Kɪɴɢ",
           serverMessageId: 143,
         },
@@ -50,5 +49,6 @@ async (conn, mek, m, {
     reply("Failed to capture the screenshot. Please try again.");
   }
 });
+
 
 
