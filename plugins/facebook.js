@@ -15,13 +15,21 @@ if(!q) return reply("Example:\n.fb https://facebook.com/xxxxx")
 
 try {
 
-await reply("⏳ Downloading Facebook video...")
+await reply("⏳ Fetching Facebook video...")
 
-let res = await axios.get(`https://tikwm.com/api/fb?url=${encodeURIComponent(q)}`)
+let { data } = await axios.get("https://getmyfb.com/process",{
+method: "POST",
+headers: {
+"content-type":"application/x-www-form-urlencoded"
+},
+data: `id=${encodeURIComponent(q)}&locale=en`
+})
 
-let video = res.data.data.hd || res.data.data.sd
+let hd = data.match(/href="(.*?)" class="btn btn-download hd"/)
 
-if(!video) return reply("❌ Facebook video not found")
+if(!hd) return reply("❌ Video not found or private")
+
+let video = hd[1]
 
 await conn.sendMessage(from,{
 video:{ url: video },
@@ -30,10 +38,10 @@ caption:`📥 Facebook Video Downloaded
 > Powered By Zᴀʜɪᴅ Kɪɴɢ`
 },{quoted: mek})
 
-} catch(e) {
+}catch(e){
 
 console.log(e)
-reply("❌ Facebook download error")
+reply("❌ Facebook video failed, try another link")
 
 }
 
