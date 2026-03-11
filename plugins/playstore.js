@@ -26,7 +26,7 @@ async (conn, mek, m, { from, q, reply }) => {
 
         const app = data[0];
 
-        // 🎨 FAIZAN-MD STYLE (ONLY STYLE CHANGED)
+        // 🎨 ZAHID KING STYLE (ONLY STYLE CHANGED)
         const msg = `👑 *𝐙𝐀𝐇𝐈𝐃  𝐊𝐈𝐍𝐆  𝐀𝐏𝐏𝐒* 📱
 🛰️ ━━━━━━━━━━━━━━━━━━━━ 🛰️
 
