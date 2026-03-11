@@ -15,37 +15,41 @@ cmd({
 },
 async (conn, mek, m, { from, sender, pushname, reply }) => {
     try {
-        const dec = `╭━━━〔 *${config.BOT_NAME} Main Menu* 〕━━━╮
-┃ ✨ *Owner:* ${config.OWNER_NAME}
-┃ ⚙️ *Mode:* ${config.MODE}
-┃ 📡 *Platform:* Heroku
-┃ 🧠 *Type:* NodeJs (Multi Device)
-┃ ⌨️ *Prefix:* ${config.PREFIX}
-┃ 🧾 *Version:* 5.0.0 
-╰━━━━━━━━━━━━━━━━━━━━━━━━╯
+        const dec = `👑 ╭━━━〔 *${config.BOT_NAME}* 〕━━━╮ 👑
+┃ ┏━━━━━━━━━━━━━━━━━━━━┓ ┃
+┃ ┃  👤 *OWNER:* ${config.OWNER_NAME}
+┃ ┃  🛡️ *MODE:* ${config.MODE}
+┃ ┃  ⚙️ *PREFIX:* ${config.PREFIX}
+┃ ┃  📡 *HOST:* Heroku
+┃ ┃  💎 *VER:* 5.0.0
+┃ ┗━━━━━━━━━━━━━━━━━━━━┛ ┃
+╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯
 
-╭━━〔 *Menu* 〕━━┈⊷
-┃◈╭─────────────·๏
-┃◈┃• *admin-events*
-┃◈┃• *welcome*
-┃◈┃• *setprefix*
-┃◈┃• *mode*
-┃◈┃• *auto_typing*
-┃◈┃• *always_online*
-┃◈┃• *auto_reacording*
-┃◈┃• *status_view* 
-┃◈┃• *status_react*
-┃◈┃• *read_message*
-┃◈┃• *auto_sticker*
-┃◈┃• *anti_bad*
-┃◈┃• *auto_reply*
-┃◈┃• *auto_voice*
-┃◈┃• *custom_reacts*
-┃◈┃• *auto_react*
-┃◈┃• *anti_link* 
-┃◈┃• *status_reply*
-┃◈└───────────┈⊷
-╰──────────────┈⊷
+  🔥 ╔════〔 *KING MENU* ════╗ 🔥
+
+  ◈ ╭─────────〔 👑 〕──────────๏
+  ◈ ┃ » 🛠️ *ADMIN EVENTS*
+  ◈ ┃ » 👋 *WELCOME*
+  ◈ ┃ » ⌨️ *SETPREFIX*
+  ◈ ┃ » ⚙️ *MODE*
+  ◈ ├──────────────────────────๏
+  ◈ ┃ » ✍️ *AUTO_TYPING*
+  ◈ ┃ » 📡 *ALWAYS_ONLINE*
+  ◈ ┃ » 🎙️ *AUTO_RECORDING*
+  ◈ ┃ » 👁️ *STATUS_VIEW* ◈ ┃ » ❤️ *STATUS_REACT*
+  ◈ ┃ » ✅ *READ_MESSAGE*
+  ◈ ┃ » 🖼️ *AUTO_STICKER*
+  ◈ ├──────────────────────────๏
+  ◈ ┃ » 🚫 *ANTI_BAD*
+  ◈ ┃ » 💬 *AUTO_REPLY*
+  ◈ ┃ » 🎵 *AUTO_VOICE*
+  ◈ ┃ » 🎭 *CUSTOM_REACTS*
+  ◈ ┃ » ✨ *AUTO_REACT*
+  ◈ ┃ » 🔗 *ANTI_LINK* ◈ ┃ » 📝 *STATUS_REPLY*
+  ◈ ╰─────────〔 👑 〕──────────๏
+
+  ╚═══════〔 𝐙𝐀𝐇𝐈𝐃 𝐊𝐈𝐍𝐆 〕═══════╝
+
 > ${config.DESCRIPTION}
 `;
 
@@ -82,3 +86,4 @@ await conn.sendMessage(from, {
         reply(`❌ Error:\n${e}`);
     }
 });
+
