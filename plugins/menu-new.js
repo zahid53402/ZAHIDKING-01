@@ -1,14 +1,18 @@
-const fs = require('fs');
-const config = require('../config');
+const config = require('../config')
 const { cmd, commands } = require('../command');
-const { runtime } = require('../lib/functions');
-const axios = require('axios');
+const path = require('path'); 
+const os = require("os")
+const fs = require('fs');
+const {runtime} = require('../lib/functions')
+const axios = require('axios')
 
 cmd({
     pattern: "menu",
-    desc: "Show interactive menu system",
+    alias: ["zmenu","Z💞S"],
+    use: '.menu',
+    desc: "Show all bot commands",
     category: "menu",
-    react: "⚡",
+    react: "📜",
     filename: __filename
 }, 
 async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
