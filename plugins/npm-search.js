@@ -33,13 +33,27 @@ cmd({
 
     // Create the response message
     const message = `
-*Zᴀʜɪᴅ Kɪɴɢ NPM SEARCH*
-*🔰 NPM PACKAGE:* ${packageName}
-*📄 DESCRIPTION:* ${description}
-*⏸️ LAST VERSION:* ${latestVersion}
-*🪪 LICENSE:* ${license}
-*🪩 REPOSITORY:* ${repository}
-*🔗 NPM URL:* ${npmUrl}
+👑 ╔══════════  👑  ══════════╗ 👑
+         ✨ 𝐙𝐀𝐇𝐈𝐃  𝐊𝐈𝐍𝐆 ✨
+         📦  𝐍𝐏𝐌  𝐄𝐗𝐏𝐋𝐎𝐑𝐄𝐑  📦
+👑 ╚══════════  👑  ══════════╝ 👑
+
+🛠️ *𝐏𝐀𝐂𝐊𝐀𝐆𝐄  𝐃𝐄𝐓𝐀𝐈𝐋𝐒*
+┃ ◈ 🔰 *Name:* ${packageName}
+┃ ◈ 📄 *Info:* ${description}
+┃ ◈ ⏸️ *Version:* ${latestVersion}
+┃ ◈ 🪪 *License:* ${license}
+┗━━━━━━━━━━━━━━━━━━━━━━━
+
+🌐 *𝐑𝐄𝐒𝐎𝐔𝐑𝐂𝐄𝐒*
+┃ ◈ 🪩 *Repo:* ${repository}
+┃ ◈ 🔗 *Link:* ${npmUrl}
+┗━━━━━━━━━━━━━━━━━━━━━━━
+
+    🛡️ ━━━━━━━━━━━━━━━━━━━━━━ 🛡️
+      *👑 𝑷𝒐𝒘𝒆𝒓𝒆𝒅 𝑩𝒚 𝒁𝒂𝒉𝒊𝒅 𝑲𝒊𝒏𝒈 👑*
+    🛡️ ━━━━━━━━━━━━━━━━━━━━━━ 🛡️
+
 `;
 
     // Send the message
@@ -50,14 +64,38 @@ cmd({
 
     // Send detailed error logs to WhatsApp
     const errorMessage = `
-*❌ NPM Command Error Logs*
+👑 ╔══════════  👑  ══════════╗ 👑
+         ✨ 𝐙𝐀𝐇𝐈𝐃  𝐊𝐈𝐍𝐆 ✨
+         ⚠️  𝐒𝐘𝐒𝐓𝐄𝐌  𝐄𝐑𝐑𝐎𝐑  ⚠️
+👑 ╚══════════  👑  ══════════╝ 👑
 
-*Error Message:* ${error.message}
-*Stack Trace:* ${error.stack || "Not available"}
-*Timestamp:* ${new Date().toISOString()}
+🔥 ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
+   ┃ ⚔️ *CRITICAL FAILURE DETECTED*
+   ┃ 
+   ┃ ❌ *𝐄𝐫𝐫𝐨𝐫:* ${error.message}
+   ┃ 🕒 *𝐓𝐢𝐦𝐞:* ${new Date().toLocaleString()}
+   ┃ 🛡️ *𝐒𝐭𝐚𝐭𝐮𝐬:* Investigating...
+   ┃
+   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
+
+💻 *𝐒𝐓𝐀𝐂𝐊  𝐓𝐑𝐀𝐂𝐄*
+┏━━━━━━━━━━━━━━━━━━━━━━━
+┃ 📜 ${error.stack || "No trace found in the archives."}
+┗━━━━━━━━━━━━━━━━━━━━━━━
+
+💎 ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
+   ┃ ✨ *Sultanat Ki Tameer Jari Hai...*
+   ┃ 👑 King Is Fixing The Glitch!
+   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
+
+    🛡️ ━━━━━━━━━━━━━━━━━━━━━━ 🛡️
+      *👑 𝑷𝒐𝒘𝒆𝒓𝒆𝒅 𝑩𝒚 𝒁𝒂𝒉𝒊𝒅 𝑲𝒊𝒏𝒈 👑*
+    🛡️ ━━━━━━━━━━━━━━━━━━━━━━ 🛡️
+
 `;
 
     await conn.sendMessage(from, { text: errorMessage }, { quoted: mek });
     reply("An error occurred while fetching the npm package details.");
   }
 });
+
