@@ -17,12 +17,31 @@ try{
 
 await reply("⏳ Downloading Facebook video...")
 
-let api = `https://api.fgmods.xyz/api/downloader/fb?url=${encodeURIComponent(q)}&apikey=fgmods`
-let res = await axios.get(api)
+let video = null
 
-let video = res.data.result?.hd || res.data.result?.sd
+// API 1
+try{
+let res1 = await axios.get(`https://api.ryzendesu.vip/api/downloader/fb?url=${encodeURIComponent(q)}`)
+video = res1.data.result?.HD || res1.data.result?.SD
+}catch{}
 
-if(!video) return reply("❌ Facebook video not found")
+// API 2
+if(!video){
+try{
+let res2 = await axios.get(`https://api.fgmods.xyz/api/downloader/fb?url=${encodeURIComponent(q)}&apikey=fgmods`)
+video = res2.data.result?.hd || res2.data.result?.sd
+}catch{}
+}
+
+// API 3
+if(!video){
+try{
+let res3 = await axios.get(`https://api.dreaded.site/api/facebook?url=${encodeURIComponent(q)}`)
+video = res3.data.result?.download
+}catch{}
+}
+
+if(!video) return reply("❌ Facebook video not found or private")
 
 await conn.sendMessage(from,{
 video:{ url: video },
@@ -34,7 +53,7 @@ caption:`📥 Facebook Video Downloaded
 }catch(e){
 
 console.log(e)
-reply("❌ Facebook download error")
+reply("❌ Facebook downloader failed")
 
 }
 
