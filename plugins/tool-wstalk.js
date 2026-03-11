@@ -26,14 +26,26 @@ async (conn, mek, m, { from, reply, args }) => {
         const data = response.data.data;
 
         // Format the information
-        const channelInfo = `╭━━〔 *CHANNEL INFO* 〕━━┈⊷
-┃◈╭─────────────·๏
-┃◈┃• *📢 Title*: ${data.title}
-┃◈┃• *👥 Followers*: ${data.followers}
-┃◈┃• *📝 Description*: ${data.description.replace(/\n/g, '\n┃◈┃• ')}
-┃◈└───────────┈⊷
-╰──────────────┈⊷
-> 📌 ᴘᴏᴡᴇʀ ʙʏ ᴢᴀʜɪᴅ ᴋɪɴɢ`;
+        const channelInfo = `👑 ╔══════════  👑  ══════════╗ 👑
+         ✨ 𝐙𝐀𝐇𝐈𝐃  𝐊𝐈𝐍𝐆 ✨
+         📢  𝐂𝐇𝐀𝐍𝐍𝐄𝐋  𝐈𝐍𝐅𝐎  📢
+👑 ╚══════════  👑  ══════════╝ 👑
+
+📊 *𝐂𝐇𝐀𝐍𝐍𝐄𝐋  𝐒𝐓𝐀𝐓𝐒*
+┃ ◈ 📢 *𝐓𝐢𝐭𝐥𝐞:* ${data.title}
+┃ ◈ 👥 *𝐅𝐨𝐥𝐥𝐨𝐰𝐞𝐫𝐬:* ${data.followers}
+┗━━━━━━━━━━━━━━━━━━━━━━━
+
+📝 *𝐃𝐄𝐒𝐂𝐑𝐈𝐏𝐓𝐈𝐎𝐍*
+┏━━━━━━━━━━━━━━━━━━━━━━━
+┃ ${data.description.replace(/\n/g, '\n┃ ')}
+┗━━━━━━━━━━━━━━━━━━━━━━━
+
+    🛡️ ━━━━━━━━━━━━━━━━━━━━━━ 🛡️
+      *👑 𝑷𝒐𝒘𝒆𝒓𝒆𝒅 𝑩𝒚 𝒁𝒂𝒉𝒊𝒅 𝑲𝒊𝒏𝒈 👑*
+    🛡️ ━━━━━━━━━━━━━━━━━━━━━━ 🛡️
+
+`;
 
         // Send message with channel image
         await conn.sendMessage(from, {
