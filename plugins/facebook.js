@@ -1,120 +1,40 @@
-const axios = require("axios");
-const { cmd } = require("../command");
-
-// Stylish captions
-const fbTitles = [
-`╭ׂ┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭
-│ ╌─̇─̣⊰ Zᴀʜɪᴅ Kɪɴɢ ⊱┈─̇─̣╌
-│─̇─̣┄┄┄┄┄┄┄┄┄┄┄┄┄─̇─̣
-│❀ 📥 Facebook Video
-│❀ ✅ Download Successful
-│❀ ⚡ Quality: HD
-╰┄─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭
-
-> ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴢᴀʜɪᴅ ᴋɪɴɢ`,
-
-`╭ׂ┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭
-│ ╌─̇─̣⊰ Zᴀʜɪᴅ Kɪɴɢ ⊱┈─̇─̣╌
-│─̇─̣┄┄┄┄┄┄┄┄┄┄┄┄┄─̇─̣
-│❀ 🎬 Facebook Video Ready
-│❀ 🚀 Fast Download
-│❀ 📦 No Watermark
-╰┄─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭
-
-> ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴢᴀʜɪᴅ ᴋɪɴɢ`
-];
-
-let fbTitleIndex = 0;
+const { cmd } = require('../command')
+const axios = require('axios')
 
 cmd({
 pattern: "fb",
-alias: ["facebook","fbvideo"],
-react: "📥",
-desc: "Download Facebook videos",
+alias: ["facebook","fbdl"],
+desc: "Download Facebook Video",
 category: "download",
-use: ".fb <facebook url>",
 filename: __filename
 },
 
-async (conn, mek, m, { from, reply, args }) => {
+async (conn, mek, m, { from, q, reply }) => {
+
+if(!q) return reply("Example:\n.fb https://facebook.com/xxxxx")
 
 try {
 
-const fbUrl = args[0];
+await reply("⏳ Downloading Facebook video...")
 
-if (!fbUrl || !fbUrl.includes("facebook.com")) {
+let res = await axios.get(`https://tikwm.com/api/fb?url=${encodeURIComponent(q)}`)
 
-return reply(
-`╭ׂ┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭
-│ ╌─̇─̣⊰ Zᴀʜɪᴅ Kɪɴɢ ⊱┈─̇─̣╌
-│─̇─̣┄┄┄┄┄┄┄┄┄┄┄┄┄─̇─̣
-│❌ Invalid Facebook URL
-│✎ Example:
-│ .fb https://facebook.com/xxxx
-╰┄─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭`
-);
+let video = res.data.data.hd || res.data.data.sd
 
-}
-
-await conn.sendMessage(from,{ react:{ text:"⏳", key:m.key } });
+if(!video) return reply("❌ Facebook video not found")
 
 await conn.sendMessage(from,{
-text:
-`╭ׂ┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭
-│ ╌─̇─̣⊰ Zᴀʜɪᴅ Kɪɴɢ ⊱┈─̇─̣╌
-│─̇─̣┄┄┄┄┄┄┄┄┄┄┄┄┄─̇─̣
-│🔍 Processing Link
-│📥 Fetching Video
-╰┄─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭`
-},{ quoted: mek });
+video:{ url: video },
+caption:`📥 Facebook Video Downloaded
 
+> Powered By Zᴀʜɪᴅ Kɪɴɢ`
+},{quoted: mek})
 
-// NEW WORKING API
-const apiUrl = `https://api.ryzendesu.vip/api/downloader/fb?url=${encodeURIComponent(fbUrl)}`;
+} catch(e) {
 
-const { data } = await axios.get(apiUrl,{ timeout:30000 });
-
-if(!data || !data.result){
-
-return reply(
-`╭ׂ┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭
-│ ╌─̇─̣⊰ Zᴀʜɪᴅ Kɪɴɢ ⊱┈─̇─̣╌
-│─̇─̣┄┄┄┄┄┄┄┄┄┄┄┄┄─̇─̣
-│❌ Download Failed
-│⚠️ Video may be private
-╰┄─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭`
-);
+console.log(e)
+reply("❌ Facebook download error")
 
 }
 
-const videoUrl = data.result.HD || data.result.SD;
-
-const caption = fbTitles[fbTitleIndex];
-fbTitleIndex = (fbTitleIndex + 1) % fbTitles.length;
-
-await conn.sendMessage(from,{
-video:{ url: videoUrl },
-caption,
-mimetype:"video/mp4"
-},{ quoted: mek });
-
-await conn.sendMessage(from,{ react:{ text:"✅", key:m.key } });
-
-}
-
-catch(err){
-
-console.error("FB ERROR:",err);
-
-reply(
-`╭ׂ┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭
-│ ╌─̇─̣⊰ Zᴀʜɪᴅ Kɪɴɢ ⊱┈─̇─̣╌
-│─̇─̣┄┄┄┄┄┄┄┄┄┄┄┄┄─̇─̣
-│❌ Facebook Download Error
-│⏳ Try again later
-╰┄─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭`
-);
-
-}
-
-});
+})
