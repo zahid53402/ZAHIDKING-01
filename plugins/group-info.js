@@ -37,13 +37,35 @@ async (conn, mek, m, {
         const listAdmin = groupAdmins.map((v, i) => `${i + 1}. @${v.id.split('@')[0]}`).join('\n');
         const owner = metadata.owner || groupAdmins[0]?.id || "unknown";
 
-        const gdata = `*「 Group Information 」*\n
-*Group Name* : ${metadata.subject}
-*Group ID* : ${metadata.id}
-*Participants* : ${metadata.size}
-*Group Creator* : @${owner.split('@')[0]}
-*Description* : ${metadata.desc?.toString() || 'No description'}\n
-*Admins (${groupAdmins.length})*:\n${listAdmin}`
+        const gdata = `👑 ╔════════  🔱  ════════╗ 👑
+       ✨ 𝐑𝐎𝐘𝐀𝐋 𝐂𝐎𝐔𝐑𝐓 ✨
+👑 ╚════════  🔱  ════════╝ 👑
+
+🔥 ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
+   ┃ 🏰 *GROUP DOMINION*
+   ┃ 
+   ┃ 📜 *Name* : ${metadata.subject}
+   ┃ 🆔 *ID* : ${metadata.id}
+   ┃ 👥 *Squad* : ${metadata.size} Members
+   ┃ 👑 *Founder*: @${owner.split('@')[0]}
+   ┃
+   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
+
+💎 ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
+   ┃ 📜 *DESCRIPTION:*
+   ┃ ${metadata.desc?.toString() || 'No description found in the archives.'}
+   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
+
+🛡️ ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
+   ┃ ⚔️ *ELITE ADMINS (${groupAdmins.length})*
+   ┃ 
+   ┃ ${listAdmin}
+   ┃
+   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
+
+   🚩 ᴘᴏᴡᴇʀᴇᴅ ʙʏ: *𝐙𝐀𝐇𝐈𝐃 𝐊𝐈𝐍𝐆*
+   🛡️ ━━━━━━━━━━━━━━━━━━━━ 🛡️
+`
 
         await conn.sendMessage(from, {
             image: { url: ppUrl },
@@ -57,3 +79,4 @@ async (conn, mek, m, {
         reply(`❌ An error occurred:\n\n${e}`);
     }
 });
+
