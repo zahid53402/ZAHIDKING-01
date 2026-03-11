@@ -81,13 +81,5 @@ ANTI_VV: process.env.ANTI_VV || "true",
 // true for anti once view 
 AUTO_RECORDING: process.env.AUTO_RECORDING || "false",
 // make it true for auto recoding 
-GEMINI_API_KEY: process.env.GEMINI_API_KEY || "AIzaSyBLYOF8elDrc2_DeGJr118NWuXCyV0VB8Y",
-
-CHATBOT: process.env.CHATBOT || "",
-
-CHATBOT_ALL_GROUPS: process.env.CHATBOT_ALL_GROUPS || "false",
-
-CHATBOT_ALL_DMS: process.env.CHATBOT_ALL_DMS || "true",
-
-CHATBOT_SYSTEM_PROMPT: process.env.CHATBOT_SYSTEM_PROMPT || "You are Zahid King AI assistant. Reply friendly and helpful.",
+GEMINI_API_KEY: process.env.GEMINI_API_KEY || ""
 };
