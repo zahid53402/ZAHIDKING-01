@@ -75,7 +75,7 @@ cmd({
     await reply(
       `🔍 *Image Analysis Results*\n\n` +
       `${scanResponse.data.result}\n\n` +
-      `> ᗩᗪᗴᗴᒪ-᙭ᗰᗪ 💜`
+      `> Zᴀʜɪᴅ Kɪɴɢ 💜`
     );
 
   } catch (error) {
@@ -83,3 +83,4 @@ cmd({
     await reply(`❌ Error: ${error.message || error}`);
   }
 });
+
