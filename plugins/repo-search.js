@@ -25,21 +25,33 @@ cmd({
     });
 
     const msg = `
-*╭ׂ┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
-*│ ╌─̇─̣⊰ Zᴀʜɪᴅ Kɪɴɢ ⊱┈─̇─̣╌*
-*│─̇─̣┄┄┄┄┄┄┄┄┄┄┄┄┄─̇─̣*
-*│❀ 📁 𝐑𝐞𝐩𝐨:* ${data.name}
-*│❀ 👤 𝐎𝐰𝐧𝐞𝐫:* ${data.owner.login}
-*│❀ ⭐ 𝐒𝐭𝐚𝐫𝐬:* ${data.stargazers_count}
-*│❀ 🍴 𝐅𝐨𝐫𝐤𝐬:* ${data.forks_count}
-*│❀ 👀 𝐖𝐚𝐭𝐜𝐡𝐞𝐫𝐬:* ${data.watchers_count}
-*│❀ 📝 𝐃𝐞𝐬𝐜:* ${data.description || "No description available"}
-*│❀ 🌐 𝐋𝐢𝐧𝐤:* ${data.html_url}
-*│❀ 📅 𝐂𝐫𝐞𝐚𝐭𝐞𝐝:* ${new Date(data.created_at).toDateString()}
-*│❀ 🔄 𝐔𝐩𝐝𝐚𝐭𝐞𝐝:* ${new Date(data.updated_at).toDateString()}
-*╰┄─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
+👑 ╔══════════  👑  ══════════╗ 👑
+         ✨ 𝐙𝐀𝐇𝐈𝐃  𝐊𝐈𝐍𝐆 ✨
+         📂  𝐆𝐈𝐓𝐇𝐔𝐁  𝐑𝐄𝐏𝐎  📂
+👑 ╚══════════  👑  ══════════╝ 👑
 
-> 📌 ᴘᴏᴡᴇʀ ʙʏ ᴢᴀʜɪᴅ ᴋɪɴɢ*
+📦 *𝐑𝐄𝐏𝐎𝐒𝐈𝐓𝐎𝐑𝐘  𝐈𝐍𝐅𝐎*
+┃ ◈ 📁 *Name:* ${data.name}
+┃ ◈ 👤 *Owner:* ${data.owner.login}
+┃ ◈ 📝 *Desc:* ${data.description || "No description available"}
+┗━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 *𝐒𝐓𝐀𝐓𝐒  &  𝐀𝐂𝐓𝐈𝐕𝐈𝐓𝐘*
+┃ ◈ ⭐ *Stars:* ${data.stargazers_count}
+┃ ◈ 🍴 *Forks:* ${data.forks_count}
+┃ ◈ 👀 *Watchers:* ${data.watchers_count}
+┃ ◈ 📅 *Created:* ${new Date(data.created_at).toDateString()}
+┃ ◈ 🔄 *Updated:* ${new Date(data.updated_at).toDateString()}
+┗━━━━━━━━━━━━━━━━━━━━━━━
+
+🌐 *𝐒𝐎𝐔𝐑𝐂𝐄  𝐋𝐈𝐍𝐊*
+┃ ◈ 🔗 ${data.html_url}
+┗━━━━━━━━━━━━━━━━━━━━━━━
+
+    🛡️ ━━━━━━━━━━━━━━━━━━━━━━ 🛡️
+      *👑 𝑷𝒐𝒘𝒆𝒓𝒆𝒅 𝑩𝒚 𝒁𝒂𝒉𝒊𝒅 𝑲𝒊𝒏𝒈 👑*
+    🛡️ ━━━━━━━━━━━━━━━━━━━━━━ 🛡️
+
 `;
 
     await conn.sendMessage(from, { text: msg }, { quoted: m });
@@ -52,3 +64,4 @@ cmd({
     );
   }
 });
+
