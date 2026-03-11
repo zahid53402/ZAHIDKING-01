@@ -53,25 +53,36 @@ async (conn, mek, m, { from, reply }) => {
 
         // Generate a beautiful system info message
         const sysInfoMessage = `
-╭───「 🖥️ *SYSTEM INFORMATION* 🖥️ 」───
-│
-│ *🤖 Bot Name:* ${botInfo.name}
-│ *🔖 Version:* ${botInfo.version}
-│ *👑 Creator:* ${botInfo.creator} (${botInfo.contact})
-│
-│ *💻 Hostname:* ${os.hostname()}
-│ *🛠️ Platform:* ${os.platform()} (${os.arch()})
-│ *⏳ Uptime:* ${uptime}
-│
-│ *⚡ CPU:* ${os.cpus()[0].model}
-│ *📊 CPU Usage:* ${cpuUsage}%
-│ *🧠 RAM:* ${usedMem}GB / ${totalMem}GB (${Math.round((usedMem / totalMem) * 100)}% used)
-│ *💾 Disk:* ${diskSpace}
-│ *🌐 IP:* ${ipAddress}
-│
-╰─────────────────────
+👑 ╔══════════  👑  ══════════╗ 👑
+         ✨ 𝐙𝐀𝐇𝐈𝐃  𝐊𝐈𝐍𝐆 ✨
+         🖥️  𝐒𝐘𝐒𝐓𝐄𝐌  𝐂𝐎𝐍𝐓𝐑𝐎𝐋  🖥️
+👑 ╚══════════  👑  ══════════╝ 👑
 
-🔧 *Bot maintained by Zᴀʜɪᴅ Kɪɴɢ Tech*`;
+🤖 *𝐁𝐎𝐓  𝐈𝐃𝐄𝐍𝐓𝐈𝐓𝐘*
+┃ ◈ 🆔 *Name:* ${botInfo.name}
+┃ ◈ 🔖 *Version:* ${botInfo.version}
+┃ ◈ 👑 *Owner:* ${botInfo.creator}
+┗━━━━━━━━━━━━━━━━━━━━━━━
+
+⚙️ *𝐒𝐄𝐑𝐕𝐄𝐑  𝐄𝐍𝐆𝐈𝐍𝐄*
+┃ ◈ 💻 *Host:* ${os.hostname()}
+┃ ◈ 🛠️ *OS:* ${os.platform()} (${os.arch()})
+┃ ◈ ⏳ *Uptime:* ${uptime}
+┃ ◈ 🌐 *IP:* ${ipAddress}
+┗━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 *𝐑𝐄𝐒𝐎𝐔𝐑𝐂𝐄  𝐌𝐎𝐍𝐈𝐓𝐎𝐑*
+┃ ◈ ⚡ *CPU:* ${os.cpus()[0].model}
+┃ ◈ 📈 *Usage:* ${cpuUsage}%
+┃ ◈ 🧠 *RAM:* ${usedMem}GB / ${totalMem}GB
+┃ ◈ 💾 *Disk:* ${diskSpace}
+┗━━━━━━━━━━━━━━━━━━━━━━━
+
+    🛡️ ━━━━━━━━━━━━━━━━━━━━━━ 🛡️
+      *👑 𝑷𝒐𝒘𝒆𝒓𝒆𝒅 𝑩𝒚 𝒁𝒂𝒉𝒊𝒅 𝑲𝒊𝒏𝒈 👑*
+    🛡️ ━━━━━━━━━━━━━━━━━━━━━━ 🛡️
+
+`;
 
         await reply(sysInfoMessage);
 
@@ -118,3 +129,4 @@ async function getDiskSpace() {
         });
     });
 }
+
