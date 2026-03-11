@@ -30,21 +30,35 @@ cmd({
         const repoData = await response.json();
 
         const caption = `
-*╭ׂ┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
-*│ ╌─̇─̣⊰ Zᴀʜɪᴅ Kɪɴɢ ⊱┈─̇─̣╌*
-*│─̇─̣┄┄┄┄┄┄┄┄┄┄┄┄┄─̇─̣*
-*│❀ 🤖 𝐁𝐨𝐭 𝐍𝐚𝐦𝐞:* ${repoData.name}
-*│❀ 👑 𝐎𝐰𝐧𝐞𝐫:* ${repoData.owner.login}
-*│❀ ⭐ 𝐒𝐭𝐚𝐫𝐬:* ${repoData.stargazers_count}
-*│❀ 🍴 𝐅𝐨𝐫𝐤𝐬:* ${repoData.forks_count}
-*│❀ 📝 𝐃𝐞𝐬𝐜:* ${repoData.description || "No description"}
-*│❀ 🔗 𝐆𝐢𝐭𝐇𝐮𝐛:*
-*│   ${repoData.html_url}*
-*╰┄─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
+👑 ╔══════════  👑  ══════════╗ 👑
+       ✨ 𝐑𝐎𝐘𝐀𝐋  𝐀𝐑𝐂𝐇𝐈𝐕𝐄𝐒 ✨
+👑 ╚══════════  👑  ══════════╝ 👑
 
-⭐ *Star & Fork Repo*
+🔥 ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
+   ┃ 🏰 *KING'S SOURCE CODE*
+   ┃ 
+   ┃ 🤖 *𝐁𝐨𝐭 𝐍𝐚𝐦𝐞:* ${repoData.name}
+   ┃ 👑 *𝐎𝐰𝐧𝐞𝐫:* ${repoData.owner.login}
+   ┃ ⭐ *𝐒𝐭𝐚𝐫𝐬:* ${repoData.stargazers_count}
+   ┃ 🍴 *𝐅𝐨𝐫𝐤𝐬:* ${repoData.forks_count}
+   ┃
+   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
 
-> 📌 ᴘᴏᴡᴇʀ ʙʏ ᴢᴀʜɪᴅ ᴋɪɴɢ
+💎 ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
+   ┃ 📜 *DESCRIPTION:*
+   ┃ ${repoData.description || "No description found in the royal library."}
+   ┃
+   ┃ 🔗 *𝐆𝐢𝐭𝐇𝐮𝐛 𝐋𝐢𝐧𝐤:*
+   ┃ ${repoData.html_url}
+   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
+
+🛡️ ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
+   ┃ ✨ *𝐒𝐭𝐚𝐫 & 𝐅𝐨𝐫𝐤 𝐓𝐡𝐞 𝐄𝐦𝐩𝐢𝐫𝐞* ┃ Support The King's Creation!
+   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
+
+   🚩 ᴘᴏᴡᴇʀᴇᴅ ʙʏ: *𝐙𝐀𝐇𝐈𝐃 𝐊𝐈𝐍𝐆*
+   🛡️ ━━━━━━━━━━━━━━━━━━━━ 🛡️
+
 `;
 
         await conn.sendMessage(from, {
@@ -55,7 +69,7 @@ cmd({
                 forwardingScore: 999,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '',
+                    newsletterJid: '120363424512151830@newsletter',
                     newsletterName: 'Zᴀʜɪᴅ Kɪɴɢ',
                     serverMessageId: 143
                 }
@@ -75,12 +89,28 @@ cmd({
     } catch (err) {
         console.error("REPO ERROR:", err);
         reply(`
-*╭ׂ┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
-*│ ╌─̇─̣⊰ Zᴀʜɪᴅ Kɪɴɢ ⊱┈─̇─̣╌*
-*│─̇─̣┄┄┄┄┄┄┄┄┄┄┄┄┄─̇─̣*
-*│❌ 𝐑𝐞𝐩𝐨 𝐅𝐞𝐭𝐜𝐡 𝐅𝐚𝐢𝐥𝐞𝐝*
-*│⏳ Try again later*
-*╰┄─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
+👑 ╔══════════  👑  ══════════╗ 👑
+       🌑  𝐀𝐑𝐂𝐇𝐈𝐕𝐄 𝐋𝐎𝐂𝐊𝐄𝐃  🌑
+👑 ╚══════════  👑  ══════════╝ 👑
+
+🔥 ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
+   ┃ ⚔️ *KING'S DATA BARRIER*
+   ┃ 
+   ┃ ❌ *𝐄𝐫𝐫𝐨𝐫:* Repo Fetch Failed
+   ┃ 🛡️ *𝐒𝐭𝐚𝐭𝐮𝐬:* Connection Denied
+   ┃ ⏳ *𝐀𝐜𝐭𝐢𝐨𝐧:* Try Again Later
+   ┃
+   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
+
+💎 ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
+   ┃ ✨ *Sultanat-e-Zahid News...*
+   ┃ 👑 King Is Investigating The Issue!
+   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
+
+   🚩 ᴘᴏᴡᴇʀᴇᴅ ʙʏ: *𝐙𝐀𝐇𝐈𝐃 𝐊𝐈𝐍𝐆*
+   🛡️ ━━━━━━━━━━━━━━━━━━━━ 🛡️
+
 `);
     }
 });
+
