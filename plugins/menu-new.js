@@ -1,10 +1,8 @@
-const config = require('../config')
-const { cmd, commands } = require('../command');
-const path = require('path'); 
-const os = require("os")
 const fs = require('fs');
-const {runtime} = require('../lib/functions')
-const axios = require('axios')
+const config = require('../config');
+const { cmd, commands } = require('../command');
+const { runtime } = require('../lib/functions');
+const axios = require('axios');
 
 cmd({
     pattern: "menu",
@@ -12,10 +10,13 @@ cmd({
     category: "menu",
     react: "⚡",
     filename: __filename
-}, 
-async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
+}, async (conn, mek, m, { from, reply }) => {
     try {
-        let dec = `✧─⋆✦❂✦⋆─✧
+        // Count total commands
+        const totalCommands = Object.keys(commands).length;
+        
+        // Your existing menu caption
+        const menuCaption = `✧─⋆✦❂✦⋆─✧
 ┊ ✵ ✫ ˚㋛ ⋆｡  ┊ ☠︎︎ ✧
 ┊ ✧ ✵ ┊ ✵ ✧
 ┊ ✦ 
@@ -457,21 +458,19 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
 ◇◆◇◆◇◆◇◆◇◆◇
 > *© ᴘᴏᴡᴇʀᴇᴅ ʙʏ 彡★🆉🅰︎🅷🅸🅳 🅺🅸🅽🅶★彡 🤍*
 > © ᴘᴏᴡᴇʀᴇᴅ ʙʏ *𝙕𝘼𝙃𝙄𝘿 𝙆𝙄𝙉𝙂* ❣️
-> *©ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴢᴀʜɪᴅ ᴋɪɴɢ*
-
 > ${config.DESCRIPTION}`;
 
         await conn.sendMessage(
             from,
             {
-                image: { url: config.MENU_IMAGE_URL || 'https://i.ibb.co/TxSCwf8B/temp.jpg' },
+                image: { url: config.MENU_IMAGE_URL || 'https://files.catbox.moe/s3cve5.jpg' },
                 caption: dec,
                 contextInfo: {
                     mentionedJid: [m.sender],
                     forwardingScore: 999,
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363424512151830@newsletter',
+                        newsletterJid: '120363424043617436@newsletter',
                         newsletterName: config.BOT_NAME,
                         serverMessageId: 143
                     }
@@ -488,7 +487,14 @@ await conn.sendMessage(from, {
     ptt: false,
 }, { quoted: mek });
         
-}
+    } catch (e) {
+                console.log('Image send failed, falling back to text');
+                return await conn.sendMessage(
+                    from,
+                    { text: menuCaption, contextInfo: contextInfo },
+                    { quoted: mek }
+                );
+            }
         };
 
         // Send image with timeout
@@ -820,7 +826,7 @@ await conn.sendMessage(from, {
                                 await conn.sendMessage(
                                     senderID,
                                     {
-                                        image: { url: config.MENU_IMAGE_URL || 'https://i.ibb.co/TxSCwf8B/temp.jpg' },
+                                        image: { url: config.MENU_IMAGE_URL || 'https://files.catbox.moe/s3cve5.jpg' },
                                         caption: selectedMenu.content,
                                         contextInfo: contextInfo
                                     },
