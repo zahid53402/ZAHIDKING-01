@@ -13,23 +13,16 @@ async (conn, mek, m, { from, q, reply }) => {
 
 if(!q) return reply("Example:\n.fb https://facebook.com/xxxxx")
 
-try {
+try{
 
-await reply("⏳ Fetching Facebook video...")
+await reply("⏳ Downloading Facebook video...")
 
-let { data } = await axios.get("https://getmyfb.com/process",{
-method: "POST",
-headers: {
-"content-type":"application/x-www-form-urlencoded"
-},
-data: `id=${encodeURIComponent(q)}&locale=en`
-})
+let api = `https://api.fgmods.xyz/api/downloader/fb?url=${encodeURIComponent(q)}&apikey=fgmods`
+let res = await axios.get(api)
 
-let hd = data.match(/href="(.*?)" class="btn btn-download hd"/)
+let video = res.data.result?.hd || res.data.result?.sd
 
-if(!hd) return reply("❌ Video not found or private")
-
-let video = hd[1]
+if(!video) return reply("❌ Facebook video not found")
 
 await conn.sendMessage(from,{
 video:{ url: video },
@@ -41,7 +34,7 @@ caption:`📥 Facebook Video Downloaded
 }catch(e){
 
 console.log(e)
-reply("❌ Facebook video failed, try another link")
+reply("❌ Facebook download error")
 
 }
 
