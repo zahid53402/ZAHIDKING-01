@@ -20,7 +20,7 @@ cmd({
 
         const caption = `
 *╭ׂ┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣┄─̇─̣─̇─̣─᛭*
-*│ ╌─̇─̣⊰ Zᴀʜɪᴅ Kɪɴɢ ⊱┈─̇─̣╌*
+*│ ╌─̇─̣⊰ Zᴀʜɪᴅ Kɪɴɢ 
 *│─̇─̣┄┄┄┄┄┄┄┄┄┄┄┄┄─̇─̣*
 *│❀ 👑 𝐂𝐫𝐞𝐚𝐭𝐨𝐫:* ${ownerInfo.name}
 *│❀ 📞 𝐍𝐮𝐦𝐛𝐞𝐫:* ${ownerInfo.number}
@@ -41,7 +41,7 @@ cmd({
                 forwardingScore: 999,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '',
+                    newsletterJid: '120363424512151830@newsletter',
                     newsletterName: 'Zᴀʜɪᴅ Kɪɴɢ',
                     serverMessageId: 143
                 }
