@@ -11,287 +11,79 @@ cmd({
 }, 
 async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
     try {
-        let dec = `╭━❮ *DOWNLOAD CMD* ❯━┈⊷
-┃▸
-┃▸👑 COMMAND: .play
-┃▸❕ Download Audio from yt
-┃▸ 
-┃▸👑 COMMAND: .song
-┃▸❕ Download song from yt
-┃▸ 
-┃▸👑 COMMAND: .apk
-┃▸❕ Download apk from playstore
-┃▸ 
-┃▸👑 COMMAND: .video
-┃▸❕ Download video from yt
-┃▸ 
-┃▸👑 COMMAND: .fb
-┃▸❕ Download  video from fb
-┃▸ 
-┃▸👑 COMMAND: .tk
-┃▸❕ Download video from tiktok
-┃▸ 
-┃▸👑 COMMAND: .ig
-┃▸❕ Download video from ig
-┃▸ 
-┃▸👑 COMMAND: .gdrive
-┃▸❕ Download drive files
-┃▸ 
-┃▸👑 COMMAND: .twitter
-┃▸❕ Download video from Twitter
-┃▸
-┃▸👑 COMMAND: .img
-┃▸❕ Download image
-┃▸
-┃▸👑 COMMAND: .darama
-┃▸❕ Download full episode video
-┃▸
-┃▸👑 COMMAND: .play2
-┃▸❕ Download Audio from yt
-┃▸ 
-┃▸👑 COMMAND: .video2
-┃▸❕ Download video from yt
-┃▸ 
-┃▸👑 COMMAND: .baiscope
-┃▸❕ Download video from baiscope
-┃▸ 
-┃▸👑 COMMAND: .mfire
-┃▸❕ Download mediafire files
-╰━━━━━━━━━━━━⪼ 
+        let dec = `👑 ╔══════════  🔱  ══════════╗ 👑
+        ✨ 𝐙𝐀𝐇𝐈𝐃 𝐊𝐈𝐍𝐆 𝐄𝐌𝐏𝐈𝐑𝐄 ✨
+👑 ╚══════════  🔱  ══════════╝ 👑
 
-╭━❮ *ANMIE CMD* ❯━┈⊷
-┃▸
-┃▸👑 COMMAND: .yts
-┃▸❕ Serch videos from yt
-┃▸
-┃▸👑 COMMAND: .king
-┃▸❕ get king about 
-┃▸
-┃▸👑 COMMAND: .dog
-┃▸❕ get random dog imgs
-┃▸
-┃▸👑 COMMAND: .anime 
-┃▸❕ get anime pics
-┃▸
-┃▸👑 COMMAND: .animegirl 
-┃▸❕ get animegirl pics
-┃▸
-┃▸👑 COMMAND: .loli
-┃▸❕ get romantic anime pics
-╰━━━━━━━━━━━━⪼  
+📥 ╔════〔 𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃 𝐂𝐌𝐃 〕════╗
+┃▸ 👑 .play  ┃ ❕ YT Audio
+┃▸ 👑 .song  ┃ ❕ YT Song
+┃▸ 👑 .apk   ┃ ❕ PlayStore
+┃▸ 👑 .video ┃ ❕ YT Video
+┃▸ 👑 .fb    ┃ ❕ Facebook
+┃▸ 👑 .tk    ┃ ❕ TikTok
+┃▸ 👑 .ig    ┃ ❕ Instagram
+┃▸ 👑 .gdrive┃ ❕ G-Drive
+┃▸ 👑 .img   ┃ ❕ Images
+┃▸ 👑 .darama┃ ❕ Full Ep
+┃▸ 👑 .mfire ┃ ❕ MediaFire
+╚════════════════════════════╝
 
-╭━❮‍ *INFO CMD* ❯━┈⊷
-┃▸
-┃▸👑 COMMAND: .alive
-┃▸❕ Check online or not
-┃▸  
-┃▸👑 COMMAND: .ping
-┃▸❕ Check bot speed
-┃▸  
-┃▸👑 COMMAND: .menu
-┃▸❕ Nero main menu
-┃▸
-┃▸👑 COMMAND: .menu2
-┃▸❕ Nero main menu2
-┃▸ 
-┃▸👑 COMMAND: .ai
-┃▸❕ chat with ai bot
-┃▸
-┃▸👑 COMMAND: .system
-┃▸❕ check bot systems
-┃▸
-┃▸👑 COMMAND: .owner
-┃▸❕ get owner info
-┃▸ 
-┃▸👑 COMMAND: .status
-┃▸❕ check bot runtime
-┃▸
-┃▸👑 COMMAND: .about 
-┃▸❕ get about bot 
-┃▸
-┃▸👑 COMMAND: .list 
-┃▸❕ get bot command list
-┃▸
-┃▸👑 COMMAND: .script 
-┃▸❕ get bot repository 
-╰━━━━━━━━━━━━⪼
+🎭 ╔════〔 𝐀𝐍𝐈𝐌𝐄 𝐂𝐌𝐃 〕════╗
+┃▸ 👑 .yts      ┃ ❕ YT Search
+┃▸ 👑 .king     ┃ ❕ King Bio
+┃▸ 👑 .dog      ┃ ❕ Dog Pics
+┃▸ 👑 .anime    ┃ ❕ Anime Pics
+┃▸ 👑 .animegirl┃ ❕ Girl Pics
+╚═══════════════════════════╝
 
-╭━❮ *OTHER CMD* ❯━┈⊷
-┃▸
-┃▸👑 COMMAND: .joke 
-┃▸❕ Get Rendom joke 
-┃▸ 
-┃▸👑 COMMAND: .fact
-┃▸❕ Get Rendom fact
-┃▸
-┃▸👑 COMMAND: .githubstalk 
-┃▸❕ Get github data any user
-┃▸ 
-┃▸👑 COMMAND: .gpass
-┃▸❕ Get a strong password 
-┃▸
-┃▸👑 COMMAND: .hack
-┃▸❕ prank with friends 
-┃▸
-┃▸👑 COMMAND: .srepo 
-┃▸❕ serch repository 
-┃▸
-┃▸👑 COMMAND: .define 
-┃▸❕ serch any words
-╰━━━━━━━━━━━━⪼
+ℹ️ ╔════〔 𝐈𝐍𝐅𝐎 𝐂𝐌𝐃 〕════╗
+┃▸ 👑 .alive  ┃ ❕ Status
+┃▸ 👑 .ping   ┃ ❕ Speed
+┃▸ 👑 .menu   ┃ ❕ Main Menu
+┃▸ 👑 .ai     ┃ ❕ AI Bot
+┃▸ 👑 .system ┃ ❕ Sys Check
+┃▸ 👑 .owner  ┃ ❕ Owner Info
+┃▸ 👑 .status ┃ ❕ Runtime
+┃▸ 👑 .script ┃ ❕ Repo Link
+╚══════════════════════════╝
 
-╭━❮ *GROUP CMD* ❯━┈⊷
-┃▸
-┃▸👑 COMMAND: .mute
-┃▸❕ Mute group
-┃▸
-┃▸👑 COMMAND: .unmute
-┃▸❕ Unmute group
-┃▸
-┃▸👑 COMMAND: .left
-┃▸❕ left group
-┃▸
-┃▸👑 COMMAND: .jid
-┃▸❕ group jid
-┃▸
-┃▸👑 COMMAND: .remove
-┃▸❕ remove member from group
-┃▸
-┃▸👑 COMMAND: .delete 
-┃▸❕ remove sms from group 
-┃▸
-┃▸👑 COMMAND: .add
-┃▸❕ add members in group 
-┃▸
-┃▸👑 COMMAND: .kick
-┃▸❕ kick any user 
-┃▸
-┃▸👑 COMMAND: .kickall
-┃▸❕ remove all members from group
-┃▸
-┃▸👑 COMMAND: .setgoodbye
-┃▸❕ set member leave sms
-┃▸
-┃▸👑 COMMAND: .setwelcome 
-┃▸❕ set member welcome sms
-┃▸
-┃▸👑 COMMAND: promote 
-┃▸❕ make group admin
-┃▸
-┃▸👑 COMMAND: .demote 
-┃▸❕ dissmis any admin 
-┃▸
-┃▸👑 COMMAND: .tagall
-┃▸❕ mention group all members
-┃▸
-┃▸👑 COMMAND: .getpic
-┃▸❕ get group profile
-┃▸
-┃▸👑 COMMAND: .invite 
-┃▸❕ get group invite link
-┃▸
-┃▸👑 COMMAND: .revoke 
-┃▸❕ reset group link
-┃▸
-┃▸👑 COMMAND: .joinrequests
-┃▸❕ cheack group panding members
-┃▸
-┃▸👑 COMMAND: .allreq
-┃▸❕ add group panding members 
-┃▸
-┃▸👑 COMMAND: .lockgc
-┃▸❕ lock group private
-┃▸
-┃▸👑 COMMAND: .unlockgc
-┃▸❕ unlock group all
-┃▸
-┃▸👑 COMMAND: .leave 
-┃▸❕ left any group 
-┃▸
-┃▸👑 COMMAND: .updategname
-┃▸❕ set group name
-┃▸
-┃▸👑 COMMAND: .updategdesc
-┃▸❕ set group description 
-┃▸
-┃▸👑 COMMAND: .joim
-┃▸❕ join invite link 
-┃▸
-┃▸👑 COMMAND: .hidetag
-┃▸❕ mention any user hide
-┃▸
-┃▸👑 COMMAND: .ginfo
-┃▸❕ get group information 
-┃▸
-┃▸👑 COMMAND: .disappear on
-┃▸❕ on disappear sms in group 
-┃▸
-┃▸👑 COMMAND: .disappear off
-┃▸❕ off disappear sms in group 
-┃▸
-┃▸👑 COMMAND: .senddm
-┃▸❕ send disappear sms in group 
-┃▸
-┃▸👑 COMMAND: .disappear 7d 24h 90d
-┃▸❕ set time to disappear sms
-╰━━━━━━━━━━━━⪼
+🧩 ╔════〔 𝐎𝐓𝐇𝐄𝐑 𝐂𝐌𝐃 〕════╗
+┃▸ 👑 .joke    ┃ ❕ Random Joke
+┃▸ 👑 .fact    ┃ ❕ Random Fact
+┃▸ 👑 .gpass   ┃ ❕ Strong Pass
+┃▸ 👑 .hack    ┃ ❕ Prank Tool
+┃▸ 👑 .define  ┃ ❕ Dictionary
+╚══════════════════════════╝
 
-╭━❮ *OWNER CMD* ❯━┈⊷
-┃▸
-┃▸👑 COMMAND: .update
-┃▸❕ update bot velue 
-┃▸
-┃▸👑 COMMAND: .restart 
-┃▸❕ restart your bot
-┃▸
-┃▸👑 COMMAND: .settings
-┃▸❕ see bot settings
-┃▸
-┃▸👑 COMMAND: .owner 
-┃▸❕ get owner number 
-┃▸
-┃▸👑 COMMAND: .repo 
-┃▸❕ get bot repository 
-┃▸
-┃▸👑 COMMAND: .system 
-┃▸❕ check bot systems
-┃▸
-┃▸👑 COMMAND: .block
-┃▸❕ block any user 
-┃▸
-┃▸👑 COMMAND: .unblock 
-┃▸❕ unblock any user 
-┃▸
-┃▸👑 COMMAND: .shutdown 
-┃▸❕ logout your bot
-┃▸
-┃▸👑 COMMAND: .clearchats 
-┃▸❕ clearchats from ib
-┃▸
-┃▸👑 COMMAND: .setpp
-┃▸❕ update profile pic
-┃▸
-┃▸👑 COMMAND: .broadcast 
-┃▸❕ creat broadcast 
-┃▸
-┃▸👑 COMMAND: .jid
-┃▸❕ get jid any user
-┃▸
-┃▸👑 COMMAND: .gjid 
-┃▸❕ get group jid
-╰━━━━━━━━━━━━⪼
+🛡️ ╔════〔 𝐆𝐑𝐎𝐔𝐏 𝐂𝐌𝐃 〕════╗
+┃▸ 👑 .mute    ┃ 👑 .unmute
+┃▸ 👑 .kick    ┃ 👑 .add
+┃▸ 👑 .promote ┃ 👑 .demote
+┃▸ 👑 .tagall  ┃ 👑 .hidetag
+┃▸ 👑 .lockgc  ┃ 👑 .unlockgc
+┃▸ 👑 .invite  ┃ 👑 .revoke
+┃▸ 👑 .ginfo   ┃ 👑 .jid
+╚══════════════════════════╝
 
-╭━❮ *CONVERT CMD* ❯━┈⊷
-┃▸
-┃▸👑 COMMAND: .sticker
-┃▸❕ convert photo to sticker
-┃▸
-┃▸👑 COMMAND: .tts
-┃▸❕ change text to voice 
-┃▸
-┃▸👑 COMMAND: .trt 
-┃▸❕ change languages 
-╰━━━━━━━━━━━━⪼
+👑 ╔════〔 𝐎𝐖𝐍𝐄𝐑 𝐂𝐌𝐃 〕════╗
+┃▸ 👑 .update   ┃ ❕ Bot Update
+┃▸ 👑 .restart  ┃ ❕ Bot Reboot
+┃▸ 👑 .settings ┃ ❕ Config
+┃▸ 👑 .block    ┃ ❕ Block User
+┃▸ 👑 .setpp    ┃ ❕ Update DP
+┃▸ 👑 .shutdown ┃ ❕ Logout
+╚══════════════════════════╝
+
+✨ ╔════〔 𝐂𝐎𝐍𝐕𝐄𝐑𝐓 𝐂𝐌𝐃 〕════╗
+┃▸ 👑 .sticker ┃ ❕ Photo > Sticker
+┃▸ 👑 .tts     ┃ ❕ Text > Voice
+┃▸ 👑 .trt     ┃ ❕ Translator
+╚═══════════════════════════╝
+
+    🚩 ᴘᴏᴡᴇʀᴇᴅ ʙʏ: *𝐙𝐀𝐇𝐈𝐃 𝐊𝐈𝐍𝐆*
+    🛡️ ━━━━━━━━━━━━━━━━━━━━━━ 🛡️
+
 > ${config.DESCRIPTION}`;
 
         await conn.sendMessage(
@@ -304,7 +96,7 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
                     forwardingScore: 999,
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '',
+                        newsletterJid: '120363424512151830@newsletter',
                         newsletterName: 'Zᴀʜɪᴅ Kɪɴɢ',
                         serverMessageId: 143
                     }
@@ -325,3 +117,4 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
         reply(`${e}`);
     }
 });
+
