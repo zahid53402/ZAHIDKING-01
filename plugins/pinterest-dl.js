@@ -32,16 +32,29 @@ cmd({
         const videoUrl = media.find(item => item.type.includes('720p'))?.download_url || media[0].download_url;
 
         // Prepare the new message with the updated caption
-        const desc = `╭━━━〔 *Zᴀʜɪᴅ Kɪɴɢ* 〕━━━┈⊷
-┃▸╭───────────
-┃▸┃๏ *PINS DOWNLOADER*
-┃▸└───────────···๏
-╰────────────────┈⊷
-╭━━❐━⪼
-┇๏ *Title* - ${title}
-┇๏ *Media Type* - ${media[0].type}
+        const desc = `👑 ╔══════════  👑  ══════════╗ 👑
+         ✨ 𝐙𝐀𝐇𝐈𝐃  𝐊𝐈𝐍𝐆 ✨
+         🖼️  𝐏𝐈𝐍𝐒  𝐀𝐑𝐂𝐇𝐈𝐕𝐄  🖼️
+👑 ╚══════════  👑  ══════════╝ 👑
+
+╭━━❐━⪼ *𝐃𝐀𝐓𝐀  𝐅𝐄𝐓𝐂𝐇𝐄𝐃*
+┇ 
+┇ 📌 *𝐓𝐢𝐭𝐥𝐞:* ${title}
+┇ 📂 *𝐌𝐞𝐝𝐢𝐚:* ${media[0].type}
+┇ 🛡️ *𝐒𝐨𝐮𝐫𝐜𝐞:* Pinterest
+┇ 
 ╰━━❑━⪼
-> *Zᴀʜɪᴅ Kɪɴɢ*`;
+
+💎 ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
+   ┃ ✨ *Treasures From The Web...*
+   ┃ 👑 King's Collection Is Growing!
+   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
+
+    🛡️ ━━━━━━━━━━━━━━━━━━━━━━ 🛡️
+      *👑 𝑷𝒐𝒘𝒆𝒓𝒆𝒅 𝑩𝒚 𝒁𝒂𝒉𝒊𝒅 𝑲𝒊𝒏𝒈 👑*
+    🛡️ ━━━━━━━━━━━━━━━━━━━━━━ 🛡️
+
+`;
 
         // Send the media (video or image) to the user
         if (videoUrl) {
@@ -59,3 +72,4 @@ cmd({
         reply('❎ An error occurred while processing your request.');
     }
 });
+
