@@ -1,34 +1,35 @@
 const axios = require("axios")
 
 module.exports = {
-name: "gemini",
+pattern: "gemini",
 alias: ["ai"],
-desc: "Gemini AI Chat",
+desc: "Ask Gemini AI",
 category: "ai",
-use: ".gemini your question",
+react: "🤖",
 
-async run(conn, m, args) {
+async function(conn, m, { q, reply }) {
 
 try {
 
-let text = args.join(" ")
-if(!text) return conn.sendMessage(m.chat,{text:"❌ Please ask something\nExample: .gemini Hello"}, {quoted:m})
+if (!q) return reply("❌ Example:\n.gemini Hello")
 
-await conn.sendMessage(m.chat,{react:{text:"🤖", key:m.key}})
+let res = await axios.get(`https://api.ryzendesu.vip/api/ai/gemini?text=${encodeURIComponent(q)}`)
 
-let res = await axios.get(`https://api.ryzendesu.vip/api/ai/gemini?text=${encodeURIComponent(text)}`)
+let data = res.data
 
-let reply = res.data.answer || "No response"
+if (!data || !data.answer) {
+return reply("❌ AI no response")
+}
 
-await conn.sendMessage(m.chat,{text: reply},{quoted:m})
+reply(data.answer)
 
-} catch(e) {
+} catch (e) {
 
 console.log(e)
+reply("❌ Gemini AI Error")
 
-conn.sendMessage(m.chat,{text:"❌ Gemini AI Error"},{quoted:m})
+}
 
 }
 
-}
 }
