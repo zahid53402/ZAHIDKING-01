@@ -17,8 +17,9 @@ cmd({
 }, 
 async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
     try {
-        let dec = `👑 ╔══════════  👑  ══════════╗ 👑
-         ✨ 𝐙𝐀𝐇𝐈𝐃 𝐊𝐈𝐍𝐆 ✨
+        let dec = `
+👑 ╔══════════  👑  ══════════╗ 👑
+          ✨ 𝐙𝐀𝐇𝐈𝐃 𝐊𝐈𝐍𝐆 ✨
          🛡️ 𝐓𝐇𝐄 𝐔𝐋𝐓𝐈𝐌𝐀𝐓𝐄 🛡️
 👑 ╚══════════  👑  ══════════╝ 👑
 
@@ -124,39 +125,6 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
 ┃ ◈ 😬 cringe
 ┗━━━━━━━━━━━━━━━━━━━━━━━
 
-🎨 *𝐋𝐎𝐆𝐎 𝐌𝐀𝐊𝐄𝐑*
-┃ ◈ 💡 neonlight
-┃ ◈ 🎀 blackpink
-┃ ◈  dragonsball
-┃ ◈ 🎭 3dcomic
-┃ ◈ 🇺🇸 america
-┃ ◈ 🍥 naruto
-┃ ◈ 😢 sadgirl
-┃ ◈ ☁️ clouds
-┃ ◈ 🚀 futuristic
-┃ ◈ 📜 3dpaper
-┃ ◈ ✏️ eraser
-┃ ◈ 🌇 sunset
-┃ ◈ 🍃 leaf
-┃ ◈ 🌌 galaxy
-┃ ◈ 💀 sans
-┃ ◈ 💥 boom
-┃ ◈ 💻 hacker
-┃ ◈ 😈 devilwings
-┃ ◈ 🇳🇬 nigeria
-┃ ◈ 💡 bulb
-┃ ◈ 👼 angelwings
-┃ ◈ ♈ zodiac
-┃ ◈ 💎 luxury
-┃ ◈ 🎨 paint
-┃ ◈ ❄️ frozen
-┃ ◈ 🏰 castle
-┃ ◈ 🖋️ tatoo
-┃ ◈ 🔫 valorant
-┃ ◈ 🐻 bear
-┃ ◈ 🔠 typography
-┃ ◈ 🎂 birthday
-┗━━━━━━━━━━━━━━━━━━━━━━━
 
 👑 *𝐎𝐖𝐍𝐄𝐑 𝐌𝐄𝐍𝐔*
 ┃ ◈ 👑 owner
@@ -177,7 +145,44 @@ async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sen
 ┃ ◈ 🏓 ping
 ┃ ◈ 🆔 gjid
 ┃ ◈ 🆔 jid
+┗━━━​━━━━━━━━━━━━━━━━━━━━
+
+
+🎨 𝐋𝐎𝐆𝐎  𝐌𝐀𝐊𝐄𝐑
+​┃ ◈ .logo neonlight
+┃ ◈ .logo blackpink
+┃ ◈ .logo dragonsball
+┃ ◈ .logo 3dcomic
+┃ ◈ .logo america
+┃ ◈ .logo naruto
+┃ ◈ .logo sadgirl
+┃ ◈ .logo clouds
+┃ ◈ .logo futuristic
+┃ ◈ .logo 3dpaper
+┃ ◈ .logo eraser
+┃ ◈ .logo sunset
+┃ ◈ .logo leaf
+┃ ◈ .logo galaxy
+┃ ◈ .logo sans
+┃ ◈ .logo boom
+┃ ◈ .logo hacker
+┃ ◈ .logo devilwings
+┃ ◈ .logo nigeria
+┃ ◈ .logo bulb
+┃ ◈ .logo angelwings
+┃ ◈ .logo zodiac
+┃ ◈ .logo luxury
+┃ ◈ .logo paint
+┃ ◈ .logo frozen
+┃ ◈ .logo castle
+┃ ◈ .logo tatoo
+┃ ◈ .logo valorant
+┃ ◈ .logo bear
+┃ ◈ .logo typography
+┃ ◈ .logo birthday
 ┗━━━━━━━━━━━━━━━━━━━━━━━
+​🧠 Example: .logo neonlight Zahid
+
 
 🎉 *𝐅𝐔𝐍 𝐌𝐄𝐍𝐔*
 ┃ ◈ 🤪 shapar
