@@ -15,60 +15,49 @@ async (conn, mek, m, { from, reply }) => {
 
 try {
 
-let dec = `👑 ╔══════════  👑  ══════════╗ 👑
-         ✨ 𝐙𝐀𝐇𝐈𝐃  𝐊𝐈𝐍𝐆 ✨
-         🎨  𝐋𝐎𝐆𝐎  𝐌𝐀𝐊𝐄𝐑  🎨
-👑 ╚══════════  👑  ══════════╝ 👑
-
-💡 *𝐔𝐬𝐚𝐠𝐞:* .<command> <text>
-📌 *𝐄𝐱𝐚𝐦𝐩𝐥𝐞:* .neon Zahid
-
-🔥 *𝐄𝐋𝐄𝐌𝐄𝐍𝐓𝐀𝐋  𝐒𝐓𝐘𝐋𝐄𝐒*
-┃ ◈ fire, thunder, ice, lava, 
-┃ ◈ storm, wind, snow, sun,
-┃ ◈ moon, ocean, river, volcano,
-┃ ◈ inferno, flame, burn, freeze
-┗━━━━━━━━━━━━━━━━━━━━━━━
-
-💎 *𝐏𝐑𝐄𝐌𝐈𝐔𝐌  𝐌𝐄𝐓𝐀𝐋𝐒*
-┃ ◈ gold, silver, metal, steel,
-┃ ◈ iron, chrome, diamond, ruby,
-┃ ◈ crystal, emerald, sapphire,
-┃ ◈ pearl, obsidian, 3dmetal
-┗━━━━━━━━━━━━━━━━━━━━━━━
-
-🚀 *𝐒𝐂𝐈-𝐅𝐈  &  𝐓𝐄𝐂𝐇*
-┃ ◈ neon, glitch, matrix, cyber,
-┃ ◈ digital, binary, code, tech,
-┃ ◈ ai, robot, laser, energy,
-┃ ◈ cyberpunk, future, spacecraft
-┗━━━━━━━━━━━━━━━━━━━━━━━
-
-🌌 *𝐒𝐏𝐀𝐂𝐄  &  𝐍𝐀𝐓𝐔𝐑𝐄*
-┃ ◈ galaxy, space, cloud, sky,
-┃ ◈ star, planet, meteor, comet,
-┃ ◈ leaf, grass, sand, forest,
-┃ ◈ jungle, desert, mountain, island
-┗━━━━━━━━━━━━━━━━━━━━━━━
-
-🎭 *𝐀𝐑𝐓  &  𝐅𝐀𝐍𝐓𝐀𝐒𝐘*
-┃ ◈ dragon, magic, fantasy, anime,
-┃ ◈ manga, ninja, samurai, ghost,
-┃ ◈ horror, blood, sketch, paint,
-┃ ◈ ink, graffiti, street, comic,
-┃ ◈ cartoon, 3d, 3dtext, pixel
-┗━━━━━━━━━━━━━━━━━━━━━━━
-
-🧱 *𝐌𝐀𝐓𝐄𝐑𝐈𝐀𝐋  𝐒𝐓𝐘𝐋𝐄𝐒*
-┃ ◈ stone, rock, paper, wood,
-┃ ◈ brick, glass, mirror, retro,
-┃ ◈ gaming, rainbow, light, dark,
-┃ ◈ shadow, electric, mechanic
-┗━━━━━━━━━━━━━━━━━━━━━━━
-
-    🛡️ ━━━━━━━━━━━━━━━━━━━━━━ 🛡️
-      *👑 𝑷𝒐𝒘𝒆𝒓𝒆𝒅 𝑩𝒚 𝒁𝒂𝒉𝒊𝒅 𝑲𝒊𝒏𝒈 👑*
-    🛡️ ━━━━━━━━━━━━━━━━━━━━━━ 🛡️
+let dec = `╭━━━〔 *Logo Maker Menu* 〕━━━┈⊷
+┃★╭──────────────
+┃★│ 🎨 *Popular Logos*
+┃★│ • .3dcomic
+┃★│ • .dragonball
+┃★│ • .deadpool
+┃★│ • .blackpink
+┃★│ • .neonlight
+┃★│ • .naruto
+┃★│ • .thor
+┃★│ • .america
+┃★│ • .galaxy
+┃★│ • .clouds
+┃★│ • .leaf
+┃★│ • .sand
+┃★╰──────────────
+┃★╭──────────────
+┃★│ 🔥 *Special Logos*
+┃★│ • .glitch
+┃★│ • .matrix
+┃★│ • .metal
+┃★│ • .gold
+┃★│ • .silver
+┃★│ • .fire
+┃★│ • .lava
+┃★│ • .ice
+┃★│ • .retro
+┃★│ • .pixel
+┃★╰──────────────
+┃★╭──────────────
+┃★│ 🌌 *Creative Logos*
+┃★│ • .space
+┃★│ • .galaxy
+┃★│ • .cyber
+┃★│ • .future
+┃★│ • .anime
+┃★│ • .ninja
+┃★│ • .samurai
+┃★│ • .magic
+┃★│ • .fantasy
+┃★╰──────────────
+╰━━━━━━━━━━━━━━━┈⊷
+👑 *Powered by Zᴀʜɪᴅ Kɪɴɢ*
 > ${config.DESCRIPTION}`
 
 await conn.sendMessage(
