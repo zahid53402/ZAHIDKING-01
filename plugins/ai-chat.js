@@ -1,48 +1,34 @@
-const { cmd } = require('../command')
-const fs = require('fs')
+const axios = require("axios")
 
-cmd({
-pattern: "ai",
-alias: ["bot","chat"],
-desc: "Offline AI",
+module.exports = {
+name: "gemini",
+alias: ["ai"],
+desc: "Gemini AI Chat",
 category: "ai",
-filename: __filename
-},
+use: ".gemini your question",
 
-async (conn, mek, m, { q, reply }) => {
+async run(conn, m, args) {
 
-if(!q) return reply("Example: .ai hello")
+try {
 
-let text = q.toLowerCase()
+let text = args.join(" ")
+if(!text) return conn.sendMessage(m.chat,{text:"❌ Please ask something\nExample: .gemini Hello"}, {quoted:m})
 
-let data = JSON.parse(fs.readFileSync('./database/ai.json'))
+await conn.sendMessage(m.chat,{react:{text:"🤖", key:m.key}})
 
-let ai = data[text]
+let res = await axios.get(`https://api.ryzendesu.vip/api/ai/gemini?text=${encodeURIComponent(text)}`)
 
-// math solver
-if(!ai && /[0-9+\-*/().]/.test(text)){
-try{
-ai = "Math result hai: " + eval(text)
-}catch{
-ai = "Math samajh nahi aya"
-}
-}
+let reply = res.data.answer || "No response"
 
-// default reply
-if(!ai){
-let random = [
-"Yeh interesting sawal hai 🤔",
-"Main abhi seekh raha hoon.",
-"Aap thoda aur detail bata sakte ho?",
-"Achha sawal hai 😊"
-]
+await conn.sendMessage(m.chat,{text: reply},{quoted:m})
 
-ai = random[Math.floor(Math.random()*random.length)]
+} catch(e) {
+
+console.log(e)
+
+conn.sendMessage(m.chat,{text:"❌ Gemini AI Error"},{quoted:m})
+
 }
 
-reply(`🤖 *AI Response*
-
-${ai}
-
-> Powered By Zᴀʜɪᴅ Kɪɴɢ`)
-})
+}
+}
