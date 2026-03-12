@@ -2,8 +2,8 @@ const { cmd } = require('../command')
 const axios = require('axios')
 
 cmd({
-pattern: "3dcomic",
-desc: "Create 3D comic logo",
+pattern: "logo",
+desc: "Create logo",
 category: "logo",
 react: "🎨",
 filename: __filename
@@ -13,23 +13,43 @@ async(conn, mek, m, { from, args, reply }) => {
 
 try{
 
-if(!args.length)
-return reply("❌ Example:\n.3dcomic Zahid")
+if(args.length < 2)
+return reply("❌ Example:\n.logo neon Zahid")
 
-const text = args.join(" ")
+const style = args[0]
+const text = args.slice(1).join(" ")
 
-const api = `https://api-pink-venom.vercel.app/api/logo?url=https://en.ephoto360.com/create-online-3d-comic-style-text-effects-817.html&name=${encodeURIComponent(text)}`
+let url
 
-const res = await axios.get(api)
+// API 1
+try{
 
-if(!res.data || !res.data.result || !res.data.result.download_url)
-return reply("❌ Logo API failed")
+url = `https://api.popcat.xyz/textpro?text=${encodeURIComponent(text)}&style=${style}`
 
 await conn.sendMessage(from,{
-image:{ url: res.data.result.download_url },
-caption:`✨ *Logo Generated*
+image:{ url:url },
+caption:`🎨 *Logo Generated*
 
-✏️ Text : ${text}
+Style : ${style}
+Text : ${text}
+
+👑 Powered by Zᴀʜɪᴅ Kɪɴɢ`
+},{ quoted: mek })
+
+return
+
+}catch{}
+
+// API 2 fallback
+
+url = `https://api.xteam.xyz/ephoto360/${style}?text=${encodeURIComponent(text)}`
+
+await conn.sendMessage(from,{
+image:{ url:url },
+caption:`🎨 *Logo Generated*
+
+Style : ${style}
+Text : ${text}
 
 👑 Powered by Zᴀʜɪᴅ Kɪɴɢ`
 },{ quoted: mek })
@@ -37,7 +57,7 @@ caption:`✨ *Logo Generated*
 }catch(e){
 
 console.log(e)
-reply("❌ Logo error, API down or invalid style")
+reply("❌ Logo error (API down)")
 
 }
 
