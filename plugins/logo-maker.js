@@ -2,8 +2,8 @@ const { cmd } = require('../command')
 const axios = require('axios')
 
 cmd({
-pattern: "logo",
-desc: "Create logo",
+pattern: "3dcomic",
+desc: "Create 3D comic logo",
 category: "logo",
 react: "🎨",
 filename: __filename
@@ -13,25 +13,22 @@ async(conn, mek, m, { from, args, reply }) => {
 
 try{
 
-if(!args[0]) return reply("❌ Example:\n.logo neon Zahid")
+if(!args.length)
+return reply("❌ Example:\n.3dcomic Zahid")
 
-const style = args[0]
-const text = args.slice(1).join(" ")
+const text = args.join(" ")
 
-if(!text) return reply("❌ Example:\n.logo neon Zahid")
-
-const api = `https://api-pink-venom.vercel.app/api/logo?url=https://en.ephoto360.com/create-online-${style}-text-effect-817.html&name=${encodeURIComponent(text)}`
+const api = `https://api-pink-venom.vercel.app/api/logo?url=https://en.ephoto360.com/create-online-3d-comic-style-text-effects-817.html&name=${encodeURIComponent(text)}`
 
 const res = await axios.get(api)
 
-if(!res.data?.result?.download_url)
-return reply("❌ Logo generate failed")
+if(!res.data || !res.data.result || !res.data.result.download_url)
+return reply("❌ Logo API failed")
 
 await conn.sendMessage(from,{
 image:{ url: res.data.result.download_url },
 caption:`✨ *Logo Generated*
 
-🎨 Style : ${style}
 ✏️ Text : ${text}
 
 👑 Powered by Zᴀʜɪᴅ Kɪɴɢ`
@@ -40,7 +37,7 @@ caption:`✨ *Logo Generated*
 }catch(e){
 
 console.log(e)
-reply("❌ Logo error")
+reply("❌ Logo error, API down or invalid style")
 
 }
 
