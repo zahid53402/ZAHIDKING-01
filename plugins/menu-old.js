@@ -15,8 +15,9 @@ cmd({
 },
 async (conn, mek, m, { from, sender, pushname, reply }) => {
     try {
-        const dec = `👑 ╔══════════  👑  ══════════╗ 👑
-         ✨ 𝐙𝐀𝐇𝐈𝐃 𝐊𝐈𝐍𝐆 ✨
+        const dec = `
+👑 ╔══════════  👑  ══════════╗ 👑
+          ✨ 𝐙𝐀𝐇𝐈𝐃 𝐊𝐈𝐍𝐆 ✨
          🛡️ 𝐎𝐋𝐃  𝐂𝐎𝐍𝐓𝐑𝐎𝐋 🛡️
 👑 ╚══════════  👑  ══════════╝ 👑
 
@@ -114,44 +115,45 @@ cmd({
 }, 
 async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply }) => {
     try {
-        let dec = `👑 ╔══════════  👑  ══════════╗ 👑
-         ✨ 𝐙𝐀𝐇𝐈𝐃  𝐊𝐈𝐍𝐆 ✨
+        let dec = `
+👑 ╔══════════  👑  ══════════╗ 👑
+          ✨ 𝐙𝐀𝐇𝐈𝐃  𝐊𝐈𝐍𝐆 ✨
          🎨 𝐋𝐎𝐆𝐎  𝐌𝐀𝐒𝐓𝐄𝐑 🎨
 👑 ╚══════════  👑  ══════════╝ 👑
 
-✨ *𝐏𝐑𝐄𝐌𝐈𝐔𝐌  𝐒𝐓𝐘𝐋𝐄𝐒*
-┃ ◈ 💡 neonlight
-┃ ◈ 🎀 blackpink
-┃ ◈ 🐉 dragonball
-┃ ◈ 🎭 3dcomic
-┃ ◈ 🇺🇸 america
-┃ ◈ 🍥 naruto
-┃ ◈ 😢 sadgirl
-┃ ◈ ☁️ clouds
-┃ ◈ 🚀 futuristic
-┃ ◈ 📜 3dpaper
-┃ ◈ ✏️ eraser
-┃ ◈ 🌇 sunset
-┃ ◈ 🍃 leaf
-┃ ◈ 🌌 galaxy
-┃ ◈ 💀 sans
-┃ ◈ 💥 boom
-┃ ◈ 💻 hacker
-┃ ◈ 😈 devilwings
-┃ ◈ 🇳🇬 nigeria
-┃ ◈ 💡 bulb
-┃ ◈ 👼 angelwings
-┃ ◈ ♈ zodiac
-┃ ◈ 💎 luxury
-┃ ◈ 🎨 paint
-┃ ◈ ❄️ frozen
-┃ ◈ 🏰 castle
-┃ ◈ 🖋️ tatoo
-┃ ◈ 🔫 valorant
-┃ ◈ 🐻 bear
-┃ ◈ 🔠 typography
-┃ ◈ 🎂 birthday
+┃ ◈ .logo neonlight
+┃ ◈ .logo blackpink
+┃ ◈ .logo dragonsball
+┃ ◈ .logo 3dcomic
+┃ ◈ .logo america
+┃ ◈ .logo naruto
+┃ ◈ .logo sadgirl
+┃ ◈ .logo clouds
+┃ ◈ .logo futuristic
+┃ ◈ .logo 3dpaper
+┃ ◈ .logo eraser
+┃ ◈ .logo sunset
+┃ ◈ .logo leaf
+┃ ◈ .logo galaxy
+┃ ◈ .logo sans
+┃ ◈ .logo boom
+┃ ◈ .logo hacker
+┃ ◈ .logo devilwings
+┃ ◈ .logo nigeria
+┃ ◈ .logo bulb
+┃ ◈ .logo angelwings
+┃ ◈ .logo zodiac
+┃ ◈ .logo luxury
+┃ ◈ .logo paint
+┃ ◈ .logo frozen
+┃ ◈ .logo castle
+┃ ◈ .logo tatoo
+┃ ◈ .logo valorant
+┃ ◈ .logo bear
+┃ ◈ .logo typography
+┃ ◈ .logo birthday
 ┗━━━━━━━━━━━━━━━━━━━━━━━
+🧠 Example: .logo neonlight Zahid
 
     🛡️ ━━━━━━━━━━━━━━━━━━━━━━ 🛡️
       *👑 𝑷𝒐𝒘𝒆𝒓𝒆𝒅 𝑩𝒚 𝒁𝒂𝒉𝒊𝒅 𝑲𝒊𝒏𝒈 👑*
