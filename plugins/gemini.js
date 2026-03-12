@@ -3,7 +3,7 @@ const axios = require("axios")
 module.exports = {
 pattern: "gemini",
 alias: ["ai"],
-desc: "Ask Gemini AI",
+desc: "Chat with Gemini AI",
 category: "ai",
 react: "🤖",
 
@@ -13,20 +13,20 @@ try {
 
 if (!q) return reply("❌ Example:\n.gemini Hello")
 
-let res = await axios.get(`https://api.ryzendesu.vip/api/ai/gemini?text=${encodeURIComponent(q)}`)
+let res = await axios.get(`https://api.popcat.xyz/chatbot?msg=${encodeURIComponent(q)}&owner=Zahid&botname=Gemini`)
 
 let data = res.data
 
-if (!data || !data.answer) {
+if (!data || !data.response) {
 return reply("❌ AI no response")
 }
 
-reply(data.answer)
+reply(data.response)
 
 } catch (e) {
 
 console.log(e)
-reply("❌ Gemini AI Error")
+reply("❌ AI Error")
 
 }
 
