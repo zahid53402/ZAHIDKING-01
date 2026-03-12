@@ -1,99 +1,101 @@
 const { cmd } = require('../command')
+const axios = require('axios')
+
+async function generateLogo(url,text){
+
+const api = `https://api-pink-venom.vercel.app/api/logo?url=${url}&name=${encodeURIComponent(text)}`
+const res = await axios.get(api)
+
+return res.data.result.download_url
+
+}
 
 cmd({
-pattern: "font",
-desc: "Create font logo",
-category: "logo",
-react: "🖋️",
-filename: __filename
+pattern:"logo",
+desc:"Advanced logo maker",
+category:"logo",
+react:"🎨",
+filename:__filename
 },
 
-async(conn, mek, m, { from, args, reply }) => {
+async(conn,mek,m,{from,args,reply})=>{
 
 try{
 
 if(args.length < 2)
 return reply(`Example:
-.font neon Zahid`)
+.logo neon Zahid`)
 
-const font = args[0].toLowerCase()
+const style = args[0]
 const text = args.slice(1).join(" ")
 
-let image
+let url
 
-switch(font){
+switch(style){
 
 case "neon":
-image = `https://dummyimage.com/1200x600/000/00ffff&text=${encodeURIComponent(text)}`
+url="https://en.ephoto360.com/create-colorful-neon-light-text-effects-online-797.html"
 break
 
-case "fire":
-image = `https://dummyimage.com/1200x600/000/ff3300&text=${encodeURIComponent(text)}`
+case "comic":
+url="https://en.ephoto360.com/create-online-3d-comic-style-text-effects-817.html"
 break
 
-case "gold":
-image = `https://dummyimage.com/1200x600/000/ffd700&text=${encodeURIComponent(text)}`
+case "dragon":
+url="https://en.ephoto360.com/create-dragon-ball-style-text-effects-online-809.html"
 break
 
-case "silver":
-image = `https://dummyimage.com/1200x600/000/c0c0c0&text=${encodeURIComponent(text)}`
+case "naruto":
+url="https://en.ephoto360.com/naruto-shippuden-logo-style-text-effect-online-808.html"
 break
 
-case "matrix":
-image = `https://dummyimage.com/1200x600/000/00ff00&text=${encodeURIComponent(text)}`
+case "thor":
+url="https://en.ephoto360.com/create-thor-logo-style-text-effects-online-for-free-796.html"
 break
 
-case "pink":
-image = `https://dummyimage.com/1200x600/000/ff66cc&text=${encodeURIComponent(text)}`
-break
-
-case "blue":
-image = `https://dummyimage.com/1200x600/000/3399ff&text=${encodeURIComponent(text)}`
-break
-
-case "ice":
-image = `https://dummyimage.com/1200x600/000/66ccff&text=${encodeURIComponent(text)}`
-break
-
-case "lava":
-image = `https://dummyimage.com/1200x600/000/ff3300&text=${encodeURIComponent(text)}`
+case "america":
+url="https://en.ephoto360.com/free-online-american-flag-3d-text-effect-generator-725.html"
 break
 
 case "galaxy":
-image = `https://dummyimage.com/1200x600/000/6633ff&text=${encodeURIComponent(text)}`
+url="https://en.ephoto360.com/create-galaxy-wallpaper-mobile-online-528.html"
+break
+
+case "cloud":
+url="https://en.ephoto360.com/write-text-effect-clouds-in-the-sky-online-619.html"
 break
 
 default:
-return reply(`❌ Font not found
+return reply(`❌ Style not found
 
-Available fonts:
+Available styles:
 
 neon
-fire
-gold
-silver
-matrix
-pink
-blue
-ice
-lava
-galaxy`)
+comic
+dragon
+naruto
+thor
+america
+galaxy
+cloud`)
 }
 
-await conn.sendMessage(from,{
-image:{ url:image },
-caption:`✨ Font Logo Generated
+const logo = await generateLogo(url,text)
 
-Font : ${font}
+await conn.sendMessage(from,{
+image:{url:logo},
+caption:`✨ Logo Generated
+
+Style : ${style}
 Text : ${text}
 
 👑 Powered by Zᴀʜɪᴅ Kɪɴɢ`
-},{ quoted: mek })
+},{quoted:mek})
 
 }catch(e){
 
 console.log(e)
-reply("❌ Font logo error")
+reply("❌ Logo API error")
 
 }
 
