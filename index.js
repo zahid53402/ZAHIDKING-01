@@ -1,4 +1,3 @@
-
 global.gc = global.gc || (() => {});
 let memoryCleanInterval = null;
 
@@ -166,7 +165,7 @@ commands.forEach(cmd => {
 });
 
 // ==================== LIB IMPORTS ====================
-const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, runtime, sleep, fetchJson, getSizeMedia } = require('./lib/functions');
+const { getBuffer, getGroupAdmins, getRandom, h2k, isUrl, Json, runtime, sleep, fetchJson } = require('./lib/functions');
 const { getBuffer: getBuffer2, getGroupAdmins: getGroupAdmins2, getRandom: getRandom2, h2k: h2k2, isUrl: isUrl2, Json: Json2, runtime: runtime2, sleep: sleep2, fetchJson: fetchJson2, saveConfig, empiretourl } = require('./lib/functions2');
 const { sms, downloadMediaMessage } = require('./lib/msg');
 const GroupEvents = require('./lib/groupevents');
@@ -545,63 +544,55 @@ async function connectToWA() {
                     
                     // Send to owner as well
                     conn.sendMessage(ownerNumber[0] + '@s.whatsapp.net', {
-                        text: `✅ *Zᴀʜɪᴅ Kɪɴɢ IS ACTIVATED*\n\nBot is now online!\nCommands: ${commands.length}\nPrefix: ${prefix}`
+                        text: `✅ *𝑾𝑨𝑸𝑨𝑹 𝑾𝑹𝑰𝑻𝑬𝑺 IS ACTIVATED*\n\nBot is now online!\nCommands: ${commands.length}\nPrefix: ${prefix}`
                     }).catch(() => {});
                 }, 5000);
             }
         });
         
-        
-// STORE MESSAGES FOR ANTI DELETE
-conn.ev.on('messages.upsert', async ({ messages }) => {
-try{
+        conn.ev.on('creds.update', saveCreds);
 
-const msg = messages[0]
-if(!msg) return
-if(!msg.message) return
-
-await storeMessageForAntiDelete(msg)
-
-}catch(e){
-console.log("Store message error:", e.message)
-}
-
-});
+        // ANTI-DELETE
+        if (config.ANTI_DELETE === 'true') {
+            console.log("🛡️ Anti-Delete: ACTIVE");
+            
+            conn.ev.on('messages.update', async updates => {
+                for (const update of updates) {
+                    if (update.update && update.update.message === null) {
+                        try {
+                            await AntiDelete(conn, [update]);
+                        } catch (err) {
+                            console.error("Anti-delete error:", err.message);
+                        }
+                    }
+                }
+            });
+        }
 
         // ANTI CALL
-// ANTI DELETE SYSTEM
-if (config.ANTI_DELETE === 'true') {
+        if (config.ANTI_CALL === 'true') {
+            conn.ev.on("call", async (json) => {
+                try {
+                    const call = json.find(c => c.status === 'offer');
+                    if (call) {
+                        await conn.rejectCall(call.id, call.from);
+                        console.log(`📵 Call rejected from ${call.from}`);
+                    }
+                } catch (err) {
+                    console.error("Anti-call error:", err.message);
+                }
+            });
+        }
 
-conn.ev.on('messages.update', async updates => {
+        // GROUP EVENTS
+        conn.ev.on("group-participants.update", async (update) => {
+            try {
+                await GroupEvents(conn, update);
+            } catch (err) {
+                console.error("Group event error:", err.message);
+            }
+        });
 
-for (const update of updates) {
-
-if(update.update && update.update.message === null){
-
-try{
-
-await AntiDelete(conn, [update])
-
-}catch(e){
-
-console.log("AntiDelete error:", e)
-
-}
-
-}
-
-}
-
-})
-
-}
- conn.ev.on("group-participants.update", async (update) => {
-    try {
-        await GroupEvents(conn, update);
-    } catch (err) {
-        console.error("Group event error:", err.message);
-    }
-});
         // MESSAGE HANDLER
         conn.ev.on('messages.upsert', async (mekData) => {
             // Queue for ultra processing
@@ -856,7 +847,7 @@ console.log("AntiDelete error:", e)
                 buffer = Buffer.concat([buffer, chunk]);
             }
             let type = await FileType.fromBuffer(buffer);
-            let trueFileName = attachExtension ? (filename + '.' + type.ext) : filename;
+            trueFileName = attachExtension ? (filename + '.' + type.ext) : filename;
             await fs.writeFileSync(trueFileName, buffer);
             return trueFileName;
         };
@@ -920,12 +911,12 @@ console.log("AntiDelete error:", e)
 
         conn.getFile = async(PATH, save) => {
             let res;
-            let data = Buffer.isBuffer(PATH) ? PATH : /^data:.*?\/.*?;base64,/i.test(PATH) ? Buffer.from(PATH.split `,` [1], 'base64') : /^https?:\/\//.test(PATH) ? await (res = await getBuffer(PATH)) : fs.existsSync(PATH) ? fs.readFileSync(PATH) : typeof PATH === 'string' ? PATH : Buffer.alloc(0);
+            let data = Buffer.isBuffer(PATH) ? PATH : /^data:.*?\/.*?;base64,/i.test(PATH) ? Buffer.from(PATH.split `,` [1], 'base64') : /^https?:\/\//.test(PATH) ? await (res = await getBuffer(PATH)) : fs.existsSync(PATH) ? (filename = PATH, fs.readFileSync(PATH)) : typeof PATH === 'string' ? PATH : Buffer.alloc(0);
             let type = await FileType.fromBuffer(data) || {
                 mime: 'application/octet-stream',
                 ext: '.bin'
             };
-            let filename = path.join(__dirname, new Date().getTime() + '.' + type.ext);
+            let filename = path.join(__filename, __dirname + new Date * 1 + '.' + type.ext);
             if (data && save) fs.promises.writeFile(filename, data);
             return {
                 res,
@@ -944,11 +935,7 @@ console.log("AntiDelete error:", e)
             if (options.asSticker || /webp/.test(mime)) {
                 let { writeExif } = require('./exif.js');
                 let media = { mimetype: mime, data };
-                pathFile = await writeExif(media, { 
-packname: config.PACKNAME || "ZAHID KING",
-author: config.AUTHOR || "ZAHID",
-categories: options.categories ? options.categories : []
-});
+                pathFile = await writeExif(media, { packname: Config.packname, author: Config.packname, categories: options.categories ? options.categories : [] });
                 await fs.promises.unlink(filename);
                 type = 'sticker';
                 mimetype = 'image/webp';
@@ -966,8 +953,8 @@ categories: options.categories ? options.categories : []
         };
 
         conn.parseMention = async(text) => {
-return [...text.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + '@s.whatsapp.net');
-};
+            return [...text.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + '@s.whatsapp.net');
+        };
 
         conn.sendContact = async (jid, kon, quoted = '', opts = {}) => {
             let list = [];
@@ -1023,7 +1010,7 @@ app.get("/", (req, res) => {
     res.send(`
         <html>
             <head>
-                <title>Zᴀʜɪᴅ Kɪɴɢ</title>
+                <title>𝑾𝑨𝑸𝑨𝑹 𝑾𝑹𝑰𝑻𝑬𝑺</title>
                 <style>
                     body { font-family: Arial; text-align: center; padding: 50px; background: #f0f0f0; }
                     .card { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
@@ -1033,7 +1020,7 @@ app.get("/", (req, res) => {
             </head>
             <body>
                 <div class="card">
-                    <h1>🤖 Zᴀʜɪᴅ Kɪɴɢ</h1>
+                    <h1>🤖 𝑾𝑨𝑸𝑨𝑹 𝑾𝑹𝑰𝑻𝑬𝑺</h1>
                     <p>Status: <span class="status">✅ ONLINE</span></p>
                     <p>Commands: <strong>${commands.length}</strong></p>
                     <p>Anti-Delete: <strong>${config.ANTI_DELETE === 'true' ? '✅ ACTIVE' : '❌ INACTIVE'}</strong></p>
@@ -1104,7 +1091,7 @@ process.on('unhandledRejection', (reason, promise) => {
 });
 
 console.log("\n🚀 ==============================");
-console.log("🚀 Zᴀʜɪᴅ Kɪɴɢ BOT STARTING...");
+console.log("🚀  Zᴀʜɪᴅ Kɪɴɢ BOT STARTING...");
 console.log("🚀 ==============================\n");
 
 // ==================== EXPORTS FOR PLUGINS ====================
