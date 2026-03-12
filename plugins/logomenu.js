@@ -15,49 +15,42 @@ async (conn, mek, m, { from, reply }) => {
 
 try {
 
-let dec = `╭━━━〔 *Logo Maker Menu* 〕━━━┈⊷
+let dec = `╭━━━〔 *👑 KING LOGO MENU* 〕━━━┈⊷
 ┃★╭──────────────
 ┃★│ 🎨 *Popular Logos*
-┃★│ • .3dcomic
-┃★│ • .dragonball
-┃★│ • .deadpool
-┃★│ • .blackpink
-┃★│ • .neonlight
-┃★│ • .naruto
-┃★│ • .thor
-┃★│ • .america
-┃★│ • .galaxy
-┃★│ • .clouds
-┃★│ • .leaf
-┃★│ • .sand
+┃★│ • .logo comic [text]
+┃★│ • .logo dragon [text]
+┃★│ • .logo naruto [text]
+┃★│ • .logo thor [text]
+┃★│ • .logo america [text]
 ┃★╰──────────────
 ┃★╭──────────────
-┃★│ 🔥 *Special Logos*
-┃★│ • .glitch
-┃★│ • .matrix
-┃★│ • .metal
-┃★│ • .gold
-┃★│ • .silver
-┃★│ • .fire
-┃★│ • .lava
-┃★│ • .ice
-┃★│ • .retro
-┃★│ • .pixel
+┃★│ ✨ *Glow Logos*
+┃★│ • .logo neon [text]
+┃★│ • .logo paper [text]
+┃★│ • .logo galaxy [text]
+┃★│ • .logo glitch [text]
 ┃★╰──────────────
 ┃★╭──────────────
-┃★│ 🌌 *Creative Logos*
-┃★│ • .space
-┃★│ • .galaxy
-┃★│ • .cyber
-┃★│ • .future
-┃★│ • .anime
-┃★│ • .ninja
-┃★│ • .samurai
-┃★│ • .magic
-┃★│ • .fantasy
+┃★│ 🌿 *Nature Logos*
+┃★│ • .logo cloud [text]
+┃★│ • .logo sand [text]
+┃★│ • .logo fog [text]
+┃★│ • .logo greenbrush [text]
+┃★╰──────────────
+┃★╭──────────────
+┃★│ 🪵 *Material Logos*
+┃★│ • .logo gold [text]
+┃★│ • .logo silver [text]
+┃★│ • .logo wood [text]
 ┃★╰──────────────
 ╰━━━━━━━━━━━━━━━┈⊷
-👑 *Powered by Zᴀʜɪᴅ Kɪɴɢ*
+
+> 🧠 Example :
+> .logo neon Zahid
+> .logo comic King
+
+> 👑 Powered By *Zᴀʜɪᴅ Kɪɴɢ*
 > ${config.DESCRIPTION}`
 
 await conn.sendMessage(
