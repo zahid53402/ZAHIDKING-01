@@ -544,7 +544,7 @@ async function connectToWA() {
                     
                     // Send to owner as well
                     conn.sendMessage(ownerNumber[0] + '@s.whatsapp.net', {
-                        text: `✅ *𝑾𝑨𝑸𝑨𝑹 𝑾𝑹𝑰𝑻𝑬𝑺 IS ACTIVATED*\n\nBot is now online!\nCommands: ${commands.length}\nPrefix: ${prefix}`
+                        text: `✅ *꧁༒☬Zᴀʜɪᴅ Kɪɴɢ☬༒꧂ IS ACTIVATED*\n\nBot is now online!\nCommands: ${commands.length}\nPrefix: ${prefix}`
                     }).catch(() => {});
                 }, 5000);
             }
@@ -1010,7 +1010,7 @@ app.get("/", (req, res) => {
     res.send(`
         <html>
             <head>
-                <title>𝑾𝑨𝑸𝑨𝑹 𝑾𝑹𝑰𝑻𝑬𝑺</title>
+                <title>꧁༒☬Zᴀʜɪᴅ Kɪɴɢ☬༒꧂</title>
                 <style>
                     body { font-family: Arial; text-align: center; padding: 50px; background: #f0f0f0; }
                     .card { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
@@ -1020,7 +1020,7 @@ app.get("/", (req, res) => {
             </head>
             <body>
                 <div class="card">
-                    <h1>🤖 𝑾𝑨𝑸𝑨𝑹 𝑾𝑹𝑰𝑻𝑬𝑺</h1>
+                    <h1>🤖 ꧁༒☬Zᴀʜɪᴅ Kɪɴɢ☬༒꧂</h1>
                     <p>Status: <span class="status">✅ ONLINE</span></p>
                     <p>Commands: <strong>${commands.length}</strong></p>
                     <p>Anti-Delete: <strong>${config.ANTI_DELETE === 'true' ? '✅ ACTIVE' : '❌ INACTIVE'}</strong></p>
@@ -1091,7 +1091,7 @@ process.on('unhandledRejection', (reason, promise) => {
 });
 
 console.log("\n🚀 ==============================");
-console.log("🚀  Zᴀʜɪᴅ Kɪɴɢ BOT STARTING...");
+console.log("🚀 ꧁༒☬Zᴀʜɪᴅ Kɪɴɢ☬༒꧂ BOT STARTING...");
 console.log("🚀 ==============================\n");
 
 // ==================== EXPORTS FOR PLUGINS ====================
