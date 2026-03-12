@@ -1,5 +1,5 @@
 const { cmd } = require('../command')
-const { createCanvas } = require('canvas')
+const mumaker = require('mumaker')
 
 cmd({
 pattern: "logo",
@@ -13,29 +13,43 @@ async(conn, mek, m, { from, args, reply }) => {
 
 try{
 
-if(!args[0]) return reply("Example: .logo Zahid King")
+if(args.length < 2){
+return reply(`Example:
+.logo comic Zahid`)
+}
 
-const text = args.join(" ")
+const style = args[0]
+const text = args.slice(1).join(" ")
 
-const canvas = createCanvas(800,400)
-const ctx = canvas.getContext("2d")
+let url
 
-// background
-ctx.fillStyle = "#000000"
-ctx.fillRect(0,0,800,400)
+if(style == "comic"){
+url = "https://en.ephoto360.com/create-online-3d-comic-style-text-effects-817.html"
+}
 
-// text style
-ctx.font = "bold 70px Arial"
-ctx.fillStyle = "gold"
-ctx.textAlign = "center"
-ctx.fillText(text,400,220)
+else if(style == "dragon"){
+url = "https://en.ephoto360.com/create-dragon-ball-style-text-effects-online-809.html"
+}
 
-const buffer = canvas.toBuffer()
+else if(style == "naruto"){
+url = "https://en.ephoto360.com/naruto-shippuden-logo-style-text-effect-online-808.html"
+}
+
+else{
+return reply(`Available styles
+
+comic
+dragon
+naruto`)
+}
+
+const data = await mumaker.textpro(url,[text])
 
 await conn.sendMessage(from,{
-image: buffer,
+image:{ url:data.image },
 caption:`✨ Logo Generated
 
+Style : ${style}
 Text : ${text}
 
 👑 Powered by Zᴀʜɪᴅ Kɪɴɢ`
