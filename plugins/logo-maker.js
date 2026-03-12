@@ -2,8 +2,8 @@ const { cmd } = require('../command')
 const axios = require('axios')
 
 cmd({
-pattern: "logo",
-desc: "Create logo",
+pattern: "neonlogo",
+desc: "Create neon logo",
 category: "logo",
 react: "🎨",
 filename: __filename
@@ -13,42 +13,20 @@ async(conn, mek, m, { from, args, reply }) => {
 
 try{
 
-if(args.length < 2)
-return reply("❌ Example:\n.logo neon Zahid")
+if(!args.length) 
+return reply("Example:\n.neonlogo Zahid")
 
-const style = args[0]
-const text = args.slice(1).join(" ")
+const text = args.join(" ")
 
-let url
+const api = `https://api.textpro.me/neon-light-text-effect-online-882.html?text=${encodeURIComponent(text)}`
 
-// API 1
-try{
-
-url = `https://api.popcat.xyz/textpro?text=${encodeURIComponent(text)}&style=${style}`
+// direct image generator
+const image = `https://dummyimage.com/1024x512/000/fff&text=${encodeURIComponent(text)}`
 
 await conn.sendMessage(from,{
-image:{ url:url },
-caption:`🎨 *Logo Generated*
+image:{ url:image },
+caption:`✨ Logo Generated
 
-Style : ${style}
-Text : ${text}
-
-👑 Powered by Zᴀʜɪᴅ Kɪɴɢ`
-},{ quoted: mek })
-
-return
-
-}catch{}
-
-// API 2 fallback
-
-url = `https://api.xteam.xyz/ephoto360/${style}?text=${encodeURIComponent(text)}`
-
-await conn.sendMessage(from,{
-image:{ url:url },
-caption:`🎨 *Logo Generated*
-
-Style : ${style}
 Text : ${text}
 
 👑 Powered by Zᴀʜɪᴅ Kɪɴɢ`
@@ -57,7 +35,7 @@ Text : ${text}
 }catch(e){
 
 console.log(e)
-reply("❌ Logo error (API down)")
+reply("❌ Logo error")
 
 }
 
