@@ -1,69 +1,31 @@
-const config = require('../config')
-const { cmd } = require('../command')
+const config = require("../config")
 
-let antiDelete = config.ANTI_DELETE === "true"
+async function AntiDelete(conn, updates){
 
-cmd({
-pattern: "antidelete",
-desc: "Enable or disable anti delete",
-category: "owner"
-},
-async(conn, mek, m, { args, reply }) => {
+if(config.ANTI_DELETE !== "true") return
 
-if(!args[0]) return reply("Use:\n.antidelete on\n.antidelete off")
+for(const update of updates){
 
-if(args[0] === "on"){
-antiDelete = true
-return reply("🛡 Anti Delete Enabled")
-}
+if(update.update && update.update.message === null){
 
-if(args[0] === "off"){
-antiDelete = false
-return reply("🔕 Anti Delete Disabled")
-}
+const key = update.key
+const jid = key.remoteJid
+const user = key.participant || jid
 
-})
-
-
-module.exports = async(conn, update) => {
-
-try{
-
-if(!antiDelete) return
-
-for(const msg of update){
-
-if(msg.update?.message === null){
-
-let key = msg.key
-let jid = key.remoteJid
-
-let deletedMsg = msg.message
-
-if(!deletedMsg) return
-
-let path = config.ANTI_DEL_PATH
-
-let target = path === "same" ? jid : conn.user.id
+let target = config.ANTI_DEL_PATH === "same" ? jid : conn.user.id
 
 await conn.sendMessage(target,{
-text:`🛡 *ANTI DELETE DETECTED*
+text:`🛡 *ANTI DELETE*
 
-👤 User: @${key.participant?.split("@")[0] || "unknown"}
-
-📄 Message was deleted.`
-},{
-mentions:[key.participant]
+👤 User: @${user.split("@")[0]}
+⚠️ A message was deleted.`,
+mentions:[user]
 })
 
 }
 
 }
 
-}catch(e){
-
-console.log(e)
-
 }
 
-}
+module.exports = { AntiDelete }
