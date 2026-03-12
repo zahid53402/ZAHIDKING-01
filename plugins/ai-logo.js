@@ -2,7 +2,7 @@ const { cmd } = require('../command')
 
 cmd({
 pattern: "ailogo",
-desc: "AI Poster Logo",
+desc: "AI Logo Maker",
 category: "logo",
 react: "🎨",
 filename: __filename
@@ -16,9 +16,7 @@ if(!args[0]) return reply("Example: .ailogo Zahid King")
 
 const text = args.join(" ")
 
-const prompt = `anime boy standing in city night background with big golden text "${text}" poster style ultra hd`
-
-const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}`
+const url = "https://image.pollinations.ai/prompt/" + encodeURIComponent(`anime boy poster with big golden text ${text}`)
 
 await conn.sendMessage(from,{
 image:{ url:url },
@@ -31,7 +29,8 @@ Name : ${text}
 
 }catch(e){
 
-reply("❌ Logo error")
+console.log(e)
+reply("❌ Logo error: " + e)
 
 }
 
