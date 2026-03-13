@@ -1,10 +1,11 @@
 const axios = require("axios")
+const cheerio = require("cheerio")
 const { cmd } = require("../command")
 
 cmd({
 pattern: "fb",
 alias: ["facebook","fbdl"],
-desc: "Download Facebook Video",
+desc: "Download Facebook video",
 category: "download",
 filename: __filename
 },
@@ -18,30 +19,36 @@ let url = args[0]
 
 reply("⏳ Downloading Facebook video...")
 
-const api = `https://api.giftedtech.web.id/api/download/facebook?url=${url}`
+const res = await axios.post(
+"https://fdown.net/download.php",
+`URLz=${encodeURIComponent(url)}`,
+{
+headers:{
+"content-type":"application/x-www-form-urlencoded",
+"user-agent":"Mozilla/5.0"
+}
+})
 
-const res = await axios.get(api)
-
-if(!res.data.status) return reply("❌ Video not found")
+const $ = cheerio.load(res.data)
 
 let video =
-res.data.result.hd ||
-res.data.result.sd ||
-res.data.result.url
+$("#sdlink").attr("href") ||
+$("#hdlink").attr("href")
+
+if(!video) return reply("❌ Failed to download video")
 
 await conn.sendMessage(
 m.chat,
 {
-video: { url: video },
-caption: "✅ Facebook Video Downloaded\n\nPowered by Zahid King"
+video:{ url: video },
+caption:"✅ Facebook Video Downloaded\n\nPowered by Zahid King"
 },
-{ quoted: m }
+{ quoted:m }
 )
 
 }catch(e){
 
 console.log(e)
-
 reply("❌ Facebook download failed")
 
 }
