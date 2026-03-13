@@ -12,36 +12,33 @@ async function(conn, m, args) {
 
 try {
 
-if(!args[0]) return m.reply("Example:\n.ai what is javascript")
+if(!args[0]) return m.reply("Example:\n.ai hello")
 
-let question = args.join(" ")
+let text = args.join(" ")
 
-const response = await axios({
-method: "POST",
-url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${config.GEMINI_API_KEY}`,
-headers: {
-"Content-Type": "application/json"
-},
-data: {
+const res = await axios.post(
+`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${config.GEMINI_API_KEY}`,
+{
 contents: [
 {
-parts: [
-{ text: question }
-]
+parts: [{ text: text }]
 }
 ]
+},
+{
+headers: { "Content-Type": "application/json" }
 }
-})
+)
 
-let result = response.data.candidates[0].content.parts[0].text
+let reply = res.data.candidates[0].content.parts[0].text
 
-await m.reply(result)
+m.reply(reply)
 
-} catch (error) {
+} catch (err) {
 
-console.log(error.response?.data || error)
+console.log(err.response?.data || err)
 
-m.reply("❌ AI error. Check Gemini API key or quota.")
+m.reply("❌ AI failed. Check API key.")
 
 }
 
