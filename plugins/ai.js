@@ -4,17 +4,31 @@ const config = require("../config");
 
 cmd({
     pattern: "ai",
-    desc: "Chat with Gemini AI",
+    desc: "Chat with Zahid King AI",
     category: "ai",
     filename: __filename
 },
-async (conn, m, msg, { args, reply }) => {
+async (conn, m, msg, { args, reply, pushname }) => {
 
 try {
 
 if (!args[0]) return reply("Example:\n.ai hello");
 
-let question = args.join(" ");
+let userQuestion = args.join(" ");
+
+let systemPrompt = `
+You are Zahid King AI Assistant.
+Your creator is Zahid King.
+Always answer in a friendly helpful way.
+
+If someone asks your name say:
+"I am Zahid King AI Assistant."
+
+User name: ${pushname}
+
+Always add this line at the end of every answer:
+Powered by Zahid King
+`;
 
 const response = await axios.post(
 "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + config.GEMINI_API_KEY,
@@ -22,7 +36,7 @@ const response = await axios.post(
 contents: [
 {
 parts: [
-{ text: question }
+{ text: systemPrompt + "\nUser question: " + userQuestion }
 ]
 }
 ]
@@ -36,7 +50,6 @@ reply(text);
 } catch (err) {
 
 console.log(err.response?.data || err);
-
 reply("❌ AI request failed");
 
 }
