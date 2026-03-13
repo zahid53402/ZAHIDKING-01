@@ -80,7 +80,7 @@ ANTI_VV: process.env.ANTI_VV || "true",
 // true for anti once view 
 AUTO_RECORDING: process.env.AUTO_RECORDING || "false",
 // make it true for auto recoding 
-GEMINI_API_KEY: process.env.GEMINI_API_KEY || "AIzaSyCRyasjzGwlGuV7flE5A8dq3lQgOKqnbGw"
+GEMINI_API_KEY: process.env.GEMINI_API_KEY || "AIzaSyD0UmnU0Onz4nonmu93K9DWaPWjr_TORX0"
 };
 
 global.myName = "gifted";
