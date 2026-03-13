@@ -1,39 +1,42 @@
-const { cmd } = require('../command')
-const axios = require('axios')
+const axios = require("axios");
+const { cmd } = require("../command");
 
 cmd({
 pattern: "fb",
-alias: ["facebook","fbdl"],
-desc: "Download Facebook Video",
+alias: ["facebook", "fbdl"],
+desc: "Download Facebook video",
 category: "download",
 filename: __filename
 },
+async (conn, m, msg, { args, reply }) => {
 
-async (conn, mek, m, { from, q, reply }) => {
+try {
 
-if(!q) return reply("Example:\n.fb https://facebook.com/xxxxx")
+if(!args[0]) return reply("Example:\n.fb https://facebook.com/video")
 
-try{
+let url = args[0]
 
-await reply("⏳ Fetching Facebook video...")
+reply("⏳ Downloading Facebook video...")
 
-let res = await axios.get(`https://api.vreden.my.id/api/fbdl?url=${encodeURIComponent(q)}`)
+const res = await axios.get(`https://api.giftedtech.web.id/api/download/fb?url=${url}`)
 
-let video = res.data.result.url
+if(!res.data.result) return reply("❌ Video not found")
 
-if(!video) return reply("❌ Facebook video not found")
+let video = res.data.result.sd
 
-await conn.sendMessage(from,{
-video:{ url: video },
-caption:`📥 Facebook Video Downloaded
+await conn.sendMessage(
+m.chat,
+{
+video: { url: video },
+caption: "✅ Facebook Video Downloaded\n\nPowered by Zahid King"
+},
+{ quoted: m }
+)
 
-> Powered By Zᴀʜɪᴅ Kɪɴɢ`
-},{quoted: mek})
-
-}catch(e){
+} catch(e) {
 
 console.log(e)
-reply("❌ Facebook downloader failed")
+reply("❌ Failed to download video")
 
 }
 
