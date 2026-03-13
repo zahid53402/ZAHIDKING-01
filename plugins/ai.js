@@ -1,43 +1,43 @@
-const { cmd } = require('../command')
-const axios = require('axios')
+const axios = require("axios")
+const config = require("../config")
 
-cmd({
+module.exports = {
 pattern: "ai",
-alias: ["gemini","gpt"],
+alias: ["ask","gpt","chat"],
 react: "🤖",
 desc: "Chat with Gemini AI",
 category: "ai",
-filename: __filename
-},
-async (conn, mek, m, { from, q, reply }) => {
 
-if(!q) return reply("Please provide a question.")
+async function(conn, m, args) {
 
-try{
+try {
 
-const apiKey = process.env.GEMINI_API_KEY || global.GEMINI_API_KEY
+if(!args[0]) return m.reply("Example:\n.ai what is javascript")
+
+let question = args.join(" ")
 
 let res = await axios.post(
-`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`,
+`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${config.GEMINI_API_KEY}`,
 {
 contents: [
 {
-parts: [{ text: q }]
+parts: [{ text: question }]
 }
 ]
 }
 )
 
-let text = res.data.candidates[0].content.parts[0].text
+let answer = res.data.candidates[0].content.parts[0].text
 
-reply(text)
+m.reply(answer)
 
-}catch(e){
+} catch(e) {
 
 console.log(e)
 
-reply("AI failed. Check Gemini API key.")
+m.reply("❌ AI error")
 
 }
 
-})
+}
+}
