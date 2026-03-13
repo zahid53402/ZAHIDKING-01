@@ -1,64 +1,58 @@
-const axios = require("axios")
-const { cmd } = require("../command")
+const axios = require('axios')
+const fs = require('fs')
+const path = require('path')
 
-cmd({
-pattern: "fb",
-alias: ["facebook","fbdl"],
-desc: "Download Facebook video",
-category: "downloader",
-filename: __filename
-},
-async (conn, m, msg, { args, reply }) => {
+async function facebookCommand(sock, chatId, message) {
 
 try{
 
-let url = args[0]
+const text = message.message?.conversation || message.message?.extendedTextMessage?.text
+const url = text.split(' ').slice(1).join(' ').trim()
 
-if(!url) return reply("Send Facebook video link")
+if(!url){
+return sock.sendMessage(chatId,{text:"Send Facebook link\nExample: .fb https://facebook.com/video"},{quoted:message})
+}
 
-reply("⏳ Fetching Facebook video...")
+await sock.sendMessage(chatId,{
+react:{text:"⏳",key:message.key}
+})
+
+const api = `https://api.siputzx.my.id/api/d/facebook?url=${encodeURIComponent(url)}`
+
+const {data} = await axios.get(api)
 
 let video = null
+let title = "Facebook Video"
 
-// API 1
-try{
-let r = await axios.get(`https://api.nexoracle.com/downloaders/fbdl?url=${encodeURIComponent(url)}&apikey=free_for_use`)
-video = r?.data?.result?.hd || r?.data?.result?.sd
-}catch{}
+if(data?.status && data?.data?.data){
 
-// API 2
-if(!video){
-try{
-let r = await axios.get(`https://api.vreden.my.id/api/fbdl?url=${encodeURIComponent(url)}`)
-video = r?.data?.result?.url
-}catch{}
+const hd = data.data.data.find(v=>v.resolution==="HD")
+const sd = data.data.data.find(v=>v.resolution==="SD")
+
+video = hd?.url || sd?.url
+title = data.data.title || title
+
 }
 
-// API 3
 if(!video){
-try{
-let r = await axios.get(`https://api.dreaded.site/api/facebook?url=${encodeURIComponent(url)}`)
-video = r?.data?.result?.video
-}catch{}
+return sock.sendMessage(chatId,{text:"❌ Failed to download video"},{quoted:message})
 }
 
-if(!video) return reply("❌ Facebook video not found or API down")
-
-await conn.sendMessage(
-m.chat,
-{
-video:{ url: video },
-caption:"✅ Facebook Video Downloaded\n\n> Powered by Zahid King"
-},
-{ quoted:m }
-)
+await sock.sendMessage(chatId,{
+video:{url:video},
+caption:`${title}\n\n> Powered by Zahid King`
+},{quoted:message})
 
 }catch(e){
 
 console.log(e)
 
-reply("❌ Facebook downloader failed")
+sock.sendMessage(chatId,{
+text:"❌ Facebook downloader error"
+},{quoted:message})
 
 }
 
-})
+}
+
+module.exports = facebookCommand
