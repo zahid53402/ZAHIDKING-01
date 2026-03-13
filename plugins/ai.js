@@ -12,12 +12,12 @@ async function(conn, m, args) {
 
 try {
 
-if(!args[0]) return m.reply("Example:\n.ai what is javascript")
+if(!args[0]) return m.reply("Example:\n.ai hello")
 
 let question = args.join(" ")
 
 let res = await axios.post(
-`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${config.GEMINI_API_KEY}`,
+`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${config.GEMINI_API_KEY}`,
 {
 contents: [
 {
