@@ -1,5 +1,5 @@
-const axios = require('axios')
-const { cmd } = require('../command')
+const axios = require("axios")
+const { cmd } = require("../command")
 
 cmd({
 pattern: "fb",
@@ -10,49 +10,35 @@ filename: __filename
 },
 async (conn, m, msg, { args, reply }) => {
 
-try {
+try{
 
 if(!args[0]) return reply("Example:\n.fb https://facebook.com/video")
 
 let url = args[0]
 
-if(!url.includes("facebook.com")){
-return reply("❌ Invalid Facebook link")
-}
+reply("⏳ Downloading Facebook video...")
 
-reply("⏳ Downloading video...")
-
-let api = `https://api.hanggts.xyz/download/facebook?url=${encodeURIComponent(url)}`
+const api = `https://api.giftedtech.web.id/api/download/facebook?url=${url}`
 
 const res = await axios.get(api)
 
-let data = res.data
+if(!res.data.status) return reply("❌ Video not found")
 
 let video =
-data?.result?.media?.video_hd ||
-data?.result?.media?.video_sd ||
-data?.result?.url ||
-data?.data?.url ||
-data?.url ||
-data?.video
-
-if(!video) return reply("❌ Failed to fetch video")
-
-let title =
-data?.result?.info?.title ||
-data?.title ||
-"Facebook Video"
+res.data.result.hd ||
+res.data.result.sd ||
+res.data.result.url
 
 await conn.sendMessage(
 m.chat,
 {
 video: { url: video },
-caption: `𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗𝗘𝗗 𝗕𝗬 𝗭𝗔𝗛𝗜𝗗 𝗞𝗜𝗡𝗚\n\n📝 Title: ${title}`
+caption: "✅ Facebook Video Downloaded\n\nPowered by Zahid King"
 },
 { quoted: m }
 )
 
-} catch(e) {
+}catch(e){
 
 console.log(e)
 
