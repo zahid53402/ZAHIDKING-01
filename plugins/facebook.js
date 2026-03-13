@@ -14,28 +14,41 @@ try{
 
 let url = args[0]
 
-if(!url) return reply("Send Facebook link")
+if(!url) return reply("Send Facebook video link")
 
-reply("📥 Downloading Facebook video...")
+reply("⏳ Fetching Facebook video...")
 
-let api = `https://api.nexoracle.com/downloaders/fbdl?url=${encodeURIComponent(url)}&apikey=free_for_use`
+let video = null
 
-let { data } = await axios.get(api)
+// API 1
+try{
+let r = await axios.get(`https://api.nexoracle.com/downloaders/fbdl?url=${encodeURIComponent(url)}&apikey=free_for_use`)
+video = r?.data?.result?.hd || r?.data?.result?.sd
+}catch{}
 
-let video =
-data?.result?.hd ||
-data?.result?.sd ||
-data?.link
+// API 2
+if(!video){
+try{
+let r = await axios.get(`https://api.vreden.my.id/api/fbdl?url=${encodeURIComponent(url)}`)
+video = r?.data?.result?.url
+}catch{}
+}
 
-if(!video) return reply("❌ Video not found")
+// API 3
+if(!video){
+try{
+let r = await axios.get(`https://api.dreaded.site/api/facebook?url=${encodeURIComponent(url)}`)
+video = r?.data?.result?.video
+}catch{}
+}
 
-let title = data?.result?.title || "Facebook Video"
+if(!video) return reply("❌ Facebook video not found or API down")
 
 await conn.sendMessage(
 m.chat,
 {
 video:{ url: video },
-caption:`🦋 Facebook • ${title}\n\n> Powered by Zahid King`
+caption:"✅ Facebook Video Downloaded\n\n> Powered by Zahid King"
 },
 { quoted:m }
 )
@@ -44,7 +57,7 @@ caption:`🦋 Facebook • ${title}\n\n> Powered by Zahid King`
 
 console.log(e)
 
-reply("❌ Facebook download failed")
+reply("❌ Facebook downloader failed")
 
 }
 
