@@ -1,27 +1,25 @@
 const { cmd } = require("../command");
 
-let chatbot = false;
+global.AI_CHATBOT = false;
 
 cmd({
 pattern: "chatbot",
-desc: "Enable or disable AI chatbot",
+desc: "Turn AI chatbot on/off",
 category: "ai",
 filename: __filename
 },
 async (conn, m, msg, { args, reply }) => {
 
-if(!args[0]) return reply("Use:\n.chatbot on\n.chatbot off");
+if(!args[0]) return reply("Usage:\n.chatbot on\n.chatbot off");
 
 if(args[0] === "on"){
-chatbot = true;
-reply("🤖 AI Chatbot Enabled");
+global.AI_CHATBOT = true
+reply("🤖 Zahid King AI Chatbot Enabled")
 }
 
 else if(args[0] === "off"){
-chatbot = false;
-reply("❌ AI Chatbot Disabled");
+global.AI_CHATBOT = false
+reply("❌ Zahid King AI Chatbot Disabled")
 }
 
 });
-
-module.exports.chatbot = () => chatbot;
