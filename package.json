@@ -70,9 +70,9 @@
     "axios": "^1.6.0"
 },
 
-    "scripts": {
-    "start": "node index.js",
-    "postinstall": "apt-get update && apt-get install -y ffmpeg python3 python3-pip && pip3 install yt-dlp"
+"scripts": {
+"start": "node index.js",
+"postinstall": "apt-get update && apt-get install -y ffmpeg python3 python3-pip pipx && pipx install yt-dlp"
 }
 
 }
