@@ -14,31 +14,38 @@ try {
 
 if(!args[0]) return m.reply("Example:\n.ai hello")
 
-let text = args.join(" ")
+let prompt = args.join(" ")
 
-const res = await axios.post(
-`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${config.GEMINI_API_KEY}`,
-{
+const response = await axios({
+method: "POST",
+url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
+params: {
+key: config.GEMINI_API_KEY
+},
+headers: {
+"Content-Type": "application/json"
+},
+data: {
 contents: [
 {
-parts: [{ text: text }]
+role: "user",
+parts: [
+{ text: prompt }
+]
 }
 ]
-},
-{
-headers: { "Content-Type": "application/json" }
 }
-)
+})
 
-let reply = res.data.candidates[0].content.parts[0].text
+let result = response.data.candidates[0].content.parts[0].text
 
-m.reply(reply)
+await m.reply(result)
 
 } catch (err) {
 
 console.log(err.response?.data || err)
 
-m.reply("❌ AI request failed")
+m.reply("❌ AI error")
 
 }
 
