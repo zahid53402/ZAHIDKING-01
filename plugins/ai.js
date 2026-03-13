@@ -1,53 +1,44 @@
-const axios = require("axios")
-const config = require("../config")
+const axios = require("axios");
+const { cmd } = require("../command");
+const config = require("../config");
 
-module.exports = {
-pattern: "ai",
-alias: ["ask","chat","gpt"],
-react: "🤖",
-desc: "Chat with Gemini AI",
-category: "ai",
-
-async function(conn, m, args) {
+cmd({
+    pattern: "ai",
+    desc: "Chat with Gemini AI",
+    category: "ai",
+    filename: __filename
+},
+async (conn, m, msg, { args, reply }) => {
 
 try {
 
-if(!args[0]) return m.reply("Example:\n.ai hello")
+if (!args[0]) return reply("Example:\n.ai hello");
 
-let prompt = args.join(" ")
+let question = args.join(" ");
 
-const response = await axios({
-method: "POST",
-url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
-params: {
-key: config.GEMINI_API_KEY
-},
-headers: {
-"Content-Type": "application/json"
-},
-data: {
+const response = await axios.post(
+"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + config.GEMINI_API_KEY,
+{
 contents: [
 {
-role: "user",
 parts: [
-{ text: prompt }
+{ text: question }
 ]
 }
 ]
 }
-})
+);
 
-let result = response.data.candidates[0].content.parts[0].text
+let text = response.data.candidates[0].content.parts[0].text;
 
-await m.reply(result)
+reply(text);
 
 } catch (err) {
 
-console.log(err.response?.data || err)
+console.log(err.response?.data || err);
 
-m.reply("❌ AI error")
-
-}
+reply("❌ AI request failed");
 
 }
-}
+
+});
