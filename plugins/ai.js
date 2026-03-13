@@ -17,7 +17,7 @@ if(!args[0]) return m.reply("Example:\n.ai hello")
 let text = args.join(" ")
 
 const res = await axios.post(
-`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${config.GEMINI_API_KEY}`,
+`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${config.GEMINI_API_KEY}`,
 {
 contents: [
 {
@@ -38,7 +38,7 @@ m.reply(reply)
 
 console.log(err.response?.data || err)
 
-m.reply("❌ AI failed. Check API key.")
+m.reply("❌ AI request failed")
 
 }
 
