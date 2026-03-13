@@ -1,25 +1,47 @@
-const { cmd } = require("../command");
+const axios = require("axios")
+const config = require("../config")
 
-global.AI_CHATBOT = false;
+module.exports = async (conn, m) => {
 
-cmd({
-pattern: "chatbot",
-desc: "Turn AI chatbot on/off",
-category: "ai",
-filename: __filename
-},
-async (conn, m, msg, { args, reply }) => {
+try {
 
-if(!args[0]) return reply("Usage:\n.chatbot on\n.chatbot off");
+if (!global.AI_CHATBOT) return
+if (!m.body) return
+if (m.key.fromMe) return
+if (m.body.startsWith(config.PREFIX)) return
 
-if(args[0] === "on"){
-global.AI_CHATBOT = true
-reply("🤖 Zahid King AI Chatbot Enabled")
+let text = m.body
+
+const res = await axios.post(
+`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${config.GEMINI_API_KEY}`,
+{
+contents: [
+{
+parts: [
+{
+text: `You are Zahid King AI Assistant.
+
+User: ${text}
+
+Always end reply with:
+Powered by Zahid King`
+}
+]
+}
+]
+}
+)
+
+let reply = res.data.candidates[0].content.parts[0].text
+
+await conn.sendMessage(
+m.chat,
+{ text: reply },
+{ quoted: m }
+)
+
+} catch (e) {
+console.log(e)
 }
 
-else if(args[0] === "off"){
-global.AI_CHATBOT = false
-reply("❌ Zahid King AI Chatbot Disabled")
 }
-
-});
