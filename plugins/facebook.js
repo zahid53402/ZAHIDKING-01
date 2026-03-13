@@ -1,47 +1,41 @@
 const axios = require("axios")
-const cheerio = require("cheerio")
 const { cmd } = require("../command")
 
 cmd({
 pattern: "fb",
 alias: ["facebook","fbdl"],
 desc: "Download Facebook video",
-category: "download",
+category: "downloader",
 filename: __filename
 },
 async (conn, m, msg, { args, reply }) => {
 
 try{
 
-if(!args[0]) return reply("Example:\n.fb https://facebook.com/video")
-
 let url = args[0]
 
-reply("⏳ Downloading Facebook video...")
+if(!url) return reply("Send Facebook link")
 
-const res = await axios.post(
-"https://fdown.net/download.php",
-`URLz=${encodeURIComponent(url)}`,
-{
-headers:{
-"content-type":"application/x-www-form-urlencoded",
-"user-agent":"Mozilla/5.0"
-}
-})
+reply("📥 Downloading Facebook video...")
 
-const $ = cheerio.load(res.data)
+let api = `https://api.nexoracle.com/downloaders/fbdl?url=${encodeURIComponent(url)}&apikey=free_for_use`
+
+let { data } = await axios.get(api)
 
 let video =
-$("#sdlink").attr("href") ||
-$("#hdlink").attr("href")
+data?.result?.hd ||
+data?.result?.sd ||
+data?.link
 
-if(!video) return reply("❌ Failed to download video")
+if(!video) return reply("❌ Video not found")
+
+let title = data?.result?.title || "Facebook Video"
 
 await conn.sendMessage(
 m.chat,
 {
 video:{ url: video },
-caption:"✅ Facebook Video Downloaded\n\nPowered by Zahid King"
+caption:`🦋 Facebook • ${title}\n\n> Powered by Zahid King`
 },
 { quoted:m }
 )
@@ -49,6 +43,7 @@ caption:"✅ Facebook Video Downloaded\n\nPowered by Zahid King"
 }catch(e){
 
 console.log(e)
+
 reply("❌ Facebook download failed")
 
 }
