@@ -3,11 +3,14 @@
   "version": "5.0.0",
   "description": "A WhatsApp Bot Created By zahid Ai",
   "main": "index.js",
+
   "scripts": {
     "start": "pm2 start index.js --deep-monitoring --attach --name ZAHID-AI",
     "stop": "pm2 stop ZAHID-AI",
-    "restart": "pm2 restart ZAHID-AI"
+    "restart": "pm2 restart ZAHID-AI",
+    "postinstall": "apt-get update && apt-get install -y ffmpeg python3 python3-pip pipx && pipx install yt-dlp"
   },
+
   "dependencies": {
     "@whiskeysockets/baileys": "v7.0.0-rc.6",
     "@adiwajshing/keyed-db": "^0.2.4",
@@ -24,7 +27,6 @@
     "google-tts-api": "^2.0.2",
     "file_size_url": "1.0.6",
     "fs-extra": "^11.1.0",
-    "fs": "^0.0.1-security",
     "ffmpeg": "^0.0.4",
     "file-type": "^21.0.0",
     "fluent-ffmpeg": "^2.1.2",
@@ -66,13 +68,6 @@
     "ws": "^8.17.1",
     "yargs": "^17.6.0",
     "yargs-parser": "^21.1.1",
-    "body-parser": "^1.20.2",
-    "axios": "^1.6.0"
-},
-
-"scripts": {
-"start": "node index.js",
-"postinstall": "apt-get update && apt-get install -y ffmpeg python3 python3-pip pipx && pipx install yt-dlp"
-}
-
+    "body-parser": "^1.20.2"
+  }
 }
