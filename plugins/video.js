@@ -1,6 +1,7 @@
 const { cmd } = require('../command');
 const yts = require('yt-search');
-const ytdl = require('@dark-yasiya/yt-dl.js');
+const { exec } = require('child_process');
+const fs = require('fs');
 
 cmd({
 pattern: "video",
@@ -17,7 +18,6 @@ try{
 if(!text) return reply("Example:\n.video alan walker faded")
 
 let videoUrl = text
-let videoInfo = null
 
 /* SEARCH YOUTUBE */
 
@@ -28,43 +28,32 @@ const search = await yts(text)
 if(!search.videos.length) return reply("❌ Video not found")
 
 videoUrl = search.videos[0].url
-videoInfo = search.videos[0]
 
 }
 
-/* REACTION */
+reply("⬇️ Downloading video...")
+
+let file = `video_${Date.now()}.mp4`
+
+exec(`yt-dlp -f mp4 -o "${file}" "${videoUrl}"`, async (err) => {
+
+if(err){
+console.log(err)
+return reply("❌ Download failed")
+}
 
 await conn.sendMessage(from,{
-react:{text:"⬇️",key:mek.key}
-})
+video: fs.readFileSync(file),
+caption:"🎥 YouTube Video\n\n👑 Powered by Zahid King"
+},{quoted: mek})
 
-/* DOWNLOAD */
+fs.unlinkSync(file)
 
-const data = await ytdl.ytmp4(videoUrl)
-
-if(!data || !data.url) return reply("❌ Download failed")
-
-let title = data.title || videoInfo?.title || "YouTube Video"
-
-/* SEND VIDEO */
-
-await conn.sendMessage(from,{
-video:{url:data.url},
-caption:`🎥 ${title}\n\n👑 Powered by Zahid King`
-},{quoted:mek})
-
-await conn.sendMessage(from,{
-react:{text:"✅",key:mek.key}
 })
 
 }catch(e){
 
 console.log(e)
-
-await conn.sendMessage(from,{
-react:{text:"❌",key:mek.key}
-})
-
 reply("❌ Error downloading video")
 
 }
