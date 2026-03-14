@@ -14,34 +14,8 @@ cmd({
 async (conn, mek, m, { from, reply }) => {
     try {
 
-        const aliveMsg = `
-*╭👑 ╔════════  👑  ════════╗ 👑
-       ✨ 𝐒𝐘𝐒𝐓𝐄𝐌 𝐂𝐎𝐍𝐓𝐑𝐎𝐋 ✨
-👑 ╚════════  👑  ════════╝ 👑
-
-🔥 ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
-   ┃ 🏰 *KING'S EMPIRE STATUS*
-   ┃ 
-   ┃ 🤖 *𝐁𝐨𝐭 𝐒𝐭𝐚𝐭𝐮𝐬:* Online ✅
-   ┃ 👑 *𝐎𝐰𝐧𝐞𝐫:* ${config.OWNER_NAME}
-   ┃ ⚙️ *𝐌𝐨𝐝𝐞:* ${config.MODE}
-   ┃ 🔣 *𝐏𝐫𝐞𝐟𝐢𝐱:* ${config.PREFIX}
-   ┃
-   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
-
-💎 ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
-   ┃ ⚡ *TECHNICAL DOMINANCE*
-   ┃ 
-   ┃ 💻 *𝐇𝐨𝐬𝐭:* ${os.hostname()}
-   ┃ 💾 *𝐑𝐀𝐌:* ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB
-   ┃ ⏱️ *𝐔𝐩𝐭𝐢𝐦𝐞:* ${runtime(process.uptime())}
-   ┃
-   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
-
-   🚩 ᴘᴏᴡᴇʀᴇᴅ ʙʏ: *𝐙𝐀𝐇𝐈𝐃 𝐊𝐈𝐍𝐆*
-   🛡️ ━━━━━━━━━━━━━━━━━━━━ 🛡️
-
-`;
+        const aliveMsg = `亗 𝙱𝙷𝙰𝙸 𝙰𝙱𝙷𝙸 𝚃𝙰𝙺 𝚉𝙸𝙽𝙳𝙰 𝙷𝙾 🤫 亗
+~ 𝒫𝑜𝓌𝑒𝓇𝑒𝒹 𝒷𝓎 𝒵𝒜𝐻𝐼𝒟 𝒦𝐼𝒩𝒢 ~`;
 
         await conn.sendMessage(from, {
             image: { url: config.MENU_IMAGE_URL },
@@ -61,29 +35,8 @@ async (conn, mek, m, { from, reply }) => {
     } catch (err) {
         console.error("ALIVE ERROR:", err);
 
-        const errorMsg = `
-👑 ╔════════  👑  ════════╗ 👑
-       ⚖️  𝐒𝐘𝐒𝐓𝐄𝐌  𝐏𝐀𝐔𝐒𝐄𝐃  ⚖️
-👑 ╚════════  👑  ════════╝ 👑
-
-🔥 ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
-   ┃ ⚔️ *KING'S SILENCE*
-   ┃ 
-   ┃ ❌ *Error:* Alive Command Failed
-   ┃ 🛡️ *Status:* Under Maintenance
-   ┃ ⏳ *Action:* Try Again Later
-   ┃
-   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
-
-💎 ╭╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╮
-   ┃ ✨ *Ghabrane Ki Baat Nahi...*
-   ┃ 👑 King Is Ruling Behind The Scenes!
-   ╰╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╼╯
-
-   🚩 ᴘᴏᴡᴇʀᴇᴅ ʙʏ: *𝐙𝐀𝐇𝐈𝐃 𝐊𝐈𝐍𝐆*
-   🛡️ ━━━━━━━━━━━━━━━━━━━━ 🛡️
-
-`;
+        const errorMsg = `亗 𝙱𝙷𝙰𝙸 𝙰𝙱𝙸 𝙸𝙽𝚃𝙺𝙰𝙻 𝙺𝚁 𝙶𝚈𝙰 𝙷𝙾 ⚰️ 亗
+~ 𝒫𝑜𝓌𝑒𝓇𝑒𝒹 𝒷𝓎 𝒵𝒜𝐻𝐼𝒟 𝒦𝐼𝒩𝒢 ~`;
 
         await reply(errorMsg);
     }
