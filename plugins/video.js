@@ -3,57 +3,72 @@ const axios = require('axios')
 const yts = require('yt-search')
 
 cmd({
-pattern:"video",
-alias:["ytv"],
-desc:"Download YouTube video",
-category:"downloader",
-react:"🎬",
-filename:__filename
+pattern: "video",
+alias: ["ytv"],
+desc: "Download YouTube video",
+category: "downloader",
+react: "🎥",
+filename: __filename
 },
-async(sock,m,msg,{from,text,reply})=>{
+async (sock, m, msg, { from, text, reply }) => {
 
-try{
+try {
 
-if(!text) return reply("Example:\n.video funny cats")
+if (!text) {
+return reply("🎬 Example:\n.video funny cats\nor\n.video https://youtu.be/xxxx")
+}
 
 await sock.sendMessage(m.chat,{
 react:{text:"🔍",key:m.key}
 })
 
 let videoUrl = text
-let videoData = null
+let videoInfo = null
 
-if(!text.startsWith("http")){
+/* SEARCH YOUTUBE */
 
-let search = await yts(text)
+if (!text.startsWith("http")) {
 
-if(!search.videos.length) return reply("No videos found")
+const search = await yts(text)
+
+if (!search.videos.length) {
+return reply("❌ No videos found")
+}
 
 videoUrl = search.videos[0].url
-videoData = search.videos[0]
+videoInfo = search.videos[0]
 
 }
 
-const api = `https://yt-dl.officialhectormanuel.workers.dev/?url=${encodeURIComponent(videoUrl)}`
+/* DOWNLOAD */
+
+await sock.sendMessage(m.chat,{
+react:{text:"⬇️",key:m.key}
+})
+
+const api = `https://api.giftedtech.web.id/api/download/ytmp4?url=${encodeURIComponent(videoUrl)}&apikey=gifted`
 
 const res = await axios.get(api)
 
-if(!res.data.status) return reply("API error")
+if (!res.data.status) {
+return reply("❌ Download failed")
+}
 
-let title = res.data.title || videoData?.title || "Video"
+let video = res.data.result.download_url
+let title = res.data.result.title || videoInfo?.title || "YouTube Video"
 
-let video = res.data.videos["360"]
+/* SEND VIDEO */
 
 await sock.sendMessage(from,{
 video:{url:video},
-caption:`🎬 ${title}\n\nPowered by Zahid King`
+caption:`🎥 ${title}\n\n👑 Powered by Zahid King`
 },{quoted:m})
 
 await sock.sendMessage(m.chat,{
 react:{text:"✅",key:m.key}
 })
 
-}catch(e){
+} catch (e) {
 
 console.log(e)
 
@@ -61,7 +76,7 @@ await sock.sendMessage(m.chat,{
 react:{text:"❌",key:m.key}
 })
 
-reply("Download failed")
+reply("❌ Error downloading video")
 
 }
 
