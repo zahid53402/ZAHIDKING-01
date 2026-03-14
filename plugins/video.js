@@ -19,6 +19,7 @@ if(!text) return reply("Example:\n.video alan walker faded")
 
 let url = text
 
+// Search if not link
 if(!text.startsWith("http")){
 let search = await yts(text)
 if(!search.videos.length) return reply("❌ Video not found")
@@ -29,16 +30,16 @@ reply("⬇️ Downloading video...")
 
 let file = `video_${Date.now()}.mp4`
 
-exec(`python3 -m yt_dlp -o "${file}" "${url}"`, async (err) => {
+exec(`python3 -m yt_dlp -f mp4 -o "${file}" "${url}"`, async (err, stdout, stderr) => {
 
 if(err){
-console.log(err)
+console.log("YT ERROR:", stderr)
 return reply("❌ Download failed")
 }
 
 await conn.sendMessage(from,{
 video: fs.readFileSync(file),
-caption:"🎥 YouTube Video\n\n👑 Powered by Zahid King"
+caption: "🎥 YouTube Video\n\nPowered by Zahid King 👑"
 },{quoted: mek})
 
 fs.unlinkSync(file)
@@ -46,8 +47,10 @@ fs.unlinkSync(file)
 })
 
 }catch(e){
+
 console.log(e)
 reply("❌ Error downloading video")
+
 }
 
 })
