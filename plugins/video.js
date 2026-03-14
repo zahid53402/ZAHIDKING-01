@@ -3,55 +3,50 @@ const axios = require('axios')
 const yts = require('yt-search')
 
 cmd({
-pattern: "video",
-alias: ["ytvideo","ytv"],
-desc: "YouTube video downloader",
-category: "downloader",
-react: "🎥",
-filename: __filename
+pattern:"video",
+alias:["ytv"],
+desc:"Download YouTube video",
+category:"downloader",
+react:"🎬",
+filename:__filename
 },
-async (sock, m, msg, { from, args, text, reply }) => {
+async(sock,m,msg,{from,text,reply})=>{
 
-try {
+try{
 
-if (!text) {
-return reply("Usage:\n.video song name\nor\n.video youtube_link")
-}
+if(!text) return reply("Example:\n.video funny cats")
 
 await sock.sendMessage(m.chat,{
-react:{text:"⚡",key:m.key}
+react:{text:"🔍",key:m.key}
 })
 
 let videoUrl = text
-let videoInfo = null
+let videoData = null
 
-if (!text.startsWith("http")) {
+if(!text.startsWith("http")){
 
-const search = await yts(text)
+let search = await yts(text)
 
-if (!search.videos.length) return reply("No videos found")
+if(!search.videos.length) return reply("No videos found")
 
 videoUrl = search.videos[0].url
-videoInfo = search.videos[0]
+videoData = search.videos[0]
 
 }
-
-await sock.sendMessage(m.chat,{
-react:{text:"⬇️",key:m.key}
-})
 
 const api = `https://yt-dl.officialhectormanuel.workers.dev/?url=${encodeURIComponent(videoUrl)}`
 
 const res = await axios.get(api)
 
-if(!res.data?.status) return reply("API error")
+if(!res.data.status) return reply("API error")
 
-let title = res.data.title || videoInfo?.title || "Video"
+let title = res.data.title || videoData?.title || "Video"
+
 let video = res.data.videos["360"]
 
 await sock.sendMessage(from,{
 video:{url:video},
-caption:`🎥 ${title}\n\nPowered by Zahid King`
+caption:`🎬 ${title}\n\nPowered by Zahid King`
 },{quoted:m})
 
 await sock.sendMessage(m.chat,{
