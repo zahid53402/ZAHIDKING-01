@@ -18,8 +18,7 @@ async (conn, mek, m, { from, reply }) => {
 ~ 𝒫𝑜𝓌𝑒𝓇𝑒𝒹 𝒷𝓎 𝒵𝒜𝐻𝐼𝒟 𝒦𝐼𝒩𝒢 ~`;
 
         await conn.sendMessage(from, {
-            image: { url: config. },
-            caption: aliveMsg,
+            text: aliveMsg,
             contextInfo: {
                 mentionedJid: [m.sender],
                 forwardingScore: 999,
@@ -36,9 +35,8 @@ async (conn, mek, m, { from, reply }) => {
         console.error("ALIVE ERROR:", err);
 
         const errorMsg = `亗 𝙱𝙷𝙰𝙸 𝙰𝙱𝙸 𝙸𝙽𝚃𝙺𝙰𝙻 𝙺𝚁 𝙶𝚈𝙰 𝙷𝙾 ⚰️ 亗
-~ 𝒫𝑜𝓌𝑒𝓇𝑒𝒹 𝒷𝓎 𝒵𝒜𝐻𝐼𝒟 𝒦𝐼𝒩𝒢 ~`;
+~ 𝒫𝑜𝓌𝑒𝓇𝑀 𝒷𝓎 𝒵𝒜𝐻𝐼𝒟 𝒦𝐼𝒩𝒢 ~`;
 
         await reply(errorMsg);
     }
 });
-
