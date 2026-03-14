@@ -13,49 +13,41 @@ filename: __filename
 },
 async (conn, mek, m, { from, text, reply }) => {
 
-try {
+try{
 
-if (!text) return reply("Example:\n.video alan walker faded")
+if(!text) return reply("Example:\n.video alan walker faded")
 
 let url = text
 
-/* SEARCH */
-
-if (!text.startsWith("http")) {
-
+if(!text.startsWith("http")){
 let search = await yts(text)
-
-if (!search.videos.length) return reply("❌ Video not found")
-
+if(!search.videos.length) return reply("❌ Video not found")
 url = search.videos[0].url
-
 }
 
 reply("⬇️ Downloading video...")
 
-let file = `yt_${Date.now()}.mp4`
+let file = `video_${Date.now()}.mp4`
 
-exec(`yt-dlp -o "${file}" "${url}"`, async (err, stdout, stderr) => {
+exec(`python3 -m yt_dlp -o "${file}" "${url}"`, async (err) => {
 
-if (err) {
-console.log("YT ERROR:", stderr)
-return reply("❌ Download failed\n\nServer may not support yt-dlp")
+if(err){
+console.log(err)
+return reply("❌ Download failed")
 }
 
 await conn.sendMessage(from,{
 video: fs.readFileSync(file),
-caption: "🎥 YouTube Video\n\nPowered by Zahid King 👑"
+caption:"🎥 YouTube Video\n\n👑 Powered by Zahid King"
 },{quoted: mek})
 
 fs.unlinkSync(file)
 
 })
 
-} catch (e) {
-
+}catch(e){
 console.log(e)
 reply("❌ Error downloading video")
-
 }
 
 })
