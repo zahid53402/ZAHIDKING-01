@@ -18,7 +18,7 @@ async (conn, mek, m, { from, reply }) => {
 ~ 𝒫𝑜𝓌𝑒𝓇𝑒𝒹 𝒷𝓎 𝒵𝒜𝐻𝐼𝒟 𝒦𝐼𝒩𝒢 ~`;
 
         await conn.sendMessage(from, {
-            image: { url: config.MENU_IMAGE_URL },
+            image: { url: config. },
             caption: aliveMsg,
             contextInfo: {
                 mentionedJid: [m.sender],
