@@ -104,6 +104,9 @@ const fs = require('fs');
 const ff = require('fluent-ffmpeg');
 const P = require('pino');
 const qrcode = require('qrcode-terminal');
+
+const msgStore = new Map(); // Anti Delete Store
+
 const util = require('util');
 const FileType = require('file-type');
 const axios = require('axios');
@@ -543,32 +546,48 @@ async function connectToWA() {
                     }).catch(err => console.error("Welcome message error:", err.message));
                     
                     // Send to owner as well
-                    conn.sendMessage(ownerNumber[0] + '@s.whatsapp.net', {
-                        text: `✅ *꧁༒☬Zᴀʜɪᴅ Kɪɴɢ☬༒꧂ IS ACTIVATED*\n\nBot is now online!\nCommands: ${commands.length}\nPrefix: ${prefix}`
-                    }).catch(() => {});
-                }, 5000);
-            }
-        });
-        
-        conn.ev.on('creds.update', saveCreds);
+conn.sendMessage(ownerNumber[0] + '@s.whatsapp.net', {
+text: `✅ *꧁༒☬Zᴀʜɪᴅ Kɪɴɢ☬༒꧂ IS ACTIVATED*\n\nBot is now online!\nCommands: ${commands.length}\nPrefix: ${prefix}`
+}).catch(() => {});
+}, 5000);
+}
+});
 
-        // ANTI-DELETE
-        if (config.ANTI_DELETE === 'true') {
-            console.log("🛡️ Anti-Delete: ACTIVE");
-            
-            conn.ev.on('messages.update', async updates => {
-                for (const update of updates) {
-                    if (update.update && update.update.message === null) {
-                        try {
-                            await AntiDelete(conn, [update]);
-                        } catch (err) {
-                            console.error("Anti-delete error:", err.message);
-                        }
-                    }
-                }
-            });
-        }
+// ==================== ANTI DELETE ====================
 
+conn.ev.on('messages.update', async (updates) => {
+
+for (const update of updates) {
+
+if (update.update && update.update.message === null) {
+
+let key = update.key;
+let deletedMsg = msgStore.get(key.id);
+
+if (!deletedMsg) return;
+
+let user = key.participant || key.remoteJid;
+
+try {
+
+await conn.sendMessage(key.remoteJid, {
+text: `⚠️ *Deleted Message Recovered*\nUser: @${user.split('@')[0]}`,
+mentions: [user]
+});
+
+await conn.sendMessage(key.remoteJid, deletedMsg.message, {
+quoted: deletedMsg
+});
+
+} catch (e) {
+console.log("AntiDelete Error:", e.message);
+}
+
+}
+
+}
+
+});
         // ANTI CALL
         if (config.ANTI_CALL === 'true') {
             conn.ev.on("call", async (json) => {
@@ -593,22 +612,24 @@ async function connectToWA() {
             }
         });
 
-        // MESSAGE HANDLER
-        conn.ev.on('messages.upsert', async (mekData) => {
-            // Queue for ultra processing
-            const message = mekData.messages[0];
-            if (message) {
-                msgQueue.push(message);
-                if (msgQueue.length === 1) processQueue();
-            }
-            
-            try {
-                const message = mekData.messages[0];
-                if (!message || !message.message) return;
-                
-                message.message = (getContentType(message.message) === 'ephemeralMessage') 
-                    ? message.message.ephemeralMessage.message 
-                    : message.message;
+     conn.ev.on('messages.upsert', async (mekData) => {
+
+const msg = mekData.messages[0];
+
+// STORE MESSAGE
+if (msg && msg.key && msg.message) {
+    msgStore.set(msg.key.id, msg);
+}
+
+// Queue system
+if (msg) {
+    msgQueue.push(msg);
+    if (msgQueue.length === 1) processQueue();
+}
+
+try {
+    const message = mekData.messages[0];
+    if (!message || !message.message) return;
                 
                 // Auto read
                 if (config.READ_MESSAGE === 'true') {
@@ -622,7 +643,8 @@ async function connectToWA() {
                 
                 // Store for anti-delete
                 if (config.ANTI_DELETE === 'true') {
-                    await storeMessageForAntiDelete(message);
+                    // REMOVE THIS
+
                 }
                 
                 // Auto typing/recording
