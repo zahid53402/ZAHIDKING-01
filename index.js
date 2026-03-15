@@ -561,6 +561,8 @@ for (const update of updates) {
 
 if (update.update && update.update.message === null) {
 
+if (!antiDelete) return;
+
 let key = update.key;
 let deletedMsg = msgStore.get(key.id);
 
@@ -568,20 +570,12 @@ if (!deletedMsg) return;
 
 let user = key.participant || key.remoteJid;
 
-try {
-
 await conn.sendMessage(key.remoteJid, {
 text: `⚠️ *Deleted Message Recovered*\nUser: @${user.split('@')[0]}`,
 mentions: [user]
 });
 
-await conn.sendMessage(key.remoteJid, deletedMsg.message, {
-quoted: deletedMsg
-});
-
-} catch (e) {
-console.log("AntiDelete Error:", e.message);
-}
+await conn.sendMessage(key.remoteJid, deletedMsg.message);
 
 }
 
