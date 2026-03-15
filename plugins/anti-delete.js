@@ -1,31 +1,33 @@
-const config = require("../config")
+const { cmd } = require('../command');
 
-async function AntiDelete(conn, updates){
+let antiDelete = true;
 
-if(config.ANTI_DELETE !== "true") return
+cmd({
+    pattern: "antidelete",
+    alias: ["delete"],
+    desc: "Turn on/off anti delete",
+    category: "group",
+    react: "🛡️",
+    filename: __filename
+},
+async (conn, mek, m, { from, args, reply, isGroup, isAdmins, isOwner }) => {
 
-for(const update of updates){
+    if (!isGroup) return reply("❌ This command works only in groups.");
 
-if(update.update && update.update.message === null){
+    if (!isAdmins && !isOwner) return reply("❌ Admin only command.");
 
-const key = update.key
-const jid = key.remoteJid
-const user = key.participant || jid
+    if (!args[0]) {
+        return reply(`🛡️ AntiDelete Status: *${antiDelete ? "ON" : "OFF"}*\n\nExample:\n.antidelete on\n.antidelete off`);
+    }
 
-let target = config.ANTI_DEL_PATH === "same" ? jid : conn.user.id
+    if (args[0] === "on") {
+        antiDelete = true;
+        return reply("✅ AntiDelete Enabled");
+    }
 
-await conn.sendMessage(target,{
-text:`🛡 *ANTI DELETE*
+    if (args[0] === "off") {
+        antiDelete = false;
+        return reply("❌ AntiDelete Disabled");
+    }
 
-👤 User: @${user.split("@")[0]}
-⚠️ A message was deleted.`,
-mentions:[user]
-})
-
-}
-
-}
-
-}
-
-module.exports = { AntiDelete }
+});
