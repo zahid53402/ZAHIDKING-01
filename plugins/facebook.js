@@ -1,66 +1,48 @@
-const axios = require("axios")
-const { cmd } = require("../command")
+const { cmd } = require('../command');
+const axios = require('axios');
 
 cmd({
-pattern: "fb",
-alias: ["facebook","fbdl"],
-desc: "Download Facebook video",
-category: "downloader",
+pattern: "facebook",
+alias: ["fb","fbdl"],
+desc: "Download Facebook Video",
+category: "download",
+react: "📥",
 filename: __filename
 },
-async (conn, m, msg, { args, reply }) => {
+async (conn, mek, m, { from, q, reply }) => {
 
 try{
 
-let url = args[0]
+if(!q) return reply("❌ Facebook link do\nExample:\n.fb https://facebook.com/...");
 
-if(!url) return reply("Send Facebook video link")
+if(!q.includes("facebook.com") && !q.includes("fb.watch"))
+return reply("❌ Invalid Facebook link");
 
-reply("⏳ Fetching Facebook video...")
+await conn.sendMessage(from,{
+react:{text:"⏳",key:mek.key}
+});
 
-let video = null
+let api = `https://delirius-apiofc.vercel.app/download/facebook?url=${encodeURIComponent(q)}`;
 
-// API 1
-try{
-let r = await axios.get(`https://api.siputzx.my.id/api/d/facebook?url=${encodeURIComponent(url)}`)
-let hd = r?.data?.data?.data?.find(v=>v.resolution==="HD")
-let sd = r?.data?.data?.data?.find(v=>v.resolution==="SD")
-video = hd?.url || sd?.url
-}catch{}
+let res = await axios.get(api);
+let data = res.data;
 
-// API 2
-if(!video){
-try{
-let r = await axios.get(`https://api.vreden.my.id/api/fbdl?url=${encodeURIComponent(url)}`)
-video = r?.data?.result?.url
-}catch{}
-}
+if(!data || !data.data)
+return reply("❌ Facebook video fetch failed");
 
-// API 3
-if(!video){
-try{
-let r = await axios.get(`https://api.nexoracle.com/downloaders/fbdl?url=${encodeURIComponent(url)}&apikey=free_for_use`)
-video = r?.data?.result?.hd || r?.data?.result?.sd
-}catch{}
-}
+let video = data.data.hd || data.data.sd;
 
-if(!video) return reply("❌ Facebook video not found")
+if(!video)
+return reply("❌ Video not found");
 
-await conn.sendMessage(
-m.chat,
-{
-video:{ url: video },
-caption:"✅ Facebook Video Downloaded\n\n> Powered by Zahid King"
-},
-{ quoted:m }
-)
+await conn.sendMessage(from,{
+video:{url:video},
+caption:"📥 Facebook Video Downloaded\n\nPowered by ZAHID KING"
+},{quoted:mek});
 
 }catch(e){
-
 console.log(e)
-
-reply("❌ Facebook downloader failed")
-
+reply("❌ Facebook download error");
 }
 
-})
+});
