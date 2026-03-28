@@ -17,33 +17,45 @@ async (conn, mek, m, { from, reply, text }) => {
         if (!text) return reply("❌ Drama ka naam likho\nExample:\n.drama dark\n.drama dark 1")
 
         let args = text.split(" ")
-        
-        // agar last value number hai → episode request
         let epNumber = parseInt(args[args.length - 1])
         let isEpisode = !isNaN(epNumber)
-
         let name = isEpisode ? args.slice(0, -1).join(" ") : text
 
-        // 🔍 search drama
-        let res = await fetch(`https://api.tvmaze.com/search/shows?q=${encodeURIComponent(name)}`)
-        let json = await res.json()
+        let show, episodes
 
-        if (!json.length) return reply("❌ Drama nahi mila 😢")
+        // =====================
+        // 🔥 TRY API 1 (TVMAZE)
+        // =====================
+        try {
+            let res = await fetch(`https://api.tvmaze.com/search/shows?q=${encodeURIComponent(name)}`)
+            let json = await res.json()
 
-        let show = json[0].show
+            if (!json.length) throw "No result"
 
-        // 📺 get all episodes
-        let epRes = await fetch(`https://api.tvmaze.com/shows/${show.id}/episodes`)
-        let episodes = await epRes.json()
+            show = json[0].show
 
-        // =========================
-        // 🎬 CASE 1: Sirf drama name
-        // =========================
+            let epRes = await fetch(`https://api.tvmaze.com/shows/${show.id}/episodes`)
+            episodes = await epRes.json()
+
+        } catch (e) {
+
+            console.log("API1 fail, trying backup...")
+
+            // =====================
+            // 🔥 BACKUP API (Fake fallback)
+            // =====================
+            // agar real backup nahi ho to basic info show karo
+            return reply("❌ API down hai 😢\nBaad me try karo ya dusra drama search karo")
+        }
+
+        // =====================
+        // 🎬 Drama + Episodes list
+        // =====================
         if (!isEpisode) {
 
             let list = `╭━━━〔 *DRAMA INFO* 〕━━━┈⊷
 ┃★ 🎬 ${show.name}
-┃★ ⭐ Rating: ${show.rating.average || "N/A"}
+┃★ ⭐ Rating: ${show.rating?.average || "N/A"}
 ┃★ 📅 ${show.premiered || "N/A"}
 ╰━━━━━━━━━━━━━━━┈⊷
 
@@ -54,10 +66,7 @@ async (conn, mek, m, { from, reply, text }) => {
                 list += `┃★ ${i+1}. S${ep.season}E${ep.number} - ${ep.name}\n`
             })
 
-            list += `╰━━━━━━━━━━━━━━━┈⊷
-
-💡 Episode dekhne ke liye:
-.drama ${show.name} 1`
+            list += `╰━━━━━━━━━━━━━━━┈⊷\n\n💡 Use:\n.drama ${show.name} 1`
 
             await conn.sendMessage(from, {
                 image: { url: show.image?.original || "" },
@@ -66,28 +75,20 @@ async (conn, mek, m, { from, reply, text }) => {
 
         } 
         
-        // =========================
-        // 🎥 CASE 2: Episode number diya
-        // =========================
+        // =====================
+        // 🎥 Episode fetch
+        // =====================
         else {
 
             let found = episodes[epNumber - 1]
 
             if (!found) return reply("❌ Episode nahi mila")
 
-            let msg = `╭━━━〔 *EPISODE INFO* 〕━━━┈⊷
-┃★ 🎬 ${show.name}
-┃★ 📺 Episode ${epNumber}
-┃★ 📝 ${found.name}
-┃★ 📅 ${found.airdate}
-╰━━━━━━━━━━━━━━━┈⊷
+            let msg = `🎬 ${show.name}
+📺 Episode ${epNumber}
+📝 ${found.name}
 
-🔗 Watch Link:
-${found.url}
-
-⚠️ Note:
-Free API me 1080p direct nahi milta 😅
-Best available link diya hai`
+🔗 ${found.url}`
 
             await conn.sendMessage(from, {
                 image: { url: show.image?.original || "" },
@@ -99,7 +100,7 @@ Best available link diya hai`
     } catch (e) {
 
         console.log(e)
-        reply("❌ Error aya bhai")
+        reply("❌ System error bhai")
 
     }
 
