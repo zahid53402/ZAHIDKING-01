@@ -1,12 +1,15 @@
 const config = require('../config')
 const { cmd } = require('../command')
 const yts = require('yt-search')
+const ytdl = require('@distube/ytdl-core')
+const fs = require('fs')
+const path = require('path')
 
 cmd({
     pattern: "drama",
-    desc: "Search drama & episodes",
-    category: "search",
-    react: "🎬",
+    desc: "Download drama episode as document",
+    category: "download",
+    react: "📂",
     filename: __filename
 },
 
@@ -14,77 +17,71 @@ async (conn, mek, m, { from, reply, text }) => {
 
     try {
 
-        if (!text) return reply("❌ Drama name do\nExample:\n.drama Ertugrul\n.drama Ertugrul 1")
+        if (!text) return reply("❌ Use:\n.drama Ertugrul 1")
 
         let args = text.split(" ")
-        let epNumber = parseInt(args[args.length - 1])
-        let isEpisode = !isNaN(epNumber)
+        let ep = parseInt(args[args.length - 1])
+        let name = args.slice(0, -1).join(" ")
 
-        let name = isEpisode ? args.slice(0, -1).join(" ") : text
+        if (!name || !ep) {
+            return reply("❌ Example:\n.drama Ertugrul 1")
+        }
 
-        // 🔍 YouTube search (stable)
-        let search = await yts(name + " drama")
+        // 🔍 search episode
+        let search = await yts(`${name} episode ${ep}`)
         let video = search.videos[0]
 
-        if (!video) return reply("❌ Drama nahi mila")
+        if (!video) return reply("❌ Episode nahi mila")
 
-        // ======================
-        // 🎬 CASE 1: Drama Info + Episodes List
-        // ======================
-        if (!isEpisode) {
+        let filePath = path.join(__dirname, `../temp/${Date.now()}.mp4`)
 
-            let list = `╭━━━〔 *DRAMA FOUND* 〕━━━┈⊷
-┃★ 🎬 ${video.title}
-┃★ ⏱ ${video.timestamp}
-╰━━━━━━━━━━━━━━━┈⊷
+        reply("⏳ Download ho raha hai... thoda wait karo")
 
-╭━━━〔 *EPISODES (Manual)* 〕━━━┈⊷
-┃★ 1️⃣ Episode 1
-┃★ 2️⃣ Episode 2
-┃★ 3️⃣ Episode 3
-┃★ 4️⃣ Episode 4
-┃★ 5️⃣ Episode 5
-╰━━━━━━━━━━━━━━━┈⊷
+        // 📥 download full video
+        const stream = ytdl(video.url, {
+            filter: "audioandvideo",
+            quality: "highest"
+        })
 
-💡 Use:
-.drama ${name} 1`
+        const writeStream = fs.createWriteStream(filePath)
 
-            await conn.sendMessage(from, {
-                image: { url: video.thumbnail },
-                caption: list
-            }, { quoted: mek })
+        stream.pipe(writeStream)
 
-        }
+        writeStream.on("finish", async () => {
 
-        // ======================
-        // 🎥 CASE 2: Episode Open
-        // ======================
-        else {
+            let stats = fs.statSync(filePath)
+            let sizeMB = (stats.size / (1024 * 1024)).toFixed(2)
 
-            let epSearch = await yts(`${name} episode ${epNumber}`)
-            let epVideo = epSearch.videos[0]
+            await conn.sendMessage(
+                from,
+                {
+                    document: fs.readFileSync(filePath),
+                    mimetype: "video/mp4",
+                    fileName: `${name}-EP${ep}.mp4`,
+                    caption: `🎬 ${name} Episode ${ep}\n📦 Size: ${sizeMB} MB`,
+                    contextInfo: {
+                        mentionedJid: [m.sender],
+                        forwardingScore: 999,
+                        isForwarded: true,
+                        forwardedNewsletterMessageInfo: {
+                            newsletterJid: "120363424512151830@newsletter",
+                            newsletterName: "Zᴀʜɪᴅ Kɪɴɢ",
+                            serverMessageId: 143
+                        }
+                    }
+                },
+                { quoted: mek }
+            )
 
-            if (!epVideo) return reply("❌ Episode nahi mila")
+            // 🧹 delete file after send
+            fs.unlinkSync(filePath)
 
-            let msg = `╭━━━〔 *EPISODE* 〕━━━┈⊷
-┃★ 🎬 ${epVideo.title}
-┃★ ⏱ ${epVideo.timestamp}
-╰━━━━━━━━━━━━━━━┈⊷
-
-🔗 Watch:
-${epVideo.url}`
-
-            await conn.sendMessage(from, {
-                image: { url: epVideo.thumbnail },
-                caption: msg
-            }, { quoted: mek })
-
-        }
+        })
 
     } catch (e) {
 
         console.log(e)
-        reply("❌ Drama error bhai")
+        reply("❌ Download error bhai")
 
     }
 
