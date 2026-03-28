@@ -1,135 +1,72 @@
-const { cmd } = require('../command');
-const yts = require('yt-search');
-const axios = require('axios');
-const fs = require('fs');
-const path = require('path');
-const ffmpeg = require('fluent-ffmpeg');
-const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
-
-ffmpeg.setFfmpegPath(ffmpegPath);
+const config = require('../config')
+const { cmd } = require('../command')
+const fetch = require('node-fetch')
 
 cmd({
     pattern: "play",
-    alias: ["song", "audio"],
-    react: "🎵",
-    desc: "Play song with Zᴀʜɪᴅ Kɪɴɢ style (FFmpeg fixed)",
+    desc: "Spotify style song download",
     category: "download",
-    use: ".play <song name>",
+    react: "🎧",
     filename: __filename
-}, async (conn, mek, m, { from, args, reply }) => {
+},
+
+async (conn, mek, m, { from, reply, text }) => {
+
     try {
-        const query = args.join(" ");
-        if (!query) {
-            return reply(
-                "❌ *Song name likho*\n\nExample:\n.play pal pal"
-            );
-        }
 
-        // ⏳ react
-        await conn.sendMessage(from, {
-            react: { text: "⏳", key: m.key }
-        });
+        if (!text) return reply("❌ Song name do\nExample: .play Pasoori")
 
-        // 🔍 YouTube search
-        const search = await yts(query);
-        if (!search.videos || !search.videos.length) {
-            return reply("❌ *Song nahi mila*");
-        }
+        // 🔍 Step 1: Spotify search (fake API)
+        let sp = await fetch(`https://api.popcat.xyz/spotify?q=${encodeURIComponent(text)}`)
+        let spdata = await sp.json()
 
-        const video = search.videos[0];
+        if (!spdata.title) return reply("❌ Song nahi mila")
 
-        // 🎧 INFO BOX (FAIZAN STYLE)
-        await conn.sendMessage(from, {
-            image: { url: video.thumbnail },
-            caption: `
-👑 *𝐙𝐀𝐇𝐈𝐃  𝐊𝐈𝐍𝐆  𝐌𝐔𝐒𝐈𝐂* 🎧
+        let query = spdata.title + " " + spdata.artist
 
-🎼 *𝐓𝐢𝐭𝐥𝐞:* ${video.title}
-⏱️ *𝐓𝐢𝐦𝐞:* ${video.timestamp}
-👁️ *𝐕𝐢𝐞𝐰𝐬:* ${video.views}
+        // 🔍 Step 2: YouTube search
+        let yt = await fetch(`https://ytsearch.guruapi.tech/search?q=${encodeURIComponent(query)}`)
+        let ytdata = await yt.json()
 
-📥 *𝐒𝐭𝐚𝐭𝐮𝐬:* Converting to MP3...
+        let video = ytdata.results[0]
 
-🛡️ ━━━━━━━━━━━━━━━━━━━━━━ 🛡️
-  *👑 𝑷𝒐𝒘𝒆𝒓𝒆𝒅 𝑩𝒚 𝒁𝒂𝒉𝒊𝒅 𝑲𝒊𝒏𝒈 👑*
+        // 🎧 Step 3: MP3 download
+        let dl = await fetch(`https://api.guruapi.tech/ytdl?url=${video.url}`)
+        let ddata = await dl.json()
 
-`
-        }, { quoted: mek });
+        let caption = `╭━━━〔 *SPOTIFY SONG* 〕━━━┈⊷
+┃★ 🎧 ${spdata.title}
+┃★ 👤 ${spdata.artist}
+╰━━━━━━━━━━━━━━━┈⊷
 
-        // 🎼 API (same jo tum use kar rahe ho)
-        const apiUrl = `https://arslan-apis.vercel.app/download/ytmp3?url=${encodeURIComponent(video.url)}`;
-        const res = await axios.get(apiUrl, { timeout: 60000 });
+> © ᴘᴏᴡᴇʀᴇᴅ ʙʏ *𝙕𝘼𝙃𝙄𝘿 𝙆𝙄𝙉𝙂* ❣️
+> ${config.DESCRIPTION}`
 
-        if (
-            !res.data ||
-            res.data.status !== true ||
-            !res.data.result ||
-            !res.data.result.download ||
-            !res.data.result.download.url
-        ) {
-            return reply(
-                "❌ Song download / convert error, thori dair baad try karo"
-            );
-        }
+        await conn.sendMessage(
+            from,
+            {
+                audio: { url: ddata.audio },
+                mimetype: "audio/mpeg",
+                ptt: false,
+                contextInfo: {
+                    mentionedJid: [m.sender],
+                    forwardingScore: 999,
+                    isForwarded: true,
+                    forwardedNewsletterMessageInfo: {
+                        newsletterJid: "120363424512151830@newsletter",
+                        newsletterName: "Zᴀʜɪᴅ Kɪɴɢ",
+                        serverMessageId: 143
+                    }
+                }
+            },
+            { quoted: mek }
+        )
 
-        const audioUrl = res.data.result.download.url;
+    } catch (e) {
 
-        // 📁 temp folder
-        const tempDir = path.join(__dirname, '../temp');
-        if (!fs.existsSync(tempDir)) {
-            fs.mkdirSync(tempDir, { recursive: true });
-        }
+        console.log(e)
+        reply("❌ Spotify play error")
 
-        const inputPath = path.join(tempDir, `input_${Date.now()}.mp3`);
-        const outputPath = path.join(tempDir, `output_${Date.now()}.mp3`);
-
-        // 📥 download audio
-        const audioData = await axios.get(audioUrl, {
-            responseType: 'arraybuffer'
-        });
-        fs.writeFileSync(inputPath, audioData.data);
-
-        // 🔥 FFMPEG FIX (WHATSAPP COMPATIBLE)
-        await new Promise((resolve, reject) => {
-            ffmpeg(inputPath)
-                .audioCodec('libmp3lame')
-                .audioBitrate('128k')
-                .audioChannels(2)
-                .audioFrequency(44100)
-                .format('mp3')
-                .on('end', resolve)
-                .on('error', reject)
-                .save(outputPath);
-        });
-
-        // 🎵 SEND AUDIO
-        await conn.sendMessage(from, {
-            audio: fs.readFileSync(outputPath),
-            mimetype: "audio/mpeg",
-            fileName: `${video.title}.mp3`,
-            caption: `
-🎶 *${video.title}*
-
-> © *Zᴀʜɪᴅ Kɪɴɢ*
-`
-        }, { quoted: mek });
-
-        // 🧹 cleanup
-        fs.unlinkSync(inputPath);
-        fs.unlinkSync(outputPath);
-
-        // ✅ react
-        await conn.sendMessage(from, {
-            react: { text: "✅", key: m.key }
-        });
-
-    } catch (err) {
-        console.error("PLAY ERROR:", err);
-        reply(
-            "❌ Song download / convert error, thori dair baad try karo"
-        );
-        await conn.sendMessage(from, {
-            react: { text: "❌", key: m.key }
-        });
     }
-});
+
+})
