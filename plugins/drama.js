@@ -1,12 +1,14 @@
 const config = require('../config')
 const { cmd } = require('../command')
-const yts = require('yt-search')
+const axios = require('axios')
+const cheerio = require('cheerio')
+const ytdl = require('@distube/ytdl-core')
 
 cmd({
     pattern: "drama",
-    desc: "Get drama episode as file link",
+    desc: "ARY Digital drama scraper",
     category: "download",
-    react: "📂",
+    react: "📺",
     filename: __filename
 },
 
@@ -14,43 +16,47 @@ async (conn, mek, m, { from, reply, text }) => {
 
     try {
 
-        if (!text) return reply("❌ Example:\n.drama Ertugrul 1")
+        if (!text) return reply("❌ Example:\n.drama ishqiya episode 1")
 
-        let args = text.split(" ")
-        let ep = parseInt(args[args.length - 1])
-        let name = args.slice(0, -1).join(" ")
+        let query = text.toLowerCase().replace(/ /g, "-")
 
-        if (!name || !ep) {
-            return reply("❌ Format:\n.drama name episode")
-        }
+        reply("⏳ Searching ARY Digital...")
 
-        // 🔍 search
-        let search = await yts(`${name} episode ${ep}`)
-        let video = search.videos[0]
+        // 🔍 Search page (simple method)
+        let searchUrl = `https://arydigital.tv/?s=${query}`
+        let res = await axios.get(searchUrl)
+        let $ = cheerio.load(res.data)
 
-        if (!video) return reply("❌ Episode nahi mila")
+        let post = $('article a').attr('href')
+        if (!post) return reply("❌ Drama nahi mila")
 
-        let fakeFile = {
-            url: video.url
-        }
+        // 📺 open episode page
+        let epPage = await axios.get(post)
+        let $$ = cheerio.load(epPage.data)
+
+        let iframe = $$('iframe').attr('src')
+        if (!iframe) return reply("❌ Video nahi mila")
+
+        // 🎬 extract YouTube ID
+        let ytMatch = iframe.match(/embed\/(.*?)\?/)
+
+        if (!ytMatch) return reply("❌ YouTube link nahi mila")
+
+        let ytUrl = `https://www.youtube.com/watch?v=${ytMatch[1]}`
+
+        reply("⏳ Download ho raha hai...")
+
+        // 📥 download video (low quality safe)
+        let stream = ytdl(ytUrl, {
+            quality: "18"
+        })
 
         await conn.sendMessage(
             from,
             {
-                document: fakeFile,
+                video: stream,
                 mimetype: "video/mp4",
-                fileName: `${name}-EP${ep}.mp4`,
-                caption: `🎬 ${video.title}\n\n📥 Click to download`,
-                contextInfo: {
-                    mentionedJid: [m.sender],
-                    forwardingScore: 999,
-                    isForwarded: true,
-                    forwardedNewsletterMessageInfo: {
-                        newsletterJid: "120363424512151830@newsletter",
-                        newsletterName: "Zᴀʜɪᴅ Kɪɴɢ",
-                        serverMessageId: 143
-                    }
-                }
+                caption: `🎬 ARY Drama\n\n${text}`
             },
             { quoted: mek }
         )
@@ -58,7 +64,7 @@ async (conn, mek, m, { from, reply, text }) => {
     } catch (e) {
 
         console.log(e)
-        reply("❌ Error bhai")
+        reply("❌ ARY scraper error")
 
     }
 
