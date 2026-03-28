@@ -1,10 +1,10 @@
 const config = require('../config')
 const { cmd } = require('../command')
-const fetch = require('node-fetch')
+const yts = require('yt-search')
 
 cmd({
     pattern: "drama",
-    desc: "Search drama + episodes",
+    desc: "Search drama & episodes",
     category: "search",
     react: "🎬",
     filename: __filename
@@ -14,84 +14,68 @@ async (conn, mek, m, { from, reply, text }) => {
 
     try {
 
-        if (!text) return reply("❌ Drama ka naam likho\nExample:\n.drama dark\n.drama dark 1")
+        if (!text) return reply("❌ Drama name do\nExample:\n.drama Ertugrul\n.drama Ertugrul 1")
 
         let args = text.split(" ")
         let epNumber = parseInt(args[args.length - 1])
         let isEpisode = !isNaN(epNumber)
+
         let name = isEpisode ? args.slice(0, -1).join(" ") : text
 
-        let show, episodes
+        // 🔍 YouTube search (stable)
+        let search = await yts(name + " drama")
+        let video = search.videos[0]
 
-        // =====================
-        // 🔥 TRY API 1 (TVMAZE)
-        // =====================
-        try {
-            let res = await fetch(`https://api.tvmaze.com/search/shows?q=${encodeURIComponent(name)}`)
-            let json = await res.json()
+        if (!video) return reply("❌ Drama nahi mila")
 
-            if (!json.length) throw "No result"
-
-            show = json[0].show
-
-            let epRes = await fetch(`https://api.tvmaze.com/shows/${show.id}/episodes`)
-            episodes = await epRes.json()
-
-        } catch (e) {
-
-            console.log("API1 fail, trying backup...")
-
-            // =====================
-            // 🔥 BACKUP API (Fake fallback)
-            // =====================
-            // agar real backup nahi ho to basic info show karo
-            return reply("❌ API down hai 😢\nBaad me try karo ya dusra drama search karo")
-        }
-
-        // =====================
-        // 🎬 Drama + Episodes list
-        // =====================
+        // ======================
+        // 🎬 CASE 1: Drama Info + Episodes List
+        // ======================
         if (!isEpisode) {
 
-            let list = `╭━━━〔 *DRAMA INFO* 〕━━━┈⊷
-┃★ 🎬 ${show.name}
-┃★ ⭐ Rating: ${show.rating?.average || "N/A"}
-┃★ 📅 ${show.premiered || "N/A"}
+            let list = `╭━━━〔 *DRAMA FOUND* 〕━━━┈⊷
+┃★ 🎬 ${video.title}
+┃★ ⏱ ${video.timestamp}
 ╰━━━━━━━━━━━━━━━┈⊷
 
-╭━━━〔 *EPISODES* 〕━━━┈⊷
-`
+╭━━━〔 *EPISODES (Manual)* 〕━━━┈⊷
+┃★ 1️⃣ Episode 1
+┃★ 2️⃣ Episode 2
+┃★ 3️⃣ Episode 3
+┃★ 4️⃣ Episode 4
+┃★ 5️⃣ Episode 5
+╰━━━━━━━━━━━━━━━┈⊷
 
-            episodes.slice(0, 20).forEach((ep, i) => {
-                list += `┃★ ${i+1}. S${ep.season}E${ep.number} - ${ep.name}\n`
-            })
-
-            list += `╰━━━━━━━━━━━━━━━┈⊷\n\n💡 Use:\n.drama ${show.name} 1`
+💡 Use:
+.drama ${name} 1`
 
             await conn.sendMessage(from, {
-                image: { url: show.image?.original || "" },
+                image: { url: video.thumbnail },
                 caption: list
             }, { quoted: mek })
 
-        } 
-        
-        // =====================
-        // 🎥 Episode fetch
-        // =====================
+        }
+
+        // ======================
+        // 🎥 CASE 2: Episode Open
+        // ======================
         else {
 
-            let found = episodes[epNumber - 1]
+            let epSearch = await yts(`${name} episode ${epNumber}`)
+            let epVideo = epSearch.videos[0]
 
-            if (!found) return reply("❌ Episode nahi mila")
+            if (!epVideo) return reply("❌ Episode nahi mila")
 
-            let msg = `🎬 ${show.name}
-📺 Episode ${epNumber}
-📝 ${found.name}
+            let msg = `╭━━━〔 *EPISODE* 〕━━━┈⊷
+┃★ 🎬 ${epVideo.title}
+┃★ ⏱ ${epVideo.timestamp}
+╰━━━━━━━━━━━━━━━┈⊷
 
-🔗 ${found.url}`
+🔗 Watch:
+${epVideo.url}`
 
             await conn.sendMessage(from, {
-                image: { url: show.image?.original || "" },
+                image: { url: epVideo.thumbnail },
                 caption: msg
             }, { quoted: mek })
 
@@ -100,7 +84,7 @@ async (conn, mek, m, { from, reply, text }) => {
     } catch (e) {
 
         console.log(e)
-        reply("❌ System error bhai")
+        reply("❌ Drama error bhai")
 
     }
 
