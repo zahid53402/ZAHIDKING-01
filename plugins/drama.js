@@ -1,14 +1,13 @@
 const config = require('../config')
 const { cmd } = require('../command')
-const axios = require('axios')
-const cheerio = require('cheerio')
+const yts = require('yt-search')
 const ytdl = require('@distube/ytdl-core')
 
 cmd({
     pattern: "drama",
-    desc: "ARY Digital drama scraper",
+    desc: "Pakistani drama episode",
     category: "download",
-    react: "📺",
+    react: "🎬",
     filename: __filename
 },
 
@@ -16,38 +15,27 @@ async (conn, mek, m, { from, reply, text }) => {
 
     try {
 
-        if (!text) return reply("❌ Example:\n.drama ishqiya episode 1")
+        if (!text) return reply("❌ Example:\n.drama ishqiya 1")
 
-        let query = text.toLowerCase().replace(/ /g, "-")
+        let args = text.split(" ")
+        let ep = args.pop()
+        let name = args.join(" ")
 
-        reply("⏳ Searching ARY Digital...")
+        if (!name || !ep) {
+            return reply("❌ Format:\n.drama drama_name episode")
+        }
 
-        // 🔍 Search page (simple method)
-        let searchUrl = `https://arydigital.tv/?s=${query}`
-        let res = await axios.get(searchUrl)
-        let $ = cheerio.load(res.data)
+        reply("⏳ Searching full episode...")
 
-        let post = $('article a').attr('href')
-        if (!post) return reply("❌ Drama nahi mila")
+        // 🔍 Better search (IMPORTANT 🔥)
+        let search = await yts(`${name} episode ${ep} full ary digital`)
+        let video = search.videos.find(v => v.duration.seconds > 1200) // >20 min
 
-        // 📺 open episode page
-        let epPage = await axios.get(post)
-        let $$ = cheerio.load(epPage.data)
+        if (!video) return reply("❌ Full episode nahi mila")
 
-        let iframe = $$('iframe').attr('src')
-        if (!iframe) return reply("❌ Video nahi mila")
+        reply("⏳ Sending episode...")
 
-        // 🎬 extract YouTube ID
-        let ytMatch = iframe.match(/embed\/(.*?)\?/)
-
-        if (!ytMatch) return reply("❌ YouTube link nahi mila")
-
-        let ytUrl = `https://www.youtube.com/watch?v=${ytMatch[1]}`
-
-        reply("⏳ Download ho raha hai...")
-
-        // 📥 download video (low quality safe)
-        let stream = ytdl(ytUrl, {
+        let stream = ytdl(video.url, {
             quality: "18"
         })
 
@@ -56,7 +44,7 @@ async (conn, mek, m, { from, reply, text }) => {
             {
                 video: stream,
                 mimetype: "video/mp4",
-                caption: `🎬 ARY Drama\n\n${text}`
+                caption: `🎬 ${video.title}`
             },
             { quoted: mek }
         )
@@ -64,7 +52,7 @@ async (conn, mek, m, { from, reply, text }) => {
     } catch (e) {
 
         console.log(e)
-        reply("❌ ARY scraper error")
+        reply("❌ Drama error bhai")
 
     }
 
