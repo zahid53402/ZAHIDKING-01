@@ -1,90 +1,67 @@
-const { cmd } = require('../command');
-const yts = require('yt-search');
-const axios = require('axios');
+const config = require('../config')
+const { cmd } = require('../command')
+const fetch = require('node-fetch')
 
 cmd({
     pattern: "drama",
-    alias: ["ytdrama", "ytfind"],
-    react: "🎭",
-    desc: "Search YouTube & download drama/video",
-    category: "download",
-    use: ".drama <name>",
+    desc: "Search drama info",
+    category: "search",
+    react: "🎬",
     filename: __filename
-}, async (conn, mek, m, { from, args, reply }) => {
+},
+
+async (conn, mek, m, { from, reply, text }) => {
+
     try {
-        const query = args.join(" ");
-        if (!query) {
-            return reply("❌ Please provide a drama name or search text.");
-        }
 
-        // ⏳ React loading
-        await conn.sendMessage(from, {
-            react: { text: "⏳", key: m.key }
-        });
+        if (!text) return reply("❌ Drama ka naam likho bhai!\nExample: .drama Ertugrul")
 
-        // 🔍 YouTube search
-        const search = await yts(query);
-        if (!search.videos || search.videos.length === 0) {
-            return reply("❌ No video found for your search.");
-        }
+        // API Request (No YouTube ❌)
+        let res = await fetch(`https://api.popcat.xyz/imdb?q=${encodeURIComponent(text)}`)
+        let data = await res.json()
 
-        const video = search.videos[0];
+        if (!data || !data.title) return reply("❌ Drama nahi mila 😢")
 
-        // 📋 Info message
-        const infoText = `
-🎭 *DRAMA FOUND*
+        let dec = `╭━━━〔 *DRAMA INFO* 〕━━━┈⊷
+┃★╭──────────────
+┃★│ 🎬 *Title:* ${data.title}
+┃★│ ⭐ *Rating:* ${data.rating}
+┃★│ 📅 *Year:* ${data.year}
+┃★│ ⏱ *Runtime:* ${data.runtime}
+┃★╰──────────────
+┃★╭──────────────
+┃★│ 📝 *Plot:*
+┃★│ ${data.plot}
+┃★╰──────────────
+╰━━━━━━━━━━━━━━━┈⊷
 
-🎬 *Title:* ${video.title}
-👤 *Channel:* ${video.author?.name || "Unknown"}
-⏱️ *Duration:* ${video.timestamp}
-👁️ *Views:* ${video.views.toLocaleString()}
-📅 *Uploaded:* ${video.ago}
+> © ᴘᴏᴡᴇʀᴇᴅ ʙʏ *𝙕𝘼𝙃𝙄𝘿 𝙆𝙄𝙉𝙂* ❣️
+> ${config.DESCRIPTION}`
 
-⏳ *Downloading video, please wait...*
+        await conn.sendMessage(
+            from,
+            {
+                image: { url: data.poster },
+                caption: dec,
+                contextInfo: {
+                    mentionedJid: [m.sender],
+                    forwardingScore: 999,
+                    isForwarded: true,
+                    forwardedNewsletterMessageInfo: {
+                        newsletterJid: "120363424512151830@newsletter",
+                        newsletterName: "Zᴀʜɪᴅ Kɪɴɢ",
+                        serverMessageId: 143
+                    }
+                }
+            },
+            { quoted: mek }
+        )
 
-> 📌 ᴘᴏᴡᴇʀ ʙʏ *ᴢᴀʜɪᴅ ᴋɪɴɢ*
-        `;
+    } catch (e) {
 
-        await conn.sendMessage(from, {
-            image: { url: video.thumbnail },
-            caption: infoText
-        }, { quoted: mek });
+        console.log(e)
+        reply("❌ Drama fetch error")
 
-        // 📥 Download API (Arslan)
-        const apiUrl = `https://arslan-apis.vercel.app/download/ytmp4?url=${encodeURIComponent(video.url)}`;
-        const res = await axios.get(apiUrl, { timeout: 60000 });
-
-        if (!res.data || res.data.status !== true || !res.data.result) {
-            return reply("❌ Drama download error. Please try again after a short while.");
-        }
-
-        const result = res.data.result;
-
-        // 📤 Send video
-        await conn.sendMessage(from, {
-            video: { url: result.url },
-            mimetype: "video/mp4",
-            caption: `
-🎬 *${result.title || video.title}*
-📦 *Quality:* ${result.quality || "MP4"}
-⏱️ *Duration:* ${result.duration || video.timestamp}
-
-✅ *Download complete*
-
-> 📌 ᴘᴏᴡᴇʀ ʙʏ *ᴢᴀʜɪᴅ ᴋɪɴɢ*
-            `
-        }, { quoted: mek });
-
-        // ✅ Success react
-        await conn.sendMessage(from, {
-            react: { text: "✅", key: m.key }
-        });
-
-    } catch (error) {
-        console.error("DRAMA ERROR:", error);
-        reply("❌ Drama download error. Please try again after a short while.");
-        await conn.sendMessage(from, {
-            react: { text: "❌", key: m.key }
-        });
     }
-});
+
+})
