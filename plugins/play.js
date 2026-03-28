@@ -1,10 +1,11 @@
 const config = require('../config')
 const { cmd } = require('../command')
-const fetch = require('node-fetch')
+const yts = require('yt-search')
+const ytdl = require('ytdl-core')
 
 cmd({
     pattern: "play",
-    desc: "Spotify style song download",
+    desc: "Download song (MP3)",
     category: "download",
     react: "🎧",
     filename: __filename
@@ -16,27 +17,19 @@ async (conn, mek, m, { from, reply, text }) => {
 
         if (!text) return reply("❌ Song name do\nExample: .play Pasoori")
 
-        // 🔍 Step 1: Spotify search (fake API)
-        let sp = await fetch(`https://api.popcat.xyz/spotify?q=${encodeURIComponent(text)}`)
-        let spdata = await sp.json()
+        // 🔍 Search YouTube (no API)
+        const search = await yts(text)
+        const video = search.videos[0]
 
-        if (!spdata.title) return reply("❌ Song nahi mila")
+        if (!video) return reply("❌ Song nahi mila")
 
-        let query = spdata.title + " " + spdata.artist
+        // 🎧 Get audio stream
+        const url = video.url
 
-        // 🔍 Step 2: YouTube search
-        let yt = await fetch(`https://ytsearch.guruapi.tech/search?q=${encodeURIComponent(query)}`)
-        let ytdata = await yt.json()
-
-        let video = ytdata.results[0]
-
-        // 🎧 Step 3: MP3 download
-        let dl = await fetch(`https://api.guruapi.tech/ytdl?url=${video.url}`)
-        let ddata = await dl.json()
-
-        let caption = `╭━━━〔 *SPOTIFY SONG* 〕━━━┈⊷
-┃★ 🎧 ${spdata.title}
-┃★ 👤 ${spdata.artist}
+        let caption = `╭━━━〔 *SONG DOWNLOADED* 〕━━━┈⊷
+┃★ 🎧 ${video.title}
+┃★ ⏱ ${video.timestamp}
+┃★ 👀 ${video.views}
 ╰━━━━━━━━━━━━━━━┈⊷
 
 > © ᴘᴏᴡᴇʀᴇᴅ ʙʏ *𝙕𝘼𝙃𝙄𝘿 𝙆𝙄𝙉𝙂* ❣️
@@ -45,7 +38,7 @@ async (conn, mek, m, { from, reply, text }) => {
         await conn.sendMessage(
             from,
             {
-                audio: { url: ddata.audio },
+                audio: { url: url },
                 mimetype: "audio/mpeg",
                 ptt: false,
                 contextInfo: {
@@ -59,14 +52,3 @@ async (conn, mek, m, { from, reply, text }) => {
                     }
                 }
             },
-            { quoted: mek }
-        )
-
-    } catch (e) {
-
-        console.log(e)
-        reply("❌ Spotify play error")
-
-    }
-
-})
